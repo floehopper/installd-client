@@ -1,0 +1,68 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+
+require 'local/app'
+require 'local/config'
+require 'remote/user'
+require 'remote/app'
+
+require 'activeresource'
+ActiveResource::Base.logger = Logger.new(File.open('sync.log', 'w'))
+ActiveResource::Base.site = "http://installd.local"
+ActiveResource::Base.user = "installd"
+ActiveResource::Base.password = "installd"
+
+
+local_apps_by_name = Local::App.all_by_name
+
+remote_user = nil
+config = Local::Config.load
+if config['login']
+  remote_user = Remote::User.find_by_login(config['login'])
+end
+unless remote_user
+  while true do
+    puts
+    print "Please choose a login: "
+    login = gets.chomp
+    puts
+    print "Please choose a password: "
+    password = gets.chomp
+    remote_user = Remote::User.create('login' => login, 'password' => password, 'password_confirmation' => password)
+    if remote_user && remote_user.errors.length == 0
+      break
+    else
+      puts remote_user.errors.full_messages
+    end
+    puts "That login is not available."
+  end
+  
+  config['login'] = remote_user.login
+  config.save
+end
+
+remote_apps_by_name = remote_user.apps_by_name
+
+to_create = local_apps_by_name.keys - remote_apps_by_name.keys
+to_destroy = remote_apps_by_name.keys - local_apps_by_name.keys
+
+puts "Synching..."
+
+to_create.each do |app_name|
+  print "  Adding #{app_name} "
+  local_app = local_apps_by_name[app_name]
+  remote_app = Remote::App.find_by_name(app_name) || Remote::App.create(local_app.attributes)
+  remote_user.create_install(:app => remote_app)
+  puts "[OK]"
+end
+
+to_destroy.each do |app_name|
+  print "  Removing #{app_name} "
+  remote_app = Remote::App.find_by_name(app_name)
+  remote_install = remote_user.installs.find_by_app(remote_app)
+  remote_install.destroy
+  puts "[OK]"
+end
+
+puts "...done."
