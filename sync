@@ -1,68 +1,38 @@
 #!/usr/bin/env ruby
 
-require 'rubygems'
+require 'fileutils'
 
-require 'local/app'
-require 'local/config'
-require 'remote/user'
-require 'remote/app'
+# maybe use a tmp directory instead?
+FileUtils.rm_rf('unzipped')
+FileUtils.mkdir_p('unzipped')
 
-require 'activeresource'
-ActiveResource::Base.logger = Logger.new(File.open('sync.log', 'w'))
-ActiveResource::Base.site = "http://installd.local"
-ActiveResource::Base.user = "installd"
-ActiveResource::Base.password = "installd"
+apps_pattern = File.join(ENV['HOME'], 'Music', 'iTunes', 'Mobile Applications', '*.ipa')
 
-
-local_apps_by_name = Local::App.all_by_name
-
-remote_user = nil
-config = Local::Config.load
-if config['login']
-  remote_user = Remote::User.find_by_login(config['login'])
-end
-unless remote_user
-  while true do
-    puts
-    print "Please choose a login: "
-    login = gets.chomp
-    puts
-    print "Please choose a password: "
-    password = gets.chomp
-    remote_user = Remote::User.create('login' => login, 'password' => password, 'password_confirmation' => password)
-    if remote_user && remote_user.errors.length == 0
-      break
-    else
-      puts remote_user.errors.full_messages
-    end
-    puts "That login is not available."
+doc = ''
+Dir[apps_pattern].each do |app_file|
+  app_name = File.basename(app_file, '.ipa')
+  unzip_dir = File.join('unzipped', app_name)
+  plist = File.join(unzip_dir, 'iTunesMetadata.plist')
+  
+  # maybe do this in Ruby?
+  `unzip -d "#{unzip_dir}" "#{app_file}" iTunesMetadata.plist`
+  `chmod +rw "#{plist}"`
+  `plutil -convert xml1 "#{plist}"`
+  
+  File.open(plist) do |file|
+    file.readline
+    file.readline
+    doc << file.read
   end
   
-  config['login'] = remote_user.login
-  config.save
 end
 
-remote_apps_by_name = remote_user.apps_by_name
+FileUtils.rm_rf('unzipped')
 
-to_create = local_apps_by_name.keys - remote_apps_by_name.keys
-to_destroy = remote_apps_by_name.keys - local_apps_by_name.keys
+require 'net/http'
+require 'uri'
 
-puts "Synching..."
+response = Net::HTTP.post_form(URI.parse('http://installd.local/users/floehopper/installs/synchronize'), { '_method' => 'put', 'doc' => doc })
+success = (response.code == '200')
+p success
 
-to_create.each do |app_name|
-  print "  Adding #{app_name} "
-  local_app = local_apps_by_name[app_name]
-  remote_app = Remote::App.find_by_name(app_name) || Remote::App.create(local_app.attributes)
-  remote_user.create_install(:app => remote_app)
-  puts "[OK]"
-end
-
-to_destroy.each do |app_name|
-  print "  Removing #{app_name} "
-  remote_app = Remote::App.find_by_name(app_name)
-  remote_install = remote_user.installs.find_by_app(remote_app)
-  remote_install.destroy
-  puts "[OK]"
-end
-
-puts "...done."
