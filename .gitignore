@@ -1,3 +1,4 @@
-config.yml
-sync.log
-unzipped
+ruby/config.yml
+ruby/sync.log
+ruby/unzipped
+mac/build
