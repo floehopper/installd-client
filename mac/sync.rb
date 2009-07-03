@@ -1,12 +1,13 @@
 require 'fileutils'
 require 'logger'
 
-@logger = Logger.new('installd.log')
+FileUtils.mkdir_p('/tmp/installd/')
+@logger = Logger.new('/tmp/installd/app.log')
 
 begin
 
-  FileUtils.rm_rf('unzipped')
-  FileUtils.mkdir_p('unzipped')
+  FileUtils.rm_rf('/tmp/installd/unzipped')
+  FileUtils.mkdir_p('/tmp/installd/unzipped')
 
   apps_pattern = File.join(ENV['HOME'], 'Music', 'iTunes', 'Mobile Applications', '*.ipa')
 
@@ -23,7 +24,7 @@ begin
   doc = ''
   Dir[apps_pattern].each do |app_file|
     app_name = File.basename(app_file, '.ipa')
-    unzip_dir = File.join('unzipped', app_name)
+    unzip_dir = File.join('/tmp/installd/unzipped', app_name)
     plist = File.join(unzip_dir, 'iTunesMetadata.plist')
     
     execute %{/usr/bin/unzip -d "#{unzip_dir}" "#{app_file}" iTunesMetadata.plist}
@@ -37,7 +38,7 @@ begin
     end
   end
 
-  FileUtils.rm_rf('unzipped')
+  FileUtils.rm_rf('/tmp/installd/unzipped')
 
   require 'net/http'
   require 'uri'
