@@ -7,7 +7,7 @@ require 'rake/testtask'
 require 'pathname'
 
 # Application own Settings
-APPNAME               = "Installd"
+APPNAME               = "installd"
 TARGET                = "#{APPNAME}.app"
 #APPVERSION           = "rev#{`svn info`[/Revision: (\d+)/, 1]}"
 APPVERSION            = Time.now.strftime("%Y-%m-%d")
@@ -159,9 +159,10 @@ require "choctop"
 
 ChocTop.new do |s|
   # Remote upload target (set host if not same as Info.plist['SUFeedURL'])
-  # s.host     = 'mac.com'
-  s.remote_dir = '/path/to/upload/root/of/app'
-
+  s.host = 'installd.com'
+  s.remote_dir = '/var/rails/installd/shared/system/sparkle/'
+  s.rsync_args = "-aCv --progress --rsh='ssh -p35353'"
+  
   # Custom DMG
   # s.background_file = "background.jpg"
   # s.app_icon_position = [100, 90]

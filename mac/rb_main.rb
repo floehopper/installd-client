@@ -1,6 +1,6 @@
 #
 #  rb_main.rb
-#  installd
+#  Installd
 #
 #  Created by James Mead on 30/06/2009.
 #  Copyright (c) 2009 Floehopper Ltd. All rights reserved.
