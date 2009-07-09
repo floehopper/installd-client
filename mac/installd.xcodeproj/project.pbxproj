@@ -10,6 +10,7 @@
 		0061EF680FFA6F37003A7813 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		0061EF6F0FFA7145003A7813 /* sync.rb in Resources */ = {isa = PBXBuildFile; fileRef = 0061EF6E0FFA7145003A7813 /* sync.rb */; };
 		007348180FFE527500629B92 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 007348170FFE527500629B92 /* dsa_pub.pem */; };
+		0098663D10064B2600FC4669 /* sync_controller.rb in Resources */ = {isa = PBXBuildFile; fileRef = 0098663C10064B2600FC4669 /* sync_controller.rb */; };
 		00E4A88A0FFE467200CF1EB4 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E4A8890FFE467200CF1EB4 /* Sparkle.framework */; };
 		00E4A8A10FFE472900CF1EB4 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 00E4A8890FFE467200CF1EB4 /* Sparkle.framework */; };
 		4DDCA7060ACC9A6100E082CE /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
@@ -36,6 +37,7 @@
 /* Begin PBXFileReference section */
 		0061EF6E0FFA7145003A7813 /* sync.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sync.rb; sourceTree = "<group>"; };
 		007348170FFE527500629B92 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
+		0098663C10064B2600FC4669 /* sync_controller.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sync_controller.rb; sourceTree = "<group>"; };
 		00E4A8890FFE467200CF1EB4 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = "../../../ThirdParty/Sparkle 1.5b6/With Garbage Collection/Sparkle.framework"; sourceTree = SOURCE_ROOT; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -116,6 +118,7 @@
 				0061EF6E0FFA7145003A7813 /* sync.rb */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				E8F5E25803AEB7C803A81C6F /* rb_main.rb */,
+				0098663C10064B2600FC4669 /* sync_controller.rb */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 				4DDCA7080ACC9A6100E082CE /* rb_main.rb in Resources */,
 				0061EF6F0FFA7145003A7813 /* sync.rb in Resources */,
 				007348180FFE527500629B92 /* dsa_pub.pem in Resources */,
+				0098663D10064B2600FC4669 /* sync_controller.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
