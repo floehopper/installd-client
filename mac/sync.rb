@@ -5,7 +5,7 @@ class Sync
   
   class << self
   
-    def sync
+    def sync(username, password)
       FileUtils.mkdir_p('/tmp/installd/')
       @logger = Logger.new('/tmp/installd/app.log')
       
@@ -38,8 +38,6 @@ class Sync
       
       @logger.info "*** Sync begins ***"
       
-      username = 'floehopper'
-      password = 'password'
       url = "http://#{username}:#{password}@installd.local/users/#{username}/installs/synchronize"
       response = Net::HTTP.post_form(URI.parse(url), { '_method' => 'put', 'doc' => doc })
       unless response.code == '200'

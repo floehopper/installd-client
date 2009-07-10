@@ -10,10 +10,10 @@ require 'sync'
 
 class SyncController < OSX::NSObject
 
-  ib_outlets :label
+  ib_outlets :label, :username, :password
   
   ib_action :sync do |sender|
-    Sync.sync
+    Sync.sync(@username.stringValue, @password.stringValue)
     @label.stringValue = 'Complete'
   end
   
