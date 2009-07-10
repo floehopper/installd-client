@@ -38,7 +38,10 @@ class Sync
       
       @logger.info "*** Sync begins ***"
       
-      response = Net::HTTP.post_form(URI.parse('http://floehopper:password@installd.local/users/floehopper/installs/synchronize'), { '_method' => 'put', 'doc' => doc })
+      username = "floehopper"
+      password = "password"
+      url = "http://#{username}:#{password}@installd.local/users/floehopper/installs/synchronize"
+      response = Net::HTTP.post_form(URI.parse(url), { '_method' => 'put', 'doc' => doc })
       unless response.code == '200'
         raise "Unexpected response code: #{response.code}"
       end
