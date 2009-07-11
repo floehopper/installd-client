@@ -17,7 +17,7 @@ class SyncController < OSX::NSObject
   
   SERVICE = 'Installd'
   
-  ib_outlets :label, :username, :password
+  ib_outlets :username, :password
   
   def awakeFromNib
     defaults = NSUserDefaults.standardUserDefaults
@@ -70,9 +70,8 @@ class SyncController < OSX::NSObject
       $logger.info "Failed to create password in KeyChain: #{status}"
     end
     
-    Sync.sync(username, password)
-    
-    @label.stringValue = 'Complete'
+    doc = Sync.extract_data
+    Sync.send_data(username, password, doc)
   end
   
 end

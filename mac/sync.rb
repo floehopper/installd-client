@@ -3,8 +3,8 @@ require 'fileutils'
 class Sync
   
   class << self
-  
-    def sync(username, password)
+    
+    def extract_data
       FileUtils.mkdir_p('/tmp/installd/')
       
       FileUtils.rm_rf('/tmp/installd/unzipped')
@@ -31,6 +31,10 @@ class Sync
       
       FileUtils.rm_rf('/tmp/installd/unzipped')
       
+      doc
+    end
+    
+    def send_data(username, password, doc)
       require 'net/http'
       require 'uri'
       
