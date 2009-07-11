@@ -1,5 +1,4 @@
 require 'fileutils'
-require 'logger'
 
 class Sync
   
@@ -7,7 +6,6 @@ class Sync
   
     def sync(username, password)
       FileUtils.mkdir_p('/tmp/installd/')
-      @logger = Logger.new('/tmp/installd/app.log')
       
       FileUtils.rm_rf('/tmp/installd/unzipped')
       FileUtils.mkdir_p('/tmp/installd/unzipped')
@@ -36,7 +34,7 @@ class Sync
       require 'net/http'
       require 'uri'
       
-      @logger.info "*** Sync begins ***"
+      $logger.info "*** Sync begins ***"
       
       url = "http://#{username}:#{password}@installd.local/users/#{username}/installs/synchronize"
       response = Net::HTTP.post_form(URI.parse(url), { '_method' => 'put', 'doc' => doc })
@@ -44,17 +42,17 @@ class Sync
         raise "Unexpected response code: #{response.code}"
       end
       
-      @logger.info "*** Sync ends ***"
+      $logger.info "*** Sync ends ***"
     rescue => exception
-      @logger.error exception
+      $logger.error exception
     end
     
     def execute(command)
-      @logger.info command
-      @logger.info `#{command}`
+      $logger.info command
+      $logger.info `#{command}`
       unless $?.success?
         message = "Error executing command: #{command}"
-        @logger.error message
+        $logger.error message
         raise message
       end
     end
