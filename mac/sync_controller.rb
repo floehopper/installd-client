@@ -17,7 +17,7 @@ class SyncController < OSX::NSObject
   
   SERVICE = 'Installd'
   
-  ib_outlets :username, :password, :progress, :sync, :menu, :preferences
+  ib_outlets :username, :password, :menu, :preferences
   
   def awakeFromNib
     @status_bar = NSStatusBar.systemStatusBar
@@ -29,8 +29,6 @@ class SyncController < OSX::NSObject
     @app_alter_icon = NSImage.alloc.initWithContentsOfFile(bundle.pathForResource_ofType('app_a', 'tiff'))
     @status_item.setImage(@app_icon)
     @status_item.setAlternateImage(@app_alter_icon)
-    
-    @progress.setDisplayedWhenStopped(false)
     
     defaults = NSUserDefaults.standardUserDefaults
     username = defaults.stringForKey('username') || ''
@@ -51,9 +49,19 @@ class SyncController < OSX::NSObject
   end
   
   ib_action :sync do |sender|
-    @sync.enabled = false
-    @progress.startAnimation(self)
+    username = @username.stringValue.to_s
+    password = @password.stringValue.to_s
     
+    doc = Sync.extract_data
+    Sync.send_data(username, password, doc)
+  end
+  
+  ib_action :showPreferencesWindow do |sender|
+    NSApplication.sharedApplication.activateIgnoringOtherApps(true)
+    @preferences.makeKeyAndOrderFront(sender)
+  end
+  
+  ib_action :savePreferences do |sender|
     username = @username.stringValue.to_s
     password = @password.stringValue.to_s
     
@@ -84,17 +92,6 @@ class SyncController < OSX::NSObject
     else
       $logger.info "Failed to create password in KeyChain: #{status}"
     end
-    
-    doc = Sync.extract_data
-    Sync.send_data(username, password, doc)
-    
-    @progress.stopAnimation(self)
-    @sync.enabled = true
-  end
-  
-  ib_action :showPreferencesWindow do |sender|
-    NSApplication.sharedApplication.activateIgnoringOtherApps(true)
-    @preferences.makeKeyAndOrderFront(sender)
   end
   
 end
