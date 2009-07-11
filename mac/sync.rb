@@ -4,16 +4,19 @@ class Sync
   
   class << self
     
+    def app_files
+      apps_pattern = File.join(ENV['HOME'], 'Music', 'iTunes', 'Mobile Applications', '*.ipa')
+      Dir[apps_pattern]
+    end
+    
     def extract_data
       FileUtils.mkdir_p('/tmp/installd/')
       
       FileUtils.rm_rf('/tmp/installd/unzipped')
       FileUtils.mkdir_p('/tmp/installd/unzipped')
       
-      apps_pattern = File.join(ENV['HOME'], 'Music', 'iTunes', 'Mobile Applications', '*.ipa')
-      
       doc = ''
-      Dir[apps_pattern].each do |app_file|
+      app_files.each_with_index do |app_file, index|
         app_name = File.basename(app_file, '.ipa')
         unzip_dir = File.join('/tmp/installd/unzipped', app_name)
         plist = File.join(unzip_dir, 'iTunesMetadata.plist')
@@ -27,6 +30,8 @@ class Sync
           file.readline
           doc << file.read
         end
+        
+        yield index if block_given?
       end
       
       FileUtils.rm_rf('/tmp/installd/unzipped')

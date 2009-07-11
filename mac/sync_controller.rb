@@ -17,9 +17,11 @@ class SyncController < OSX::NSObject
   
   SERVICE = 'Installd'
   
-  ib_outlets :username, :password
+  ib_outlets :username, :password, :progress, :sync
   
   def awakeFromNib
+    @progress.setDisplayedWhenStopped(false)
+    
     defaults = NSUserDefaults.standardUserDefaults
     username = defaults.stringForKey('username') || ''
     
@@ -39,6 +41,9 @@ class SyncController < OSX::NSObject
   end
   
   ib_action :sync do |sender|
+    @sync.enabled = false
+    @progress.startAnimation(self)
+    
     username = @username.stringValue.to_s
     password = @password.stringValue.to_s
     
@@ -56,7 +61,7 @@ class SyncController < OSX::NSObject
       if status == 0
         password_length = data.shift
         password_data = data.shift
-        item_reference = data.shift #SecKeychainItemRef
+        item_reference = data.shift
         status = SecKeychainItemModifyContent(item_reference, nil, password.length, password)
         if status == 0
           $logger.info "Password updated in KeyChain: #{password}"
@@ -72,6 +77,9 @@ class SyncController < OSX::NSObject
     
     doc = Sync.extract_data
     Sync.send_data(username, password, doc)
+    
+    @progress.stopAnimation(self)
+    @sync.enabled = true
   end
   
 end
