@@ -1,5 +1,5 @@
-h1. <span>2009-07-09</span> Release 0.0.3
+h1. <span>2009-07-14</span> Release 0.0.1
 
-h2. Test sparkle update.
+h2. Initial release.
 
-Thanks to Dr Nic's ChocTop.
+Basic status bar app.

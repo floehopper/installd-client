@@ -158,15 +158,7 @@ end
 require "choctop"
 
 ChocTop.new do |s|
-  # Remote upload target (set host if not same as Info.plist['SUFeedURL'])
   s.host = 'installd.com'
   s.remote_dir = '/var/rails/installd/shared/system/sparkle/'
   s.rsync_args = "-aCv --progress --rsh='ssh -p35353'"
-  
-  # Custom DMG
-  # s.background_file = "background.jpg"
-  # s.app_icon_position = [100, 90]
-  # s.applications_icon_position =  [400, 90]
-  # s.volume_icon = "dmg.icns"
-  # s.applications_icon = "appicon.icns" # or "appicon.png"
 end
