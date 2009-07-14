@@ -39,9 +39,9 @@ class SyncController < OSX::NSObject
       password_length = data.shift
       password_data = data.shift
       password = password_data.bytestr(password_length)
-      $logger.info "Found password in KeyChain: #{password}"
+      NSLog("Found password in KeyChain: #{password}")
     else
-      $logger.info "Failed to find password in KeyChain: #{status}"
+      NSLog("Failed to find password in KeyChain: #{status}")
     end
     
     @username.stringValue = username if username
@@ -72,9 +72,9 @@ class SyncController < OSX::NSObject
     status = SecKeychainAddGenericPassword(nil, SERVICE.length, SERVICE, username.length, username, password.length, password, nil)
     
     if status == 0
-      $logger.info "Password created in KeyChain: #{password}"
+      NSLog("Password created in KeyChain: #{password}")
     elsif status == ErrSecDuplicateItem
-      $logger.info "Password already exists in KeyChain"
+      NSLog("Password already exists in KeyChain")
       status, *data = SecKeychainFindGenericPassword(nil, SERVICE.length, SERVICE, username.length, username)
       if status == 0
         password_length = data.shift
@@ -82,15 +82,15 @@ class SyncController < OSX::NSObject
         item_reference = data.shift
         status = SecKeychainItemModifyContent(item_reference, nil, password.length, password)
         if status == 0
-          $logger.info "Password updated in KeyChain: #{password}"
+          NSLog("Password updated in KeyChain: #{password}")
         else
-          $logger.info "Failed to update password in KeyChain: #{status}"
+          NSLog("Failed to update password in KeyChain: #{status}")
         end
       else
-        $logger.info "Failed to find password in KeyChain: #{status}"
+        NSLog("Failed to find password in KeyChain: #{status}")
       end
     else
-      $logger.info "Failed to create password in KeyChain: #{status}"
+      NSLog("Failed to create password in KeyChain: #{status}")
     end
   end
   

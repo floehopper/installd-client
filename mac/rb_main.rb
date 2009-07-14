@@ -7,10 +7,8 @@
 #
 
 require 'osx/cocoa'
-require 'logger'
 
 def rb_main_init
-  $logger = Logger.new('/tmp/installd/app.log')
   path = OSX::NSBundle.mainBundle.resourcePath.fileSystemRepresentation
   rbfiles = Dir.entries(path).select {|x| /\.rb\z/ =~ x}
   rbfiles -= [ File.basename(__FILE__) ]

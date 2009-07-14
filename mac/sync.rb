@@ -43,26 +43,26 @@ class Sync
       require 'net/http'
       require 'uri'
       
-      $logger.info "*** Sync begins ***"
+      NSLog("*** Sync begins ***")
       
-      host = "installd.com"
+      host = "installd.local"
       url = "http://#{username}:#{password}@#{host}/users/#{username}/installs/synchronize"
       response = Net::HTTP.post_form(URI.parse(url), { '_method' => 'put', 'doc' => doc })
       unless response.code == '200'
         raise "Unexpected response code: #{response.code}"
       end
       
-      $logger.info "*** Sync ends ***"
+      NSLog("*** Sync ends ***")
     rescue => exception
-      $logger.error exception
+      NSLog(exception)
     end
     
     def execute(command)
-      $logger.info command
-      $logger.info `#{command}`
+      NSLog(command)
+      NSLog(`#{command}`)
       unless $?.success?
         message = "Error executing command: #{command}"
-        $logger.error message
+        NSLog(message)
         raise message
       end
     end
