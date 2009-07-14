@@ -8,7 +8,6 @@
 
 require 'sync'
 
-OSX.require_framework 'Security'
 OSX.load_bridge_support_file(OSX::NSBundle.mainBundle.pathForResource_ofType('Security', 'bridgesupport'))
 
 class SyncController < OSX::NSObject
