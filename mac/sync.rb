@@ -4,6 +4,8 @@ class Sync
   
   class << self
     
+    include OSX
+    
     def app_files
       apps_pattern = File.join(ENV['HOME'], 'Music', 'iTunes', 'Mobile Applications', '*.ipa')
       Dir[apps_pattern]
