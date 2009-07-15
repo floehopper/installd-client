@@ -15,7 +15,7 @@ class SyncController < OSX::NSObject
   
   include OSX
   
-  ib_outlets :username, :password, :hoursBetweenSyncs, :menu, :preferencesWindow
+  ib_outlets :username, :password, :hoursBetweenSyncs, :autoLaunch, :menu, :preferencesWindow
   
   def awakeFromNib
     @status_bar = NSStatusBar.systemStatusBar
@@ -37,6 +37,7 @@ class SyncController < OSX::NSObject
     @username.stringValue = @preferences.username if @preferences.username
     @password.stringValue = @preferences.password if @preferences.password
     @hoursBetweenSyncs.stringValue = @preferences.hours_between_syncs
+    @autoLaunch.state = @preferences.auto_launch_enabled ? NSOnState : NSOffState
     
     setTimer
   end
@@ -66,6 +67,7 @@ class SyncController < OSX::NSObject
     @preferences.username = @username.stringValue.to_s
     @preferences.password = @password.stringValue.to_s
     @preferences.hours_between_syncs = Integer(@hoursBetweenSyncs.stringValue.to_s) rescue Preferences::DEFAULTS[:hours_between_syncs]
+    @preferences.auto_launch_enabled = (@autoLaunch.state == NSOnState) ? true : false
     @preferences.save
   end
   

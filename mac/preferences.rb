@@ -1,3 +1,5 @@
+require 'auto_launch'
+
 class Preferences
   
   include OSX
@@ -6,7 +8,7 @@ class Preferences
   
   DEFAULTS = { :username => '', :hours_between_syncs => 24 }
   
-  attr_accessor :username, :password, :hours_between_syncs
+  attr_accessor :username, :password, :hours_between_syncs, :auto_launch_enabled
   
   def initialize
     @defaults = NSUserDefaults.standardUserDefaults
@@ -27,6 +29,9 @@ class Preferences
     else
       NSLog("Failed to find password in KeyChain: #{status}")
     end
+    
+    @auto_launch = AutoLaunch.new
+    @auto_launch_enabled = @auto_launch.enabled
   end
   
   def save
@@ -57,6 +62,9 @@ class Preferences
     else
       NSLog("Failed to create password in KeyChain: #{status}")
     end
+    
+    @auto_launch.enabled = @auto_launch_enabled
+    @auto_launch.save
   end
   
 end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		002FC3AE100E215700447C9A /* auto_launch.rb in Resources */ = {isa = PBXBuildFile; fileRef = 002FC3AD100E215700447C9A /* auto_launch.rb */; };
 		0061EF680FFA6F37003A7813 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		0061EF6F0FFA7145003A7813 /* sync.rb in Resources */ = {isa = PBXBuildFile; fileRef = 0061EF6E0FFA7145003A7813 /* sync.rb */; };
 		007348180FFE527500629B92 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 007348170FFE527500629B92 /* dsa_pub.pem */; };
@@ -39,6 +40,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		002FC3AD100E215700447C9A /* auto_launch.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = auto_launch.rb; sourceTree = "<group>"; };
 		0061EF6E0FFA7145003A7813 /* sync.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sync.rb; sourceTree = "<group>"; };
 		007348170FFE527500629B92 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		0098663C10064B2600FC4669 /* sync_controller.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sync_controller.rb; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				002FC3AD100E215700447C9A /* auto_launch.rb */,
 				00986783100DF26400FC4669 /* preferences.rb */,
 				0061EF6E0FFA7145003A7813 /* sync.rb */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
@@ -219,6 +222,7 @@
 				009867661008DCB800FC4669 /* app.tiff in Resources */,
 				009867671008DCB800FC4669 /* app_a.tiff in Resources */,
 				00986784100DF26400FC4669 /* preferences.rb in Resources */,
+				002FC3AE100E215700447C9A /* auto_launch.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
