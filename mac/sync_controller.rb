@@ -7,6 +7,7 @@
 #
 
 require 'sync'
+require 'preferences'
 
 OSX.load_bridge_support_file(OSX::NSBundle.mainBundle.pathForResource_ofType('Security', 'bridgesupport'))
 
@@ -14,9 +15,7 @@ class SyncController < OSX::NSObject
   
   include OSX
   
-  SERVICE = 'Installd'
-  
-  ib_outlets :username, :password, :menu, :preferences
+  ib_outlets :username, :password, :hoursBetweenSyncs, :menu, :preferencesWindow
   
   def awakeFromNib
     @status_bar = NSStatusBar.systemStatusBar
@@ -29,68 +28,45 @@ class SyncController < OSX::NSObject
     @status_item.setImage(@app_icon)
     @status_item.setAlternateImage(@app_alter_icon)
     
-    defaults = NSUserDefaults.standardUserDefaults
-    username = defaults.stringForKey('username') || ''
+    @last_sync_item = NSMenuItem.alloc.init
+    @last_sync_item.title = 'Not yet synced'
+    @status_item.menu.insertItem_atIndex(@last_sync_item, 0)
     
-    password = nil
-    status, *data = SecKeychainFindGenericPassword(nil, SERVICE.length, SERVICE, username.length, username)
-    if status == 0
-      password_length = data.shift
-      password_data = data.shift
-      password = password_data.bytestr(password_length)
-      NSLog("Found password in KeyChain: #{password}")
-    else
-      NSLog("Failed to find password in KeyChain: #{status}")
-    end
+    @preferences = Preferences.new
     
-    @username.stringValue = username if username
-    @password.stringValue = password if password
+    @username.stringValue = @preferences.username if @preferences.username
+    @password.stringValue = @preferences.password if @preferences.password
+    @hoursBetweenSyncs.stringValue = @preferences.hours_between_syncs
+    
+    setTimer
+  end
+  
+  def setTimer
+    @timer.invalidate if @timer
+    seconds_between_syncs = @preferences.hours_between_syncs * 60 * 60
+    @timer = NSTimer.scheduledTimerWithTimeInterval_target_selector_userInfo_repeats(seconds_between_syncs, self, 'sync', nil, true)
   end
   
   ib_action :sync do |sender|
-    username = @username.stringValue.to_s
-    password = @password.stringValue.to_s
+    username = @preferences.username
+    password = @preferences.password
     
     doc = Sync.extract_data
     Sync.send_data(username, password, doc)
+    
+    @last_sync_item.title = "Last synced #{Time.now.getlocal.strftime('%H:%M %a %d %B')}"
   end
   
   ib_action :showPreferencesWindow do |sender|
     NSApplication.sharedApplication.activateIgnoringOtherApps(true)
-    @preferences.makeKeyAndOrderFront(sender)
+    @preferencesWindow.makeKeyAndOrderFront(sender)
   end
   
   ib_action :savePreferences do |sender|
-    username = @username.stringValue.to_s
-    password = @password.stringValue.to_s
-    
-    defaults = NSUserDefaults.standardUserDefaults
-    defaults.setObject_forKey(username, 'username')
-    defaults.synchronize
-    
-    status = SecKeychainAddGenericPassword(nil, SERVICE.length, SERVICE, username.length, username, password.length, password, nil)
-    
-    if status == 0
-      NSLog("Password created in KeyChain: #{password}")
-    elsif status == ErrSecDuplicateItem
-      NSLog("Password already exists in KeyChain")
-      status, *data = SecKeychainFindGenericPassword(nil, SERVICE.length, SERVICE, username.length, username)
-      if status == 0
-        password_length = data.shift
-        password_data = data.shift
-        item_reference = data.shift
-        status = SecKeychainItemModifyContent(item_reference, nil, password.length, password)
-        if status == 0
-          NSLog("Password updated in KeyChain: #{password}")
-        else
-          NSLog("Failed to update password in KeyChain: #{status}")
-        end
-      else
-        NSLog("Failed to find password in KeyChain: #{status}")
-      end
-    else
-      NSLog("Failed to create password in KeyChain: #{status}")
-    end
+    @preferences.username = @username.stringValue.to_s
+    @preferences.password = @password.stringValue.to_s
+    @preferences.hours_between_syncs = Integer(@hoursBetweenSyncs.stringValue.to_s) rescue Preferences::DEFAULTS[:hours_between_syncs]
+    @preferences.save
   end
   
 end
