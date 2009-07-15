@@ -6,7 +6,7 @@ class AutoLaunch
   
   def initialize
     property_list = get_property_list
-    @enabled = property_list ? property_list.any? { |app| app['Path'] == app_path } : false
+    @enabled = property_list ? property_list.any? { |app| app['Path'] == app_path } : true
   end
   
   def save
