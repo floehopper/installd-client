@@ -158,7 +158,15 @@ end
 require "choctop"
 
 ChocTop.new do |s|
-  s.host = 'installd.com'
-  s.remote_dir = '/var/rails/installd/shared/system/sparkle/'
-  s.rsync_args = "-aCv --progress --rsh='ssh -p35353'"
+  if ENV['LOCAL']
+    s.host = 'localhost'
+    s.remote_dir = '/Users/jamesmead/WebApps/installd/public/system/sparkle/'
+    s.rsync_args = "-aCv --progress"
+    s.base_url = "/system/sparkle/"
+  else
+    s.host = 'installd.com'
+    s.remote_dir = '/var/rails/installd/shared/system/sparkle/'
+    s.rsync_args = "-aCv --progress --rsh='ssh -p35353'"
+    s.base_url = "/system/sparkle/"
+  end
 end
