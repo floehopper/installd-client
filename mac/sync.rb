@@ -47,8 +47,11 @@ class Sync
       
       NSLog("*** Sync begins ***")
       
-      host = "installd.local"
+      host = ENV['LOCAL'] ? "installd.local" : "installd.com"
+      NSLog("Host: #{host}")
+      
       url = "http://#{username}:#{password}@#{host}/users/#{username}/installs/synchronize"
+      
       response = Net::HTTP.post_form(URI.parse(url), { '_method' => 'put', 'doc' => doc })
       unless response.code == '200'
         raise "Unexpected response code: #{response.code}"
