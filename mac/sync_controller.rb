@@ -34,12 +34,19 @@ class SyncController < OSX::NSObject
     
     @preferences = Preferences.new
     
-    @username.stringValue = @preferences.username if @preferences.username
-    @password.stringValue = @preferences.password if @preferences.password
+    @username.stringValue = @preferences.username
+    @password.stringValue = @preferences.password
     @hoursBetweenSyncs.stringValue = @preferences.hours_between_syncs
     @autoLaunch.state = @preferences.auto_launch_enabled ? NSOnState : NSOffState
     
     setTimer
+    
+    unless @preferences.launched_before
+      @preferences.auto_launch_enabled = true
+      @autoLaunch.state = NSOnState
+      @preferences.save
+      showPreferencesWindow(self)
+    end
   end
   
   def setTimer

@@ -6,9 +6,11 @@ class Preferences
   
   SERVICE = 'Installd'
   
-  DEFAULTS = { :username => '', :hours_between_syncs => 24 }
+  DEFAULTS = { :username => '', :password => '', :hours_between_syncs => 24, :launched_before => false }
   
   attr_accessor :username, :password, :hours_between_syncs, :auto_launch_enabled
+  
+  attr_reader :launched_before
   
   def initialize
     @defaults = NSUserDefaults.standardUserDefaults
@@ -29,9 +31,12 @@ class Preferences
     else
       NSLog("Failed to find password in KeyChain: #{status}")
     end
+    @password ||= DEFAULTS[:password]
     
     @auto_launch = AutoLaunch.new
     @auto_launch_enabled = @auto_launch.enabled
+    
+    @launched_before = @defaults.boolForKey('SUHasLaunchedBefore') || DEFAULTS[:launched_before]
   end
   
   def save
