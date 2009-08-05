@@ -1,5 +1,9 @@
-h1. <span>2009-07-14</span> Release 0.0.1
+h1. <span>2009-08-05</span> Release 0.0.2
 
-h2. Initial release.
+h2. Skip apps that haven't come from the App Store
 
-Basic status bar app.
+Apps that don't come from the App Store may not have a iTunesMetadata.plist file.
+
+The installd client now ignores such apps instead of dying horribly.
+
+Thanks to lazyatom.
