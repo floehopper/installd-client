@@ -29,6 +29,8 @@ class SyncController < OSX::NSObject
     
     setTimer
     
+    @preferencesWindow.center
+    
     unless @preferences.launched_before
       @preferences.auto_launch_enabled = true
       @autoLaunch.state = NSOnState
