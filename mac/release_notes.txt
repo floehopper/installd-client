@@ -1,9 +1,6 @@
-h1. <span>2009-08-05</span> Release 0.0.2
+h1. <span>2009-08-05</span> Release 0.0.3
 
-h2. Skip apps that haven't come from the App Store
-
-Apps that don't come from the App Store may not have a iTunesMetadata.plist file.
-
-The installd client now ignores such apps instead of dying horribly.
-
-Thanks to lazyatom.
+* Centre preferences window on screen.
+* Indicate when syncing has failed.
+* Close preferences window after save.
+* Prompt to sync if credentials have changes since last save of preferences.
