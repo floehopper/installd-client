@@ -63,7 +63,14 @@ class SyncController < OSX::NSObject
     @preferences.password = @password.stringValue.to_s
     @preferences.hours_between_syncs = Integer(@hoursBetweenSyncs.stringValue.to_s) rescue Preferences::DEFAULTS[:hours_between_syncs]
     @preferences.auto_launch_enabled = (@autoLaunch.state == NSOnState) ? true : false
+    credentials_changed = @preferences.credentials_changed?
     @preferences.save
+    if credentials_changed
+      button_code = NSRunAlertPanel("Installd - Credentials Changed", "Your credentials have changed.\nDo you want to sync now?", "Yes", "No", nil)
+      if button_code == 1
+        sync(self)
+      end
+    end
   end
   
 end

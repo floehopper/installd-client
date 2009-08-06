@@ -8,9 +8,8 @@ class Preferences
   
   DEFAULTS = { :username => '', :password => '', :hours_between_syncs => 24, :launched_before => false }
   
-  attr_accessor :username, :password, :hours_between_syncs, :auto_launch_enabled
-  
-  attr_reader :launched_before
+  attr_reader :username, :password, :launched_before
+  attr_accessor :hours_between_syncs, :auto_launch_enabled
   
   def initialize
     @defaults = NSUserDefaults.standardUserDefaults
@@ -37,6 +36,8 @@ class Preferences
     @auto_launch_enabled = @auto_launch.enabled
     
     @launched_before = @defaults.boolForKey('SUHasLaunchedBefore') || DEFAULTS[:launched_before]
+    
+    @credentials_changed = false
   end
   
   def save
@@ -68,8 +69,28 @@ class Preferences
       NSLog("Failed to create password in KeyChain: #{status}")
     end
     
+    @credentials_changed = false
+    
     @auto_launch.enabled = @auto_launch_enabled
     @auto_launch.save
+  end
+  
+  def username=(new_username)
+    unless @username == new_username
+      @credentials_changed = true
+    end
+    @username = new_username
+  end
+  
+  def password=(new_password)
+    unless @password == new_password
+      @credentials_changed = true
+    end
+    @password = new_password
+  end
+  
+  def credentials_changed?
+    @credentials_changed
   end
   
 end
