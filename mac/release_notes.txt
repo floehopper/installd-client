@@ -1,4 +1,4 @@
-h1. <span>2009-08-05</span> Release 0.0.3
+h1. <span>2009-08-06</span> Release 0.0.3
 
 * Centre preferences window on screen.
 * Indicate when syncing has failed.
