@@ -48,9 +48,14 @@ class SyncController < OSX::NSObject
     password = @preferences.password
     
     doc = Sync.extract_data
-    Sync.send_data(username, password, doc)
-    
-    @status_bar.last_sync_item.title = "Last synced #{Time.now.getlocal.strftime('%H:%M %a %d %B')}"
+    timestamp = Time.now.getlocal.strftime('%H:%M %a %d %B')
+    if Sync.send_data(username, password, doc)
+      @status_bar.last_sync_item.title = "Last synced #{timestamp}"
+      @status_bar.clear_error
+    else
+      @status_bar.last_sync_item.title = "Sync failed #{timestamp}"
+      @status_bar.set_error
+    end
   end
   
   ib_action :showPreferencesWindow do |sender|

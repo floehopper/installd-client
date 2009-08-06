@@ -66,12 +66,14 @@ class Sync
       end
       
       NSLog("*** Sync ends ***")
+      true
     rescue => exception
       NSLog("Exception handled: #{exception}")
       exception.backtrace.each do |line|
         NSLog("  #{line}")
       end
       NSLog("*** Sync failed ***")
+      false
     end
     
     def execute(command)
