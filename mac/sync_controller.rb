@@ -9,6 +9,7 @@
 require 'sync'
 require 'status_bar'
 require 'preferences'
+require 'sync_connection'
 
 OSX.load_bridge_support_file(OSX::NSBundle.mainBundle.pathForResource_ofType('Security', 'bridgesupport'))
 
@@ -46,17 +47,28 @@ class SyncController < OSX::NSObject
   end
   
   ib_action :sync do |sender|
-    username = @preferences.username
-    password = @preferences.password
-    
-    doc = Sync.extract_data
-    timestamp = Time.now.getlocal.strftime('%H:%M %a %d %B')
-    if Sync.send_data(username, password, doc)
-      @status_bar.last_sync_item.title = "Last synced #{timestamp}"
-      @status_bar.clear_error
-    else
-      @status_bar.last_sync_item.title = "Sync failed #{timestamp}"
-      @status_bar.set_error
+    begin
+      doc = Sync.extract_data
+      timestamp = Time.now.getlocal.strftime('%H:%M %a %d %B')
+      
+      NSLog("*** Sync begins ***")
+      @connection = SyncConnection.new
+      @connection.on_success = Proc.new do
+        NSLog("*** Sync ends ***")
+        @status_bar.last_sync_item.title = "Last synced #{timestamp}"
+        @status_bar.clear_error
+      end
+      @connection.on_failure = Proc.new do
+        @status_bar.last_sync_item.title = "Sync failed #{timestamp}"
+        @status_bar.set_error
+      end
+      @connection.send_data(@preferences.username, @preferences.password, doc)
+    rescue => exception
+      NSLog("Exception handled: #{exception}")
+      exception.backtrace.each do |line|
+        NSLog("  #{line}")
+      end
+      NSLog("*** Sync failed ***")
     end
   end
   

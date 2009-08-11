@@ -49,33 +49,6 @@ class Sync
       doc
     end
     
-    def send_data(username, password, doc)
-      require 'net/http'
-      require 'uri'
-      
-      NSLog("*** Sync begins ***")
-      
-      host = ENV['LOCAL'] ? "installd.local" : "installd.com"
-      NSLog("Host: #{host}")
-      
-      url = "http://#{username}:#{password}@#{host}/users/#{username}/installs/synchronize"
-      
-      response = Net::HTTP.post_form(URI.parse(url), { '_method' => 'put', 'doc' => doc })
-      unless response.code == '200'
-        raise "Unexpected response code: #{response.code}"
-      end
-      
-      NSLog("*** Sync ends ***")
-      true
-    rescue => exception
-      NSLog("Exception handled: #{exception}")
-      exception.backtrace.each do |line|
-        NSLog("  #{line}")
-      end
-      NSLog("*** Sync failed ***")
-      false
-    end
-    
     def execute(command)
       NSLog(command)
       NSLog(`#{command} 2>&1`)
