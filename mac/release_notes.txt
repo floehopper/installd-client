@@ -1,6 +1,3 @@
-h1. <span>2009-08-13</span> Release 0.0.5
+h1. <span>2009-09-12</span> Release 0.0.6
 
-* Attempt at supporting OSX 10.4 Tiger
-  * RubyCocoa.framework is now bundled with app like Sparkle.framework.
-  * App deployment target build settings changed to support OSX 10.4.
-  * Thanks to Murray Steele for his testing and the above suggestions.
+* Allow user to select non-default iTunes directory (as requested by Adam Reynolds).

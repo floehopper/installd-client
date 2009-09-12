@@ -6,10 +6,16 @@ class Preferences
   
   SERVICE = 'Installd'
   
-  DEFAULTS = { :username => '', :password => '', :hours_between_syncs => 24, :launched_before => false }
+  DEFAULTS = {
+    :username => '',
+    :password => '',
+    :hours_between_syncs => 24,
+    :launched_before => false,
+    :itunes_directory => File.join(ENV['HOME'], 'Music', 'iTunes')
+  }
   
   attr_reader :username, :password, :launched_before
-  attr_accessor :hours_between_syncs, :auto_launch_enabled
+  attr_accessor :hours_between_syncs, :auto_launch_enabled, :itunes_directory
   
   def initialize
     @defaults = NSUserDefaults.standardUserDefaults
@@ -35,6 +41,8 @@ class Preferences
     @auto_launch = AutoLaunch.new
     @auto_launch_enabled = @auto_launch.enabled
     
+    @itunes_directory = @defaults.stringForKey('itunes_directory') || DEFAULTS[:itunes_directory]
+    
     @launched_before = @defaults.boolForKey('SUHasLaunchedBefore') || DEFAULTS[:launched_before]
     
     @credentials_changed = false
@@ -43,6 +51,7 @@ class Preferences
   def save
     @defaults.setObject_forKey(@username, 'username')
     @defaults.setInteger_forKey(@hours_between_syncs, 'hoursBetweenSyncs')
+    @defaults.setObject_forKey(@itunes_directory, 'itunes_directory')
     @defaults.synchronize
     
     status = SecKeychainAddGenericPassword(nil, SERVICE.length, SERVICE, @username.length, @username, @password.length, @password, nil)

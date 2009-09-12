@@ -17,7 +17,7 @@ class SyncController < OSX::NSObject
   
   include OSX
   
-  ib_outlets :username, :password, :hoursBetweenSyncs, :autoLaunch, :menu, :preferencesWindow
+  ib_outlets :username, :password, :hoursBetweenSyncs, :autoLaunch, :menu, :preferencesWindow, :iTunesDirectory
   
   def awakeFromNib
     @status_bar = StatusBar.new(@menu)
@@ -27,6 +27,7 @@ class SyncController < OSX::NSObject
     @password.stringValue = @preferences.password
     @hoursBetweenSyncs.stringValue = @preferences.hours_between_syncs
     @autoLaunch.state = @preferences.auto_launch_enabled ? NSOnState : NSOffState
+    @iTunesDirectory.stringValue = @preferences.itunes_directory
     
     setTimer
     
@@ -48,7 +49,8 @@ class SyncController < OSX::NSObject
   
   ib_action :sync do |sender|
     begin
-      doc = Sync.extract_data
+      sync = Sync.new(@preferences.itunes_directory)
+      doc = sync.extract_data
       timestamp = Time.now.getlocal.strftime('%H:%M %a %d %B')
       
       NSLog("*** Sync begins ***")
@@ -82,6 +84,7 @@ class SyncController < OSX::NSObject
     @preferences.password = @password.stringValue.to_s
     @preferences.hours_between_syncs = Integer(@hoursBetweenSyncs.stringValue.to_s) rescue Preferences::DEFAULTS[:hours_between_syncs]
     @preferences.auto_launch_enabled = (@autoLaunch.state == NSOnState) ? true : false
+    @preferences.itunes_directory = @iTunesDirectory.stringValue.to_s
     credentials_changed = @preferences.credentials_changed?
     @preferences.save
     
@@ -92,6 +95,19 @@ class SyncController < OSX::NSObject
       if button_code == 1
         sync(self)
       end
+    end
+  end
+  
+  ib_action :chooseDirectory do |sender|
+    panel = NSOpenPanel.openPanel
+    panel.canChooseDirectories = true
+    panel.canChooseFiles = false
+    panel.beginSheetForDirectory_file_types_modalForWindow_modalDelegate_didEndSelector_contextInfo(@preferences.itunes_directory, nil, nil, nil, self, 'openPanelDidEnd', nil)
+  end
+  
+  def openPanelDidEnd(panel, returnCode, contextInfo = nil)
+    if returnCode == NSOKButton
+      @iTunesDirectory.stringValue = panel.directory
     end
   end
   
