@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0039E95C1064F2E0000F8CEE /* preferences.rb in Resources */ = {isa = PBXBuildFile; fileRef = 0039E95B1064F2E0000F8CEE /* preferences.rb */; };
+		0039E9B7106790E4000F8CEE /* Security.bridgesupport in Resources */ = {isa = PBXBuildFile; fileRef = 0039E9B6106790E4000F8CEE /* Security.bridgesupport */; };
+		0039E9C010679747000F8CEE /* sync.rb in Resources */ = {isa = PBXBuildFile; fileRef = 0039E9BF10679747000F8CEE /* sync.rb */; };
+		0039E9C3106797A0000F8CEE /* sync_connection.rb in Resources */ = {isa = PBXBuildFile; fileRef = 0039E9C2106797A0000F8CEE /* sync_connection.rb */; };
 		8D202CEA0486D31800D8A456 /* Installd_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 32DBCFA20370C41700C91783 /* Installd_Prefix.pch */; };
 		8D202CED0486D31800D8A456 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D202CEE0486D31800D8A456 /* InstalldPref.tiff in Resources */ = {isa = PBXBuildFile; fileRef = F506C040013D9D8001CA16C8 /* InstalldPref.tiff */; };
@@ -19,6 +23,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0039E95B1064F2E0000F8CEE /* preferences.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = preferences.rb; sourceTree = "<group>"; };
+		0039E9B6106790E4000F8CEE /* Security.bridgesupport */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Security.bridgesupport; sourceTree = "<group>"; };
+		0039E9BF10679747000F8CEE /* sync.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sync.rb; sourceTree = "<group>"; };
+		0039E9C2106797A0000F8CEE /* sync_connection.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sync_connection.rb; sourceTree = "<group>"; };
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -72,6 +80,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0039E9B6106790E4000F8CEE /* Security.bridgesupport */,
 				9648B5EE0D195C2F00DC73E2 /* Pref.xib */,
 				8D202CF70486D31800D8A456 /* Info.plist */,
 				089C167DFE841241C02AAC07 /* InfoPlist.strings */,
@@ -83,6 +92,9 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				0039E9C2106797A0000F8CEE /* sync_connection.rb */,
+				0039E9BF10679747000F8CEE /* sync.rb */,
+				0039E95B1064F2E0000F8CEE /* preferences.rb */,
 				9648B5EB0D195BF200DC73E2 /* InstalldPref.rb */,
 				F506C03D013D9D7901CA16C8 /* InstalldPref.m */,
 			);
@@ -184,6 +196,10 @@
 				8D202CEE0486D31800D8A456 /* InstalldPref.tiff in Resources */,
 				9648B5EC0D195BF200DC73E2 /* InstalldPref.rb in Resources */,
 				9648B5F00D195C2F00DC73E2 /* Pref.xib in Resources */,
+				0039E95C1064F2E0000F8CEE /* preferences.rb in Resources */,
+				0039E9B7106790E4000F8CEE /* Security.bridgesupport in Resources */,
+				0039E9C010679747000F8CEE /* sync.rb in Resources */,
+				0039E9C3106797A0000F8CEE /* sync_connection.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

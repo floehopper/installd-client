@@ -12,10 +12,23 @@ include OSX
 
 OSX.require_framework 'PreferencePanes'
 
-class PrefPaneInstalld < NSPreferencePane
+require 'preferences'
+require 'sync'
+require 'sync_connection'
 
+class PrefPaneInstalld < NSPreferencePane
+  
+  ib_outlet :username
+  ib_outlet :password
+  ib_outlet :iTunesDirectory
+  ib_outlet :lastSyncStatus
+  
   def mainViewDidLoad
     NSLog("PrefPaneInstalld: mainViewDidLoad")
+    @preferences = Preferences.new(bundle)
+    @username.stringValue = @preferences.username
+    @password.stringValue = @preferences.password
+    @iTunesDirectory.stringValue = @preferences.itunes_directory
   end
   
   def willSelect
@@ -33,10 +46,64 @@ class PrefPaneInstalld < NSPreferencePane
   
   def willUnselect
     NSLog("PrefPaneInstalld: willUnselect")
+    save
   end
   
   def didUnselect
     NSLog("PrefPaneInstalld: didUnselect")
+  end
+  
+  ib_action :syncNow do |sender|
+    NSLog("PrefPaneInstalld: syncNow")
+    save
+    sync
+  end
+  
+  ib_action :chooseiTunesDirectory do |sender|
+    NSLog("PrefPaneInstalld: chooseiTunesDirectory")
+    panel = NSOpenPanel.openPanel
+    panel.canChooseDirectories = true
+    panel.canChooseFiles = false
+    panel.beginSheetForDirectory_file_types_modalForWindow_modalDelegate_didEndSelector_contextInfo(@preferences.itunes_directory, nil, nil, nil, self, 'openPanelDidEnd', nil)
+  end
+  
+  def openPanelDidEnd(panel, returnCode, contextInfo = nil)
+    NSLog("PrefPaneInstalld: openPanelDidEnd")
+    if returnCode == NSOKButton
+      @iTunesDirectory.stringValue = panel.directory
+    end
+  end
+  
+  private
+  
+  def save
+    @preferences.username = @username.stringValue.to_s
+    @preferences.password = @password.stringValue.to_s
+    @preferences.itunes_directory = @iTunesDirectory.stringValue.to_s
+    @preferences.save
+  end
+  
+  def sync
+    sync = Sync.new(@preferences.itunes_directory)
+    doc = sync.extract_data
+    timestamp = Time.now.getlocal.strftime('%H:%M %a %d %B')
+    
+    NSLog("*** Sync begins ***")
+    @connection = SyncConnection.new
+    @connection.on_success = Proc.new do
+      NSLog("*** Sync ends ***")
+      @lastSyncStatus.stringValue = "Last synced #{timestamp}"
+    end
+    @connection.on_failure = Proc.new do
+      @lastSyncStatus.stringValue = "Sync failed #{timestamp}"
+    end
+    @connection.send_data(@preferences.username, @preferences.password, doc)
+  rescue => exception
+    NSLog("Exception handled: #{exception}")
+    exception.backtrace.each do |line|
+      NSLog("  #{line}")
+    end
+    NSLog("*** Sync failed ***")
   end
   
 end
