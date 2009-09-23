@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		000FDCB5106A698B00301825 /* command.rb in Resources */ = {isa = PBXBuildFile; fileRef = 000FDCB4106A698B00301825 /* command.rb */; };
+		000FDCB8106A7E7100301825 /* key_chain.rb in Resources */ = {isa = PBXBuildFile; fileRef = 000FDCB6106A7E7100301825 /* key_chain.rb */; };
+		000FDCB9106A7E7100301825 /* settings.rb in Resources */ = {isa = PBXBuildFile; fileRef = 000FDCB7106A7E7100301825 /* settings.rb */; };
+		000FDCBB106A882100301825 /* launch_agent.rb in Resources */ = {isa = PBXBuildFile; fileRef = 000FDCBA106A882100301825 /* launch_agent.rb */; };
 		0039E95C1064F2E0000F8CEE /* preferences.rb in Resources */ = {isa = PBXBuildFile; fileRef = 0039E95B1064F2E0000F8CEE /* preferences.rb */; };
 		0039E9B7106790E4000F8CEE /* Security.bridgesupport in Resources */ = {isa = PBXBuildFile; fileRef = 0039E9B6106790E4000F8CEE /* Security.bridgesupport */; };
 		0039E9C010679747000F8CEE /* sync.rb in Resources */ = {isa = PBXBuildFile; fileRef = 0039E9BF10679747000F8CEE /* sync.rb */; };
@@ -26,6 +29,9 @@
 
 /* Begin PBXFileReference section */
 		000FDCB4106A698B00301825 /* command.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = command.rb; sourceTree = "<group>"; };
+		000FDCB6106A7E7100301825 /* key_chain.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = key_chain.rb; sourceTree = "<group>"; };
+		000FDCB7106A7E7100301825 /* settings.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = settings.rb; sourceTree = "<group>"; };
+		000FDCBA106A882100301825 /* launch_agent.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = launch_agent.rb; sourceTree = "<group>"; };
 		0039E95B1064F2E0000F8CEE /* preferences.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = preferences.rb; sourceTree = "<group>"; };
 		0039E9B6106790E4000F8CEE /* Security.bridgesupport */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Security.bridgesupport; sourceTree = "<group>"; };
 		0039E9BF10679747000F8CEE /* sync.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sync.rb; sourceTree = "<group>"; };
@@ -96,6 +102,9 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				000FDCBA106A882100301825 /* launch_agent.rb */,
+				000FDCB6106A7E7100301825 /* key_chain.rb */,
+				000FDCB7106A7E7100301825 /* settings.rb */,
 				000FDCB4106A698B00301825 /* command.rb */,
 				0039E9C2106797A0000F8CEE /* sync_connection.rb */,
 				0039E9BF10679747000F8CEE /* sync.rb */,
@@ -208,6 +217,9 @@
 				0039E9C3106797A0000F8CEE /* sync_connection.rb in Resources */,
 				0039E9E5106813C4000F8CEE /* sync.sh in Resources */,
 				000FDCB5106A698B00301825 /* command.rb in Resources */,
+				000FDCB8106A7E7100301825 /* key_chain.rb in Resources */,
+				000FDCB9106A7E7100301825 /* settings.rb in Resources */,
+				000FDCBB106A882100301825 /* launch_agent.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
