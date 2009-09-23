@@ -82,7 +82,7 @@ class PrefPaneInstalld < NSPreferencePane
   ib_action :syncNow do |sender|
     NSLog("PrefPaneInstalld: syncNow")
     save
-    sync
+    Command.new(%{/bin/launchctl start #{bundle.bundleIdentifier}}).execute
   end
   
   ib_action :chooseiTunesDirectory do |sender|
@@ -107,34 +107,6 @@ class PrefPaneInstalld < NSPreferencePane
     @preferences.password = @password.stringValue.to_s
     @preferences.itunes_directory = @iTunesDirectory.stringValue.to_s
     @preferences.save
-  end
-  
-  def sync
-    sync = Installd::Sync.new(@preferences.itunes_directory)
-    doc = sync.extract_data
-    timestamp = Time.now.getlocal.strftime('%H:%M %a %d %B')
-    
-    NSLog("*** Sync begins ***")
-    @connection = SyncConnection.new
-    @connection.on_success = Proc.new do
-      NSLog("*** Sync ends ***")
-      @preferences.last_sync_status = "Last synced #{timestamp}"
-      @preferences.save
-      @lastSyncStatus.stringValue = @preferences.last_sync_status
-    end
-    @connection.on_failure = Proc.new do
-      NSLog("*** Sync failed ***")
-      @preferences.last_sync_status = "Sync failed #{timestamp}"
-      @preferences.save
-      @lastSyncStatus.stringValue = @preferences.last_sync_status
-    end
-    @connection.send_data(@preferences.username, @preferences.password, doc)
-  rescue => exception
-    NSLog("*** Sync failed ***")
-    NSLog("Exception handled: #{exception}")
-    exception.backtrace.each do |line|
-      NSLog("  #{line}")
-    end
   end
   
 end
