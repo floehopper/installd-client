@@ -15,6 +15,7 @@ OSX.require_framework 'PreferencePanes'
 require 'preferences'
 require 'sync'
 require 'sync_connection'
+require 'command'
 
 class PrefPaneInstalld < NSPreferencePane
   
@@ -25,10 +26,35 @@ class PrefPaneInstalld < NSPreferencePane
   
   def mainViewDidLoad
     NSLog("PrefPaneInstalld: mainViewDidLoad")
-    @preferences = Preferences.new(bundle)
+    @preferences = Preferences.new
     @username.stringValue = @preferences.username
     @password.stringValue = @preferences.password
     @iTunesDirectory.stringValue = @preferences.itunes_directory
+    sync_script = bundle.pathForResource_ofType('sync', 'sh')
+    plist = %{
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+        <dict>
+          <key>Label</key>
+          <string>#{bundle.bundleIdentifier}</string>
+          <key>ProgramArguments</key>
+          <array>
+            <string>#{sync_script}</string>
+          </array>
+          <key>StartInterval</key>
+          <integer>120</integer>
+        </dict>
+      </plist>
+    }
+    launch_agent_path = File.join(ENV['HOME'], 'Library', 'LaunchAgents', "#{bundle.bundleIdentifier}.plist")
+    if File.exist?(launch_agent_path)
+      Command.new(%{/bin/launchctl unload #{launch_agent_path}}).execute
+    end
+    File.open(launch_agent_path, 'w') do |file|
+      file << plist
+    end
+    Command.new(%{/bin/launchctl load #{launch_agent_path}}).execute
   end
   
   def willSelect
@@ -84,7 +110,7 @@ class PrefPaneInstalld < NSPreferencePane
   end
   
   def sync
-    sync = Sync.new(@preferences.itunes_directory)
+    sync = Installd::Sync.new(@preferences.itunes_directory)
     doc = sync.extract_data
     timestamp = Time.now.getlocal.strftime('%H:%M %a %d %B')
     
@@ -92,18 +118,23 @@ class PrefPaneInstalld < NSPreferencePane
     @connection = SyncConnection.new
     @connection.on_success = Proc.new do
       NSLog("*** Sync ends ***")
-      @lastSyncStatus.stringValue = "Last synced #{timestamp}"
+      @preferences.last_sync_status = "Last synced #{timestamp}"
+      @preferences.save
+      @lastSyncStatus.stringValue = @preferences.last_sync_status
     end
     @connection.on_failure = Proc.new do
-      @lastSyncStatus.stringValue = "Sync failed #{timestamp}"
+      NSLog("*** Sync failed ***")
+      @preferences.last_sync_status = "Sync failed #{timestamp}"
+      @preferences.save
+      @lastSyncStatus.stringValue = @preferences.last_sync_status
     end
     @connection.send_data(@preferences.username, @preferences.password, doc)
   rescue => exception
+    NSLog("*** Sync failed ***")
     NSLog("Exception handled: #{exception}")
     exception.backtrace.each do |line|
       NSLog("  #{line}")
     end
-    NSLog("*** Sync failed ***")
   end
   
 end

@@ -7,7 +7,7 @@ class SyncConnection
   
   attr_accessor :on_success, :on_failure
   
-  def send_data(username, password, doc)
+  def build_request(username, password, doc)
     NSLog("username: #{username}")
     NSLog("password: #{password}")
     host = ENV['LOCAL'] ? "installd.local" : "installd.com"
@@ -26,7 +26,11 @@ class SyncConnection
     request.setHTTPBody(params_data)
     request.addValue_forHTTPHeaderField(params_data.length.to_s, 'Content-Length')
     request.addValue_forHTTPHeaderField('application/x-www-form-urlencoded', 'Content-Type')
-    
+    request
+  end
+  
+  def send_data(username, password, doc)
+    request = build_request(username, password, doc)
     @redirectCount = 0
     @connection = NSURLConnection.alloc.initWithRequest_delegate(request, self)
     unless @connection

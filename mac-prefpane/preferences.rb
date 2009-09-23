@@ -1,3 +1,5 @@
+OSX.load_bridge_support_file(File.expand_path(File.join(File.dirname(__FILE__), 'Security.bridgesupport')))
+
 class Preferences
   
   include OSX
@@ -14,14 +16,12 @@ class Preferences
   attr_reader :password
   
   attr_accessor :itunes_directory
+  attr_accessor :last_sync_status
   
-  def initialize(bundle)
-    OSX.load_bridge_support_file(bundle.pathForResource_ofType('Security', 'bridgesupport'))
-    
-    @defaults = NSUserDefaults.standardUserDefaults
-    
-    @username = @defaults.stringForKey('username') || DEFAULTS[:username]
-    @itunes_directory = @defaults.stringForKey('itunes_directory') || DEFAULTS[:itunes_directory]
+  def initialize
+    @username = (CFPreferencesCopyValue('username', 'com.floehopper.installdPrefPane', KCFPreferencesCurrentUser, KCFPreferencesAnyHost) || DEFAULTS[:username]).to_s
+    @itunes_directory = (CFPreferencesCopyValue('itunes_directory', 'com.floehopper.installdPrefPane', KCFPreferencesCurrentUser, KCFPreferencesAnyHost) || DEFAULTS[:itunes_directory]).to_s
+    @last_sync_status = (CFPreferencesCopyValue('last_sync_status', 'com.floehopper.installdPrefPane', KCFPreferencesCurrentUser, KCFPreferencesAnyHost) || DEFAULTS[:last_sync_status]).to_s
     
     @password = nil
     status, *data = SecKeychainFindGenericPassword(nil, SERVICE.length, SERVICE, @username.length, @username)
@@ -39,9 +39,10 @@ class Preferences
   end
   
   def save
-    @defaults.setObject_forKey(@username, 'username')
-    @defaults.setObject_forKey(@itunes_directory, 'itunes_directory')
-    @defaults.synchronize
+    CFPreferencesSetValue('username', @username, 'com.floehopper.installdPrefPane', KCFPreferencesCurrentUser, KCFPreferencesAnyHost)
+    CFPreferencesSetValue('itunes_directory', @itunes_directory, 'com.floehopper.installdPrefPane', KCFPreferencesCurrentUser, KCFPreferencesAnyHost)
+    CFPreferencesSetValue('last_sync_status', @last_sync_status, 'com.floehopper.installdPrefPane', KCFPreferencesCurrentUser, KCFPreferencesAnyHost)
+    CFPreferencesSynchronize('com.floehopper.installdPrefPane', KCFPreferencesCurrentUser, KCFPreferencesAnyHost)
     
     status = SecKeychainAddGenericPassword(nil, SERVICE.length, SERVICE, @username.length, @username, @password.length, @password, nil)
     

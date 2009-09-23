@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		000FDCB5106A698B00301825 /* command.rb in Resources */ = {isa = PBXBuildFile; fileRef = 000FDCB4106A698B00301825 /* command.rb */; };
 		0039E95C1064F2E0000F8CEE /* preferences.rb in Resources */ = {isa = PBXBuildFile; fileRef = 0039E95B1064F2E0000F8CEE /* preferences.rb */; };
 		0039E9B7106790E4000F8CEE /* Security.bridgesupport in Resources */ = {isa = PBXBuildFile; fileRef = 0039E9B6106790E4000F8CEE /* Security.bridgesupport */; };
 		0039E9C010679747000F8CEE /* sync.rb in Resources */ = {isa = PBXBuildFile; fileRef = 0039E9BF10679747000F8CEE /* sync.rb */; };
 		0039E9C3106797A0000F8CEE /* sync_connection.rb in Resources */ = {isa = PBXBuildFile; fileRef = 0039E9C2106797A0000F8CEE /* sync_connection.rb */; };
+		0039E9E5106813C4000F8CEE /* sync.sh in Resources */ = {isa = PBXBuildFile; fileRef = 0039E9E4106813C4000F8CEE /* sync.sh */; };
 		8D202CEA0486D31800D8A456 /* Installd_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 32DBCFA20370C41700C91783 /* Installd_Prefix.pch */; };
 		8D202CED0486D31800D8A456 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D202CEE0486D31800D8A456 /* InstalldPref.tiff in Resources */ = {isa = PBXBuildFile; fileRef = F506C040013D9D8001CA16C8 /* InstalldPref.tiff */; };
@@ -23,10 +25,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		000FDCB4106A698B00301825 /* command.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = command.rb; sourceTree = "<group>"; };
 		0039E95B1064F2E0000F8CEE /* preferences.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = preferences.rb; sourceTree = "<group>"; };
 		0039E9B6106790E4000F8CEE /* Security.bridgesupport */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Security.bridgesupport; sourceTree = "<group>"; };
 		0039E9BF10679747000F8CEE /* sync.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sync.rb; sourceTree = "<group>"; };
 		0039E9C2106797A0000F8CEE /* sync_connection.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sync_connection.rb; sourceTree = "<group>"; };
+		0039E9E4106813C4000F8CEE /* sync.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = sync.sh; sourceTree = "<group>"; };
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -92,6 +96,7 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				000FDCB4106A698B00301825 /* command.rb */,
 				0039E9C2106797A0000F8CEE /* sync_connection.rb */,
 				0039E9BF10679747000F8CEE /* sync.rb */,
 				0039E95B1064F2E0000F8CEE /* preferences.rb */,
@@ -131,6 +136,7 @@
 		32DBCFA10370C40200C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				0039E9E4106813C4000F8CEE /* sync.sh */,
 				32DBCFA20370C41700C91783 /* Installd_Prefix.pch */,
 			);
 			name = "Other Sources";
@@ -200,6 +206,8 @@
 				0039E9B7106790E4000F8CEE /* Security.bridgesupport in Resources */,
 				0039E9C010679747000F8CEE /* sync.rb in Resources */,
 				0039E9C3106797A0000F8CEE /* sync_connection.rb in Resources */,
+				0039E9E5106813C4000F8CEE /* sync.sh in Resources */,
+				000FDCB5106A698B00301825 /* command.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
