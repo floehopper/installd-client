@@ -8,4 +8,6 @@
 * namespace all classes in Installd module
 * make "require" mechanism consistent and robust
 * ensure that starting via launchctl doesn't conflict with scheduled runs
+* use launchctl enable/disable flag instead of load/unload?
 * make all logging consistent
+* rakefile builds
