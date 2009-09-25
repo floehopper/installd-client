@@ -63,7 +63,7 @@
    SecTrustedApplicationRef myself, someOther;
    //Create trusted application references; see SecTrustedApplications.h:
    err = SecTrustedApplicationCreateFromPath(NULL, &myself);
-   err = SecTrustedApplicationCreateFromPath([otherAppPath cString], &someOther);
+   err = SecTrustedApplicationCreateFromPath([otherAppPath UTF8String], &someOther);
    trustedApplications = [NSArray arrayWithObjects:(id)myself,
                           (id)someOther, nil];
    //Create an access object:
