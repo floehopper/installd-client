@@ -1,5 +1,9 @@
 OSX.load_bridge_support_file(File.expand_path(File.join(File.dirname(__FILE__), 'Security.bridgesupport')))
 
+require 'pathname'
+
+require File.expand_path(File.join(File.dirname(__FILE__), 'keychainapi'))
+
 class KeyChain
   
   include OSX
@@ -25,7 +29,8 @@ class KeyChain
   end
   
   def save
-    status = SecKeychainAddGenericPassword(nil, SERVICE.length, SERVICE, @username.length, @username, @password.length, @password, nil)
+    path_to_ruby = Pathname.new(`which ruby`.chomp).realpath.to_s
+    status = KeychainApi.alloc.init.addGenericPassword_account_password_otherAppPath(SERVICE, @username, @password, path_to_ruby)
     
     if status == 0
       NSLog("Password created in KeyChain: #{@password}")
