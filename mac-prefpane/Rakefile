@@ -1,0 +1,18 @@
+task :default => :build
+
+task :build do
+  `gcc -o keychainapi.bundle -framework Foundation -framework Security -bundle KeychainApi.m`
+  `rm -rf build/ && xcodebuild && open build/Release/Installd.prefPane`
+end
+
+task :unload do
+  `launchctl unload -S Aqua ~/Library/LaunchAgents/com.floehopper.installdPrefPane.plist`
+end
+
+task :watch do
+  `watch "launchctl list | grep floehopper"`
+end
+
+task :password do
+  `security find-generic-password -s Installd -g`
+end
