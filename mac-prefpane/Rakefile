@@ -1,6 +1,11 @@
 require "choctop"
 
 ChocTop.new do |s|
+  class << s
+    def configure_applications_icon; end
+    def configure_dmg_window; end
+  end
+  s.target = 'Installd.prefpane'
   if ENV['LOCAL']
     s.host = 'localhost'
     s.remote_dir = '/Users/jamesmead/WebApps/installd/public/system/sparkle/'
@@ -14,40 +19,40 @@ ChocTop.new do |s|
   end
 end
 
-def execute(command)
-  puts(command)
-  puts(`#{command} 2>&1`)
-  unless $?.success?
-    message = "Error executing command: #{command}"
-    puts(message)
-    raise message
-  end
-end
-
-task :default => :run
-
-task :clean do
-  execute('rm keychainapi.bundle')
-  execute('rm -rf build')
-end
-
-task :build => :clean do
-  execute('gcc -o keychainapi.bundle -framework Foundation -framework Security -bundle KeychainApi.m')
-  execute('xcodebuild')
-end
-
-task :run => :build do
-  execute('open build/Release/Installd.prefPane')
-end
-
-task :unload do
-  `launchctl unload -S Aqua ~/Library/LaunchAgents/com.floehopper.installdPrefPane.plist`
-end
-
-task :watch do
-  `watch "launchctl list | grep floehopper"`
-end
-
-task :password do
-  `security find-generic-password -s Installd -g`
-end
+# def execute(command)
+#   puts(command)
+#   puts(`#{command} 2>&1`)
+#   unless $?.success?
+#     message = "Error executing command: #{command}"
+#     puts(message)
+#     raise message
+#   end
+# end
+# 
+# task :default => :run
+# 
+# task :clean do
+#   execute('rm keychainapi.bundle')
+#   execute('rm -rf build')
+# end
+# 
+# task :build => :clean do
+#   execute('gcc -o keychainapi.bundle -framework Foundation -framework Security -bundle KeychainApi.m')
+#   execute('xcodebuild')
+# end
+# 
+# task :run => :build do
+#   execute('open build/Release/Installd.prefPane')
+# end
+# 
+# task :unload do
+#   `launchctl unload -S Aqua ~/Library/LaunchAgents/com.floehopper.installdPrefPane.plist`
+# end
+# 
+# task :watch do
+#   `watch "launchctl list | grep floehopper"`
+# end
+# 
+# task :password do
+#   `security find-generic-password -s Installd -g`
+# end
