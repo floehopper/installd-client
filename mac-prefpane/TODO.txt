@@ -1,16 +1,11 @@
-* key chain problems - sync.sh cannot seem to access password when launched by launchctl.
 * should ruby files be added as "Classes" or "Other Source" or something else in XCode?
-* sparkle-ify
 * enable / disable scheduled sync
 * scheduled sync should be every 24 hours
 * update "last sync time" on gui
-* extract launchctl logic into class
 * namespace all classes in Installd module
 * make "require" mechanism consistent and robust
 * ensure that starting via launchctl doesn't conflict with scheduled runs
 * use launchctl enable/disable flag instead of load/unload?
 * make all logging consistent
 * rakefile builds
-* choctop?
-* remove private key from git repos and ignore it
 * use NSDictionary.dictionaryWithContentsOfFile(File.expand_path(info_plist_path))
