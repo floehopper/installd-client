@@ -11,3 +11,6 @@
 * use launchctl enable/disable flag instead of load/unload?
 * make all logging consistent
 * rakefile builds
+* choctop?
+* remove private key from git repos and ignore it
+* use NSDictionary.dictionaryWithContentsOfFile(File.expand_path(info_plist_path))

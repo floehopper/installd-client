@@ -1,3 +1,19 @@
+require "choctop"
+
+ChocTop.new do |s|
+  if ENV['LOCAL']
+    s.host = 'localhost'
+    s.remote_dir = '/Users/jamesmead/WebApps/installd/public/system/sparkle/'
+    s.rsync_args = "-aCv --progress"
+    s.base_url = "http://installd.local/system/sparkle"
+  else
+    s.host = 'installd.com'
+    s.remote_dir = '/var/rails/installd/shared/system/sparkle/'
+    s.rsync_args = "-aCv --progress --rsh='ssh -p35353'"
+    s.base_url = "http://installd.com/system/sparkle"
+  end
+end
+
 def execute(command)
   puts(command)
   puts(`#{command} 2>&1`)
@@ -35,4 +51,3 @@ end
 task :password do
   `security find-generic-password -s Installd -g`
 end
-

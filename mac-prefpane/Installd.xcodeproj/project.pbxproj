@@ -16,6 +16,9 @@
 		0039E9C010679747000F8CEE /* sync.rb in Resources */ = {isa = PBXBuildFile; fileRef = 0039E9BF10679747000F8CEE /* sync.rb */; };
 		0039E9C3106797A0000F8CEE /* sync_connection.rb in Resources */ = {isa = PBXBuildFile; fileRef = 0039E9C2106797A0000F8CEE /* sync_connection.rb */; };
 		0039E9E5106813C4000F8CEE /* sync.sh in Resources */ = {isa = PBXBuildFile; fileRef = 0039E9E4106813C4000F8CEE /* sync.sh */; };
+		00650C4B106E52AE00589DE3 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00650C4A106E52AE00589DE3 /* Sparkle.framework */; };
+		00650C61106E542200589DE3 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 00650C4A106E52AE00589DE3 /* Sparkle.framework */; };
+		00650C87106E739000589DE3 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 00650C86106E739000589DE3 /* dsa_pub.pem */; };
 		00D9069C106CF06E008138EB /* keychainapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 00D9069B106CF06E008138EB /* keychainapi.bundle */; };
 		00F04EE7106CC600009E5DDF /* KeychainApi.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F04EE5106CC600009E5DDF /* KeychainApi.h */; };
 		00F04EE8106CC600009E5DDF /* KeychainApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F04EE6106CC600009E5DDF /* KeychainApi.m */; };
@@ -31,6 +34,20 @@
 		9648B5F00D195C2F00DC73E2 /* Pref.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9648B5EE0D195C2F00DC73E2 /* Pref.xib */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		00650C5E106E530400589DE3 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				00650C61106E542200589DE3 /* Sparkle.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		000FDCB4106A698B00301825 /* command.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = command.rb; sourceTree = "<group>"; };
 		000FDCB6106A7E7100301825 /* key_chain.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = key_chain.rb; sourceTree = "<group>"; };
@@ -41,6 +58,8 @@
 		0039E9BF10679747000F8CEE /* sync.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sync.rb; sourceTree = "<group>"; };
 		0039E9C2106797A0000F8CEE /* sync_connection.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sync_connection.rb; sourceTree = "<group>"; };
 		0039E9E4106813C4000F8CEE /* sync.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = sync.sh; sourceTree = "<group>"; };
+		00650C4A106E52AE00589DE3 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		00650C86106E739000589DE3 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		00D9069B106CF06E008138EB /* keychainapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = keychainapi.bundle; sourceTree = "<group>"; };
 		00F04EE5106CC600009E5DDF /* KeychainApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainApi.h; sourceTree = "<group>"; };
 		00F04EE6106CC600009E5DDF /* KeychainApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainApi.m; sourceTree = "<group>"; };
@@ -69,6 +88,7 @@
 				8D202CF40486D31800D8A456 /* PreferencePanes.framework in Frameworks */,
 				9648B5E80D195BC700DC73E2 /* RubyCocoa.framework in Frameworks */,
 				00F04FCA106CDFE4009E5DDF /* Security.framework in Frameworks */,
+				00650C4B106E52AE00589DE3 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +120,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				00650C86106E739000589DE3 /* dsa_pub.pem */,
 				00D9069B106CF06E008138EB /* keychainapi.bundle */,
 				0039E9B6106790E4000F8CEE /* Security.bridgesupport */,
 				9648B5EE0D195C2F00DC73E2 /* Pref.xib */,
@@ -131,6 +152,7 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				00650C4A106E52AE00589DE3 /* Sparkle.framework */,
 				9648B5E70D195BC700DC73E2 /* RubyCocoa.framework */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
 				F506C035013D953901CA16C8 /* PreferencePanes.framework */,
@@ -188,6 +210,7 @@
 				8D202CF00486D31800D8A456 /* Sources */,
 				8D202CF20486D31800D8A456 /* Frameworks */,
 				8D202CF50486D31800D8A456 /* Rez */,
+				00650C5E106E530400589DE3 /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -235,6 +258,7 @@
 				000FDCB9106A7E7100301825 /* settings.rb in Resources */,
 				000FDCBB106A882100301825 /* launch_agent.rb in Resources */,
 				00D9069C106CF06E008138EB /* keychainapi.bundle in Resources */,
+				00650C87106E739000589DE3 /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +310,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -304,6 +332,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Installd_Prefix.pch;

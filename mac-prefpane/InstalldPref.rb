@@ -15,6 +15,17 @@ class PrefPaneInstalld < NSPreferencePane
   ib_outlet :password
   ib_outlet :iTunesDirectory
   ib_outlet :lastSyncStatus
+  ib_outlet :checkForUpdates
+  
+  def awakeFromNib
+    NSLog("PrefPaneInstalld: awakeFromNib")
+    NSLog(bundle.bundleIdentifier)
+    @updater = SUUpdater.updaterForBundle(bundle)
+    @updater.setAutomaticallyChecksForUpdates(true)
+    @updater.resetUpdateCycle
+    @checkForUpdates.target = @updater
+    @checkForUpdates.action = "checkForUpdates:"
+  end
   
   def mainViewDidLoad
     NSLog("PrefPaneInstalld: mainViewDidLoad")
