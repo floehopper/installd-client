@@ -9,3 +9,5 @@
 * make all logging consistent
 * rakefile builds
 * use NSDictionary.dictionaryWithContentsOfFile(File.expand_path(info_plist_path))
+* only read/write the bits of preferences/keychain that we need to
+* think about when things should happen e.g. awakeFromNib vs mainViewDidLoad
