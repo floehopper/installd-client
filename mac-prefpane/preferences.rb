@@ -8,6 +8,10 @@ class Preferences
   
   def initialize(bundle_identifier)
     @bundle_identifier = bundle_identifier
+    load
+  end
+  
+  def load
     @username = get_value('username', '')
     @itunes_directory = get_value('itunes_directory', File.join(ENV['HOME'], 'Music', 'iTunes'))
     @last_sync_status = get_value('last_sync_status', '')
@@ -31,7 +35,11 @@ class Preferences
   end
   
   def synchronize
-    CFPreferencesSynchronize(@bundle_identifier, KCFPreferencesCurrentUser, KCFPreferencesAnyHost)
+    if CFPreferencesSynchronize(@bundle_identifier, KCFPreferencesCurrentUser, KCFPreferencesAnyHost)
+      NSLog("Preferences#synchronize succeeded for #{@bundle_identifier}")
+    else
+      NSLog("Preferences#synchronize failed for #{@bundle_identifier}")
+    end
   end
   
 end
