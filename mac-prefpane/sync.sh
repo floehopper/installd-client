@@ -30,6 +30,15 @@ begin
     @settings.last_sync_status = "Sync failed #{timestamp}"
   end
   @settings.save
+  NSLog(@settings.last_sync_status)
+  
+  center = NSDistributedNotificationCenter.defaultCenter
+  center.postNotificationName_object_userInfo_deliverImmediately(
+    "InstalldSyncDidComplete",
+    bundle_identifier,
+    { 'status' => @settings.last_sync_status },
+    true
+  )
 rescue => exception
   NSLog("*** Sync failed with exception: #{exception} ***")
   exception.backtrace.each do |line|

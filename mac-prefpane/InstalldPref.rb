@@ -25,6 +25,22 @@ class PrefPaneInstalld < NSPreferencePane
     @updater.resetUpdateCycle
     @checkForUpdates.target = @updater
     @checkForUpdates.action = "checkForUpdates:"
+    
+    center = NSDistributedNotificationCenter.defaultCenter
+    center.addObserver_selector_name_object(
+      self,
+      "didCompleteSync:",
+      "InstalldSyncDidComplete",
+      bundle.bundleIdentifier
+    )
+  end
+  
+  def didCompleteSync(notification)
+    NSLog("PrefPaneInstalld: didCompleteSync")
+    user_info = notification.userInfo
+    if user_info && user_info['status']
+      @lastSyncStatus.stringValue = user_info['status']
+    end
   end
   
   def mainViewDidLoad
