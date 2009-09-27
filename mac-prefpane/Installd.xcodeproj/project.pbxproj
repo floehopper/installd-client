@@ -19,6 +19,7 @@
 		00650C4B106E52AE00589DE3 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00650C4A106E52AE00589DE3 /* Sparkle.framework */; };
 		00650C61106E542200589DE3 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 00650C4A106E52AE00589DE3 /* Sparkle.framework */; };
 		00650C87106E739000589DE3 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 00650C86106E739000589DE3 /* dsa_pub.pem */; };
+		00650CD5106FB99600589DE3 /* RubyCocoa.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 9648B5E70D195BC700DC73E2 /* RubyCocoa.framework */; };
 		00D9069C106CF06E008138EB /* keychainapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 00D9069B106CF06E008138EB /* keychainapi.bundle */; };
 		00F04EE7106CC600009E5DDF /* KeychainApi.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F04EE5106CC600009E5DDF /* KeychainApi.h */; };
 		00F04EE8106CC600009E5DDF /* KeychainApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F04EE6106CC600009E5DDF /* KeychainApi.m */; };
@@ -41,6 +42,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				00650CD5106FB99600589DE3 /* RubyCocoa.framework in Copy Frameworks */,
 				00650C61106E542200589DE3 /* Sparkle.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
@@ -110,7 +112,6 @@
 		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				00F04FC9106CDFE4009E5DDF /* Security.framework */,
 				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
 				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
 			);
@@ -152,6 +153,7 @@
 		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				00F04FC9106CDFE4009E5DDF /* Security.framework */,
 				00650C4A106E52AE00589DE3 /* Sparkle.framework */,
 				9648B5E70D195BC700DC73E2 /* RubyCocoa.framework */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
