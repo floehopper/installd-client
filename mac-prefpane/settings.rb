@@ -24,6 +24,11 @@ class Settings
     @key_chain = KeyChain.new(@preferences.username)
   end
   
+  def load
+    @preferences.load
+    @key_chain.load
+  end
+  
   def save
     @preferences.save
     @key_chain.save
