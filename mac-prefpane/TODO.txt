@@ -1,6 +1,6 @@
 * enable / disable scheduled sync
 * scheduled sync should be every 24 hours
-* make "require" mechanism consistent and robust
+* make "require" mechanism robust
 * ensure that starting via launchctl doesn't conflict with scheduled runs
 * use launchctl enable/disable flag instead of load/unload?
 * make all logging consistent

@@ -2,10 +2,8 @@ require 'osx/cocoa'
 
 OSX.require_framework 'PreferencePanes'
 
-require 'settings'
-require 'launch_agent'
-require 'sync'
-require 'sync_connection'
+require File.expand_path(File.join(File.dirname(__FILE__), 'settings'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'launch_agent'))
 
 class PrefPaneInstalld < OSX::NSPreferencePane
   
