@@ -1,8 +1,6 @@
-* should ruby files be added as "Classes" or "Other Source" or something else in XCode?
+* namespace all classes in Installd module
 * enable / disable scheduled sync
 * scheduled sync should be every 24 hours
-* update "last sync time" on gui
-* namespace all classes in Installd module
 * make "require" mechanism consistent and robust
 * ensure that starting via launchctl doesn't conflict with scheduled runs
 * use launchctl enable/disable flag instead of load/unload?
@@ -12,3 +10,4 @@
 * only read/write the bits of preferences/keychain that we need to
 * think about when things should happen e.g. awakeFromNib vs mainViewDidLoad
 * think about notification when there is an exception in sync
+* extract most of sync.sh into a class/file
