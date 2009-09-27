@@ -5,15 +5,15 @@ require 'osx/cocoa'
 include OSX
 
 require File.expand_path(File.join(File.dirname(__FILE__), 'settings'))
-require File.expand_path(File.join(File.dirname(__FILE__), 'sync'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'iphone_apps'))
 require File.expand_path(File.join(File.dirname(__FILE__), 'sync_connection'))
 
 bundle_identifier = 'com.floehopper.installdPrefPane'
 @settings = Installd::Settings.new(bundle_identifier)
 
 begin
-  sync = Installd::Sync.new(@settings.itunes_directory)
-  doc = sync.extract_data
+  iphone_apps = Installd::IphoneApps.new(@settings.itunes_directory)
+  doc = iphone_apps.extract_data
   timestamp = Time.now.getlocal.strftime('%H:%M %a %d %B')
   
   NSLog("*** Sync begins ***")

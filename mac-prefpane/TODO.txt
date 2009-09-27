@@ -1,4 +1,3 @@
-* namespace all classes in Installd module
 * enable / disable scheduled sync
 * scheduled sync should be every 24 hours
 * make "require" mechanism consistent and robust
