@@ -6,5 +6,5 @@
 
 static void __attribute__((constructor)) loadRubyPrefPane(void)
 {
-	RBBundleInit("InstalldPref.rb", [InstalldLoader class], nil);
+  RBBundleInit("installd_pref.rb", [InstalldLoader class], nil);
 }
