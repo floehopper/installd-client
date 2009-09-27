@@ -4,6 +4,7 @@ OSX.require_framework 'PreferencePanes'
 
 require File.expand_path(File.join(File.dirname(__FILE__), 'settings'))
 require File.expand_path(File.join(File.dirname(__FILE__), 'launch_agent'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'notifications'))
 
 class PrefPaneInstalld < OSX::NSPreferencePane
   
@@ -17,20 +18,15 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   
   def awakeFromNib
     NSLog("PrefPaneInstalld: awakeFromNib")
-    NSLog(bundle.bundleIdentifier)
+    
     @updater = SUUpdater.updaterForBundle(bundle)
     @updater.setAutomaticallyChecksForUpdates(true)
     @updater.resetUpdateCycle
     @checkForUpdates.target = @updater
     @checkForUpdates.action = "checkForUpdates:"
     
-    center = NSDistributedNotificationCenter.defaultCenter
-    center.addObserver_selector_name_object(
-      self,
-      "didCompleteSync:",
-      "InstalldSyncDidComplete",
-      bundle.bundleIdentifier
-    )
+    @notifications = Installd::Notifications.new(bundle.bundleIdentifier)
+    @notifications.register_for_sync_did_complete(self, "didCompleteSync:")
   end
   
   def didCompleteSync(notification)

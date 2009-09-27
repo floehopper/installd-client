@@ -7,6 +7,7 @@ include OSX
 require File.expand_path(File.join(File.dirname(__FILE__), 'settings'))
 require File.expand_path(File.join(File.dirname(__FILE__), 'iphone_apps'))
 require File.expand_path(File.join(File.dirname(__FILE__), 'sync_connection'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'notifications'))
 
 bundle_identifier = 'com.floehopper.installdPrefPane'
 settings = Installd::Settings.new(bundle_identifier)
@@ -32,10 +33,5 @@ end
 
 settings.save
 
-center = NSDistributedNotificationCenter.defaultCenter
-center.postNotificationName_object_userInfo_deliverImmediately(
-  "InstalldSyncDidComplete",
-  bundle_identifier,
-  { 'status' => settings.last_sync_status },
-  true
-)
+notifications = Installd::Notifications.new(bundle_identifier)
+notifications.sync_did_complete(settings.last_sync_status)
