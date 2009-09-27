@@ -16,6 +16,10 @@ class KeyChain
   
   def initialize(username)
     @username = username
+    load
+  end
+  
+  def load
     status, *data = SecKeychainFindGenericPassword(nil, SERVICE.length, SERVICE, @username.length, @username)
     if status == 0
       password_length = data.shift
