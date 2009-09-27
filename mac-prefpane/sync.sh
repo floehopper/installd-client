@@ -9,7 +9,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), 'sync'))
 require File.expand_path(File.join(File.dirname(__FILE__), 'sync_connection'))
 
 bundle_identifier = 'com.floehopper.installdPrefPane'
-@settings = Settings.new(bundle_identifier)
+@settings = Installd::Settings.new(bundle_identifier)
 
 begin
   sync = Installd::Sync.new(@settings.itunes_directory)
@@ -17,7 +17,7 @@ begin
   timestamp = Time.now.getlocal.strftime('%H:%M %a %d %B')
   
   NSLog("*** Sync begins ***")
-  @connection = SyncConnection.new
+  @connection = Installd::SyncConnection.new
   request = @connection.build_request(@settings.username, @settings.password, doc)
   data, response, error = NSURLConnection.sendSynchronousRequest_returningResponse_error(request)
   if error

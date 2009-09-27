@@ -1,7 +1,5 @@
 require 'osx/cocoa'
 
-include OSX
-
 OSX.require_framework 'PreferencePanes'
 
 require 'settings'
@@ -9,7 +7,9 @@ require 'launch_agent'
 require 'sync'
 require 'sync_connection'
 
-class PrefPaneInstalld < NSPreferencePane
+class PrefPaneInstalld < OSX::NSPreferencePane
+  
+  include OSX
   
   ib_outlet :username
   ib_outlet :password
@@ -45,11 +45,11 @@ class PrefPaneInstalld < NSPreferencePane
   
   def mainViewDidLoad
     NSLog("PrefPaneInstalld: mainViewDidLoad")
-    @settings = Settings.new(bundle.bundleIdentifier)
+    @settings = Installd::Settings.new(bundle.bundleIdentifier)
     @username.stringValue = @settings.username
     @password.stringValue = @settings.password
     @iTunesDirectory.stringValue = @settings.itunes_directory
-    @launch_agent = LaunchAgent.new(bundle)
+    @launch_agent = Installd::LaunchAgent.new(bundle)
     @launch_agent.unload
     @launch_agent.write
     @launch_agent.load
