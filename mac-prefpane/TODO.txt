@@ -9,3 +9,4 @@
 * think about when things should happen e.g. awakeFromNib vs mainViewDidLoad
 * think about notification when there is an exception in sync
 * extract most of sync.sh into a class/file
+* fail fast/raise exception e.g. when preferences don't save
