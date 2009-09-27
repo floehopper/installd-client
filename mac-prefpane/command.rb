@@ -1,3 +1,5 @@
+require 'osx/cocoa'
+
 module Installd
 
   class Command

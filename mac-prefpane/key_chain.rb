@@ -1,3 +1,5 @@
+require 'osx/cocoa'
+
 OSX.load_bridge_support_file(File.expand_path(File.join(File.dirname(__FILE__), 'Security.bridgesupport')))
 
 require 'pathname'

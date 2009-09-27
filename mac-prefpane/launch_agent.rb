@@ -1,3 +1,5 @@
+require 'osx/cocoa'
+
 require File.expand_path(File.join(File.dirname(__FILE__), 'command'))
 
 module Installd

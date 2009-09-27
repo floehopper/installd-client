@@ -1,3 +1,5 @@
+require 'osx/cocoa'
+
 require 'cgi'
 require 'base64'
 
