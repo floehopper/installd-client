@@ -1,6 +1,5 @@
 * migrate preferences from old app?
 * enable / disable scheduled sync
-* scheduled sync should be every 24 hours
 * ensure that starting via launchctl doesn't conflict with scheduled runs
 * use launchctl enable/disable flag instead of load/unload?
 * make all logging consistent

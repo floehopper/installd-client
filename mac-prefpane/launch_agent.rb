@@ -12,7 +12,7 @@ module Installd
       @bundle_identifier = bundle.bundleIdentifier
       sync_script = bundle.pathForResource_ofType('sync', 'sh')
       @plist_path = File.join(ENV['HOME'], 'Library', 'LaunchAgents', "#{@bundle_identifier}.plist")
-      start_interval = 120
+      start_interval = 24 * 60 * 60
       @plist = %{
         <?xml version="1.0" encoding="UTF-8"?>
         <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
