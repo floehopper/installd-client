@@ -1,4 +1,5 @@
 * migrate preferences from old app?
+* make sync interval configurable
 * enable / disable scheduled sync
 * ensure that starting via launchctl doesn't conflict with scheduled runs
 * use launchctl enable/disable flag instead of load/unload?
