@@ -8,51 +8,59 @@ ChocTop.new do |s|
   s.target = 'Installd.prefpane'
   if ENV['LOCAL']
     s.host = 'localhost'
-    s.remote_dir = '/Users/jamesmead/WebApps/installd/public/system/sparkle/'
+    s.remote_dir = '/Users/jamesmead/WebApps/installd/public/system/prefpane-sparkle/'
     s.rsync_args = "-aCv --progress"
-    s.base_url = "http://installd.local/system/sparkle"
+    s.base_url = "http://installd.local/system/prefpane-sparkle"
   else
     s.host = 'installd.com'
-    s.remote_dir = '/var/rails/installd/shared/system/sparkle/'
+    s.remote_dir = '/var/rails/installd/shared/system/prefpane-sparkle/'
     s.rsync_args = "-aCv --progress --rsh='ssh -p35353'"
-    s.base_url = "http://installd.com/system/sparkle"
+    s.base_url = "http://installd.com/system/prefpane-sparkle"
   end
 end
 
-# def execute(command)
-#   puts(command)
-#   puts(`#{command} 2>&1`)
-#   unless $?.success?
-#     message = "Error executing command: #{command}"
-#     puts(message)
-#     raise message
-#   end
-# end
-# 
-# task :default => :run
-# 
-# task :clean do
-#   execute('rm keychainapi.bundle')
-#   execute('rm -rf build')
-# end
-# 
-# task :build => :clean do
-#   execute('gcc -o keychainapi.bundle -framework Foundation -framework Security -bundle KeychainApi.m')
-#   execute('xcodebuild')
-# end
-# 
-# task :run => :build do
-#   execute('open build/Release/Installd.prefPane')
-# end
-# 
-# task :unload do
-#   `launchctl unload -S Aqua ~/Library/LaunchAgents/com.floehopper.installdPrefPane.plist`
-# end
-# 
-# task :watch do
-#   `watch "launchctl list | grep floehopper"`
-# end
-# 
-# task :password do
-#   `security find-generic-password -s Installd -g`
-# end
+def execute(command)
+  puts(command)
+  puts(`#{command} 2>&1`)
+  unless $?.success?
+    message = "Error executing command: #{command}"
+    puts(message)
+    raise message
+  end
+end
+
+desc "Delete all build artifacts"
+task :clean do
+  execute('rm keychainapi.bundle')
+  execute('rm -rf build')
+end
+
+desc "Build keychainapi.bundle"
+task :build_bundle => :clean do
+  execute('gcc -o keychainapi.bundle -framework Foundation -framework Security -bundle KeychainApi.m')
+end
+
+choctop_build_task = Rake::Task[:build].prerequisites.first
+Rake::Task[choctop_build_task].enhance([:build_bundle])
+
+task :default => :run
+
+desc "Install and open preference pane"
+task :run => :build do
+  execute('open build/Release/Installd.prefPane')
+end
+
+desc "Unload Launch Agent to prevents syncs"
+task :unload do
+  `launchctl unload -S Aqua ~/Library/LaunchAgents/com.floehopper.installdPrefPane.plist`
+end
+
+desc "Launch Agent status display"
+task :watch do
+  `watch "launchctl list | grep floehopper"`
+end
+
+desc "Lookup password in keychain"
+task :password do
+  `security find-generic-password -s Installd -g`
+end
