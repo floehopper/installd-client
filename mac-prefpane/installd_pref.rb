@@ -33,8 +33,17 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   def didCompleteSync(notification)
     NSLog("PrefPaneInstalld: didCompleteSync")
     user_info = notification.userInfo
-    if user_info && user_info['status']
-      @lastSyncStatus.stringValue = user_info['status']
+    return unless user_info
+    return unless status = user_info['status']
+    displayLastSyncStatus(status)
+  end
+  
+  def displayLastSyncStatus(status)
+    @lastSyncStatus.stringValue = status
+    if status =~ /fail/i
+      @lastSyncStatus.textColor = NSColor.redColor
+    else
+      @lastSyncStatus.textColor = NSColor.disabledControlTextColor
     end
   end
   
@@ -44,7 +53,7 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     @username.stringValue = @settings.username
     @password.stringValue = @settings.password
     @iTunesDirectory.stringValue = @settings.itunes_directory
-    @lastSyncStatus.stringValue = @settings.last_sync_status
+    displayLastSyncStatus(@settings.last_sync_status)
     version = bundle.infoDictionary['CFBundleShortVersionString'] 
     @version.stringValue = version
     
