@@ -1,0 +1,4 @@
+h1. <span>2009-09-28</span> Release 0.0.1
+
+* Initial release of Preference Pane version.
+* Uses a Launch Agent for scheduled and user-initiated sync.
