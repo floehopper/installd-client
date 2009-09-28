@@ -1,12 +1,13 @@
+* migrate preferences from old app?
 * enable / disable scheduled sync
 * scheduled sync should be every 24 hours
 * ensure that starting via launchctl doesn't conflict with scheduled runs
 * use launchctl enable/disable flag instead of load/unload?
 * make all logging consistent
-* rakefile builds
 * use NSDictionary.dictionaryWithContentsOfFile(File.expand_path(info_plist_path))
 * only read/write the bits of preferences/keychain that we need to
 * think about when things should happen e.g. awakeFromNib vs mainViewDidLoad
 * think about notification when there is an exception in sync
 * extract most of sync.sh into a class/file
 * fail fast/raise exception e.g. when preferences don't save
+* use WatchPaths in launch agent to sync after iphone app installed (maybe combine with a check that last sync was at least x minutes ago)
