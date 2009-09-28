@@ -15,6 +15,7 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   ib_outlet :iTunesDirectory
   ib_outlet :lastSyncStatus
   ib_outlet :checkForUpdates
+  ib_outlet :version
   
   def awakeFromNib
     NSLog("PrefPaneInstalld: awakeFromNib")
@@ -43,6 +44,10 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     @username.stringValue = @settings.username
     @password.stringValue = @settings.password
     @iTunesDirectory.stringValue = @settings.itunes_directory
+    @lastSyncStatus.stringValue = @settings.last_sync_status
+    version = bundle.infoDictionary['CFBundleShortVersionString'] 
+    @version.stringValue = version
+    
     @launch_agent = Installd::LaunchAgent.new(bundle)
     @launch_agent.unload
     @launch_agent.write
