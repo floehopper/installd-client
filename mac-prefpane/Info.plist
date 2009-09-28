@@ -31,7 +31,7 @@
 	<key>NSPrincipalClass</key>
 	<string>PrefPaneInstalld</string>
 	<key>SUFeedURL</key>
-	<string>http://installd.com/system/sparkle/appcast.xml</string>
+	<string>http://installd.com/system/prefpane-sparkle/appcast.xml</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
 </dict>
