@@ -40,7 +40,7 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   
   def displayLastSyncStatus(status)
     @lastSyncStatus.stringValue = status
-    if status =~ /fail/i
+    if status.to_s =~ /fail/i
       @lastSyncStatus.textColor = NSColor.redColor
     else
       @lastSyncStatus.textColor = NSColor.disabledControlTextColor

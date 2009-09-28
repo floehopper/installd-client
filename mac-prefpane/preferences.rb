@@ -18,7 +18,7 @@ module Installd
     def load
       @username = get_value('username', '')
       @itunes_directory = get_value('itunes_directory', File.join(ENV['HOME'], 'Music', 'iTunes'))
-      @last_sync_status = get_value('last_sync_status', '')
+      @last_sync_status = get_value('last_sync_status', 'Not yet synced')
     end
   
     def save
