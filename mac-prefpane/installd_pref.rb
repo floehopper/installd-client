@@ -19,6 +19,10 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   
   def awakeFromNib
     NSLog("PrefPaneInstalld: awakeFromNib")
+  end
+  
+  def mainViewDidLoad
+    NSLog("PrefPaneInstalld: mainViewDidLoad")
     
     @updater = SUUpdater.updaterForBundle(bundle)
     @updater.setAutomaticallyChecksForUpdates(true)
@@ -28,34 +32,8 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     
     @notifications = Installd::Notifications.new(bundle.bundleIdentifier)
     @notifications.register_for_sync_did_complete(self, "didCompleteSync:")
-  end
-  
-  def didCompleteSync(notification)
-    NSLog("PrefPaneInstalld: didCompleteSync")
-    user_info = notification.userInfo
-    return unless user_info
-    return unless status = user_info['status']
-    displayLastSyncStatus(status)
-  end
-  
-  def displayLastSyncStatus(status)
-    @lastSyncStatus.stringValue = status
-    if status.to_s =~ /fail/i
-      @lastSyncStatus.textColor = NSColor.redColor
-    else
-      @lastSyncStatus.textColor = NSColor.disabledControlTextColor
-    end
-  end
-  
-  def mainViewDidLoad
-    NSLog("PrefPaneInstalld: mainViewDidLoad")
+    
     @settings = Installd::Settings.new(bundle.bundleIdentifier)
-    @username.stringValue = @settings.username
-    @password.stringValue = @settings.password
-    @iTunesDirectory.stringValue = @settings.itunes_directory
-    displayLastSyncStatus(@settings.last_sync_status)
-    version = bundle.infoDictionary['CFBundleShortVersionString'] 
-    @version.stringValue = version
     
     @launch_agent = Installd::LaunchAgent.new(bundle)
     @launch_agent.unload
@@ -65,6 +43,15 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   
   def willSelect
     NSLog("PrefPaneInstalld: willSelect")
+    
+    @settings.load
+    
+    @username.stringValue = @settings.username
+    @password.stringValue = @settings.password
+    @iTunesDirectory.stringValue = @settings.itunes_directory
+    displayLastSyncStatus(@settings.last_sync_status)
+    version = bundle.infoDictionary['CFBundleShortVersionString'] 
+    @version.stringValue = version
   end
   
   def didSelect
@@ -78,7 +65,7 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   
   def willUnselect
     NSLog("PrefPaneInstalld: willUnselect")
-    save
+    @settings.save
   end
   
   def didUnselect
@@ -87,7 +74,9 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   
   ib_action :syncNow do |sender|
     NSLog("PrefPaneInstalld: syncNow")
-    save
+    updateUsername(self)
+    updatePassword(self)
+    @settings.save
     @launch_agent.start
   end
   
@@ -99,20 +88,41 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     panel.beginSheetForDirectory_file_types_modalForWindow_modalDelegate_didEndSelector_contextInfo(@settings.itunes_directory, nil, nil, nil, self, 'openPanelDidEnd', nil)
   end
   
+  ib_action :updateUsername do |sender|
+    NSLog("PrefPaneInstalld: updateUsername")
+    @settings.username = @username.stringValue.to_s
+  end
+  
+  ib_action :updatePassword do |sender|
+    NSLog("PrefPaneInstalld: updatePassword")
+    @settings.password = @password.stringValue.to_s
+  end
+  
   def openPanelDidEnd(panel, returnCode, contextInfo = nil)
     NSLog("PrefPaneInstalld: openPanelDidEnd")
     if returnCode == NSOKButton
       @iTunesDirectory.stringValue = panel.directory
+      @settings.itunes_directory = panel.directory
     end
   end
   
-  private
+  def didCompleteSync(notification)
+    NSLog("PrefPaneInstalld: didCompleteSync")
+    user_info = notification.userInfo
+    return unless user_info
+    return unless status = user_info['status']
+    @settings.last_sync_status = status
+    displayLastSyncStatus(status)
+  end
   
-  def save
-    @settings.username = @username.stringValue.to_s
-    @settings.password = @password.stringValue.to_s
-    @settings.itunes_directory = @iTunesDirectory.stringValue.to_s
-    @settings.save
+  def displayLastSyncStatus(status)
+    NSLog("PrefPaneInstalld: displayLastSyncStatus")
+    @lastSyncStatus.stringValue = status
+    if status.to_s =~ /fail/i
+      @lastSyncStatus.textColor = NSColor.redColor
+    else
+      @lastSyncStatus.textColor = NSColor.disabledControlTextColor
+    end
   end
   
 end

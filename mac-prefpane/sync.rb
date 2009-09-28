@@ -14,6 +14,7 @@ module Installd
     def execute
       bundle_identifier = 'com.floehopper.installdPrefPane'
       settings = Settings.new(bundle_identifier)
+      settings.load
       
       begin
         iphone_apps = IphoneApps.new(settings.itunes_directory)
@@ -25,19 +26,17 @@ module Installd
         connection.synchronize(data)
         NSLog("*** Sync ends ***")
         
-        settings.last_sync_status = "Last synced #{timestamp}"
+        status = "Last synced #{timestamp}"
       rescue => exception
-        settings.last_sync_status = "Sync failed #{timestamp}"
+        status = "Sync failed #{timestamp}"
         NSLog("*** Sync failed with exception: #{exception} ***")
         exception.backtrace.each do |line|
           NSLog("  #{line}")
         end
       end
       
-      settings.save
-      
       notifications = Notifications.new(bundle_identifier)
-      notifications.sync_did_complete(settings.last_sync_status)
+      notifications.sync_did_complete(status)
     end
     
   end
