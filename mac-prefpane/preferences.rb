@@ -31,15 +31,15 @@ module Installd
     private
   
     def get_value(key, default)
-      (CFPreferencesCopyValue(key, @bundle_identifier, KCFPreferencesCurrentUser, KCFPreferencesAnyHost) || default).to_s
+      (CFPreferencesCopyAppValue(key, @bundle_identifier) || default).to_s
     end
   
     def set_value(key, value)
-      CFPreferencesSetValue(key, value, @bundle_identifier, KCFPreferencesCurrentUser, KCFPreferencesAnyHost)
+      CFPreferencesSetAppValue(key, value, @bundle_identifier)
     end
   
     def synchronize
-      if CFPreferencesSynchronize(@bundle_identifier, KCFPreferencesCurrentUser, KCFPreferencesAnyHost)
+      if CFPreferencesAppSynchronize(@bundle_identifier)
         NSLog("Preferences#synchronize succeeded for #{@bundle_identifier}")
       else
         NSLog("Preferences#synchronize failed for #{@bundle_identifier}")
