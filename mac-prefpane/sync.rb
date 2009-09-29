@@ -13,6 +13,10 @@ module Installd
     
     def execute
       bundle_identifier = 'com.floehopper.installdPrefPane'
+      
+      notifications = Notifications.new(bundle_identifier)
+      notifications.sync_did_begin
+      
       settings = Settings.new(bundle_identifier)
       settings.load
       
@@ -35,7 +39,6 @@ module Installd
         end
       end
       
-      notifications = Notifications.new(bundle_identifier)
       notifications.sync_did_complete(status)
     end
     

@@ -6,11 +6,21 @@ module Installd
     
     include OSX
     
+    SYNC_DID_BEGIN = "InstalldSyncDidBegin"
     SYNC_DID_COMPLETE = "InstalldSyncDidComplete"
     
     def initialize(bundle_identifier)
       @bundle_identifier = bundle_identifier
       @center = NSDistributedNotificationCenter.defaultCenter
+    end
+    
+    def register_for_sync_did_begin(observer, selector)
+      @center.addObserver_selector_name_object(
+        observer,
+        selector,
+        SYNC_DID_BEGIN,
+        @bundle_identifier
+      )
     end
     
     def register_for_sync_did_complete(observer, selector)
@@ -19,6 +29,15 @@ module Installd
         selector,
         SYNC_DID_COMPLETE,
         @bundle_identifier
+      )
+    end
+    
+    def sync_did_begin
+      @center.postNotificationName_object_userInfo_deliverImmediately(
+        SYNC_DID_BEGIN,
+        @bundle_identifier,
+        {},
+        true
       )
     end
     

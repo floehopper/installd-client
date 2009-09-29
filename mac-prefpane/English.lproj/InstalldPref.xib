@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="154"/>
+			<integer value="155"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -300,6 +300,16 @@
 												<reference key="NSTextColor" ref="782935184"/>
 											</object>
 										</object>
+										<object class="NSProgressIndicator" id="506593781">
+											<reference key="NSNextResponder" ref="510765015"/>
+											<int key="NSvFlags">1292</int>
+											<object class="NSPSMatrix" key="NSDrawMatrix"/>
+											<string key="NSFrame">{{115, 37}, {16, 16}}</string>
+											<reference key="NSSuperview" ref="510765015"/>
+											<int key="NSpiFlags">28938</int>
+											<double key="NSMinValue">1.600000e+01</double>
+											<double key="NSMaxValue">1.000000e+02</double>
+										</object>
 									</object>
 									<string key="NSFrame">{{1, 1}, {336, 69}}</string>
 									<reference key="NSSuperview" ref="12018293"/>
@@ -512,6 +522,22 @@
 					</object>
 					<int key="connectionID">159</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">sync_progress</string>
+						<reference key="source" ref="565115411"/>
+						<reference key="destination" ref="506593781"/>
+					</object>
+					<int key="connectionID">161</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">syncProgress</string>
+						<reference key="source" ref="565115411"/>
+						<reference key="destination" ref="506593781"/>
+					</object>
+					<int key="connectionID">162</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -683,6 +709,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="731634034"/>
 							<reference ref="189639341"/>
+							<reference ref="506593781"/>
 						</object>
 						<reference key="parent" ref="453226259"/>
 					</object>
@@ -767,6 +794,11 @@
 						<reference key="object" ref="1061249601"/>
 						<reference key="parent" ref="397246156"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">160</int>
+						<reference key="object" ref="506593781"/>
+						<reference key="parent" ref="12018293"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -809,6 +841,7 @@
 					<string>154.IBPluginDependency</string>
 					<string>155.IBPluginDependency</string>
 					<string>156.IBPluginDependency</string>
+					<string>160.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
 					<string>6.ImportedFromIB2</string>
 					<string>99.IBPluginDependency</string>
@@ -852,6 +885,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="5"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
@@ -876,7 +910,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">159</int>
+			<int key="maxID">162</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -921,11 +955,13 @@
 							<string>iTunesDirectory</string>
 							<string>lastSyncStatus</string>
 							<string>password</string>
+							<string>syncProgress</string>
 							<string>username</string>
 							<string>version</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>

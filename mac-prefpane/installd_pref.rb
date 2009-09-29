@@ -16,6 +16,7 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   ib_outlet :lastSyncStatus
   ib_outlet :checkForUpdates
   ib_outlet :version
+  ib_outlet :syncProgress
   
   def awakeFromNib
     NSLog("PrefPaneInstalld: awakeFromNib")
@@ -31,6 +32,7 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     @checkForUpdates.action = "checkForUpdates:"
     
     @notifications = Installd::Notifications.new(bundle.bundleIdentifier)
+    @notifications.register_for_sync_did_begin(self, "didBeginSync:")
     @notifications.register_for_sync_did_complete(self, "didCompleteSync:")
     
     @settings = Installd::Settings.new(bundle.bundleIdentifier)
@@ -106,8 +108,14 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     end
   end
   
+  def didBeginSync(notification)
+    NSLog("PrefPaneInstalld: didBeginSync")
+    @syncProgress.startAnimation(self)
+  end
+  
   def didCompleteSync(notification)
     NSLog("PrefPaneInstalld: didCompleteSync")
+    @syncProgress.stopAnimation(self)
     user_info = notification.userInfo
     return unless user_info
     return unless status = user_info['status']
