@@ -7,12 +7,14 @@ module Installd
   class LaunchAgent
   
     include OSX
-  
+    
+    START_INTERVAL = 24 * 60 * 60
+    NICE_INCREMENT = 10
+    
     def initialize(bundle)
       @bundle_identifier = bundle.bundleIdentifier
       sync_script = bundle.pathForResource_ofType('sync', 'sh')
       @plist_path = File.join(ENV['HOME'], 'Library', 'LaunchAgents', "#{@bundle_identifier}.plist")
-      start_interval = 24 * 60 * 60
       @plist = %{
         <?xml version="1.0" encoding="UTF-8"?>
         <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -25,7 +27,9 @@ module Installd
               <string>#{sync_script}</string>
             </array>
             <key>StartInterval</key>
-            <integer>#{start_interval}</integer>
+            <integer>#{START_INTERVAL}</integer>
+            <key>Nice</key>
+            <integer>#{NICE_INCREMENT}</integer>
           </dict>
         </plist>
       }
