@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="155"/>
+			<integer value="6"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -300,7 +300,7 @@
 												<reference key="NSTextColor" ref="782935184"/>
 											</object>
 										</object>
-										<object class="NSProgressIndicator" id="1025655929">
+										<object class="NSProgressIndicator" id="543391808">
 											<reference key="NSNextResponder" ref="510765015"/>
 											<int key="NSvFlags">1292</int>
 											<object class="NSPSMatrix" key="NSDrawMatrix"/>
@@ -507,26 +507,10 @@
 					<int key="connectionID">151</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">updateUsername:</string>
-						<reference key="source" ref="565115411"/>
-						<reference key="destination" ref="933844601"/>
-					</object>
-					<int key="connectionID">158</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">updatePassword:</string>
-						<reference key="source" ref="565115411"/>
-						<reference key="destination" ref="44641043"/>
-					</object>
-					<int key="connectionID">159</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">sync_progress</string>
 						<reference key="source" ref="565115411"/>
-						<reference key="destination" ref="1025655929"/>
+						<reference key="destination" ref="543391808"/>
 					</object>
 					<int key="connectionID">161</int>
 				</object>
@@ -534,7 +518,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">syncProgress</string>
 						<reference key="source" ref="565115411"/>
-						<reference key="destination" ref="1025655929"/>
+						<reference key="destination" ref="543391808"/>
 					</object>
 					<int key="connectionID">162</int>
 				</object>
@@ -717,7 +701,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="731634034"/>
 							<reference ref="189639341"/>
-							<reference ref="1025655929"/>
+							<reference ref="543391808"/>
 						</object>
 						<reference key="parent" ref="453226259"/>
 					</object>
@@ -804,7 +788,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">160</int>
-						<reference key="object" ref="1025655929"/>
+						<reference key="object" ref="543391808"/>
 						<reference key="parent" ref="12018293"/>
 					</object>
 				</object>

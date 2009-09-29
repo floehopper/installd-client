@@ -2,7 +2,8 @@ require 'osx/cocoa'
 
 OSX.require_framework 'PreferencePanes'
 
-require File.expand_path(File.join(File.dirname(__FILE__), 'settings'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'preferences'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'key_chain'))
 require File.expand_path(File.join(File.dirname(__FILE__), 'launch_agent'))
 require File.expand_path(File.join(File.dirname(__FILE__), 'notifications'))
 
@@ -18,6 +19,8 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   ib_outlet :version
   ib_outlet :syncProgress
   ib_outlet :syncNow
+  
+  OLD_APP_BUNDLE_IDENTIFIER = 'com.floehopper.installdApp'
   
   def awakeFromNib
     NSLog("PrefPaneInstalld: awakeFromNib")
@@ -36,25 +39,28 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     @notifications.register_for_sync_did_begin(self, "didBeginSync:")
     @notifications.register_for_sync_did_complete(self, "didCompleteSync:")
     
-    @settings = Installd::Settings.new(bundle.bundleIdentifier)
+    @preferences = Installd::Preferences.new(bundle.bundleIdentifier)
+    migrateOldPreferences unless @preferences.launched_before
     
     @launch_agent = Installd::LaunchAgent.new(bundle)
     @launch_agent.unload
     @launch_agent.write
     @launch_agent.load
+    
+    version = bundle.infoDictionary['CFBundleShortVersionString'] 
+    @version.stringValue = version
   end
   
   def willSelect
     NSLog("PrefPaneInstalld: willSelect")
     
-    @settings.load
+    @preferences.load
+    @username.stringValue = @preferences.username
+    @iTunesDirectory.stringValue = @preferences.itunes_directory
+    displayLastSyncStatus(@preferences.last_sync_status)
     
-    @username.stringValue = @settings.username
-    @password.stringValue = @settings.password
-    @iTunesDirectory.stringValue = @settings.itunes_directory
-    displayLastSyncStatus(@settings.last_sync_status)
-    version = bundle.infoDictionary['CFBundleShortVersionString'] 
-    @version.stringValue = version
+    key_chain = Installd::KeyChain.new(@preferences.username)
+    @password.stringValue = key_chain.password
   end
   
   def didSelect
@@ -68,7 +74,7 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   
   def willUnselect
     NSLog("PrefPaneInstalld: willUnselect")
-    @settings.save
+    savePreferencesAndKeyChain
   end
   
   def didUnselect
@@ -78,9 +84,7 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   ib_action :syncNow do |sender|
     NSLog("PrefPaneInstalld: syncNow")
     didBeginSync(nil)
-    updateUsername(self)
-    updatePassword(self)
-    @settings.save
+    savePreferencesAndKeyChain
     @launch_agent.start
   end
   
@@ -89,24 +93,13 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     panel = NSOpenPanel.openPanel
     panel.canChooseDirectories = true
     panel.canChooseFiles = false
-    panel.beginSheetForDirectory_file_types_modalForWindow_modalDelegate_didEndSelector_contextInfo(@settings.itunes_directory, nil, nil, nil, self, 'openPanelDidEnd', nil)
-  end
-  
-  ib_action :updateUsername do |sender|
-    NSLog("PrefPaneInstalld: updateUsername")
-    @settings.username = @username.stringValue.to_s
-  end
-  
-  ib_action :updatePassword do |sender|
-    NSLog("PrefPaneInstalld: updatePassword")
-    @settings.password = @password.stringValue.to_s
+    panel.beginSheetForDirectory_file_types_modalForWindow_modalDelegate_didEndSelector_contextInfo(@preferences.itunes_directory, nil, nil, nil, self, 'openPanelDidEnd', nil)
   end
   
   def openPanelDidEnd(panel, returnCode, contextInfo = nil)
     NSLog("PrefPaneInstalld: openPanelDidEnd")
     if returnCode == NSOKButton
       @iTunesDirectory.stringValue = panel.directory
-      @settings.itunes_directory = panel.directory
     end
   end
   
@@ -123,7 +116,6 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     user_info = notification.userInfo
     return unless user_info
     return unless status = user_info['status']
-    @settings.last_sync_status = status
     displayLastSyncStatus(status)
   end
   
@@ -135,6 +127,28 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     else
       @lastSyncStatus.textColor = NSColor.disabledControlTextColor
     end
+  end
+  
+  def savePreferencesAndKeyChain
+    NSLog("PrefPaneInstalld: savePreferencesAndKeyChain")
+    
+    @preferences.username = @username.stringValue.to_s
+    @preferences.itunes_directory = @iTunesDirectory.stringValue.to_s
+    @preferences.last_sync_status = @lastSyncStatus.stringValue.to_s
+    @preferences.save
+    
+    key_chain = Installd::KeyChain.new(@preferences.username)
+    key_chain.password = @password.stringValue.to_s
+    key_chain.save
+  end
+  
+  def migrateOldPreferences
+    NSLog("PrefPaneInstalld: migrateOldPreferences")
+    old_preferences = Installd::Preferences.new(OLD_APP_BUNDLE_IDENTIFIER)
+    @preferences.username = old_preferences.username
+    @preferences.itunes_directory = old_preferences.itunes_directory
+    @preferences.launched_before = true
+    @preferences.save
   end
   
 end
