@@ -1,11 +1,7 @@
-* add nice setting +10 to sync script
 * enable / disable scheduled sync
-* migrate preferences from old app?
 * make sync interval configurable
 * make all logging consistent
 * use NSDictionary.dictionaryWithContentsOfFile(File.expand_path(info_plist_path))
-* only read/write the bits of preferences/keychain that we need to
-* think about when things should happen e.g. awakeFromNib vs mainViewDidLoad
 * think about notification when there is an exception in sync
 * fail fast/raise exception e.g. when preferences don't save
 * fail fast/raise exception e.g. when launchd script fails?
