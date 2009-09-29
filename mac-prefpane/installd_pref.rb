@@ -74,7 +74,8 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   
   def willUnselect
     NSLog("PrefPaneInstalld: willUnselect")
-    savePreferencesAndKeyChain
+    savePreferences
+    saveKeyChain
   end
   
   def didUnselect
@@ -84,7 +85,8 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   ib_action :syncNow do |sender|
     NSLog("PrefPaneInstalld: syncNow")
     didBeginSync(nil)
-    savePreferencesAndKeyChain
+    savePreferences
+    saveKeyChain
     @launch_agent.start
   end
   
@@ -117,6 +119,7 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     return unless user_info
     return unless status = user_info['status']
     displayLastSyncStatus(status)
+    savePreferences
   end
   
   def displayLastSyncStatus(status)
@@ -129,14 +132,16 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     end
   end
   
-  def savePreferencesAndKeyChain
-    NSLog("PrefPaneInstalld: savePreferencesAndKeyChain")
-    
+  def savePreferences
+    NSLog("PrefPaneInstalld: savePreferences")
     @preferences.username = @username.stringValue.to_s
     @preferences.itunes_directory = @iTunesDirectory.stringValue.to_s
     @preferences.last_sync_status = @lastSyncStatus.stringValue.to_s
     @preferences.save
+  end
     
+  def saveKeyChain
+    NSLog("PrefPaneInstalld: saveKeyChain")
     key_chain = Installd::KeyChain.new(@preferences.username)
     key_chain.password = @password.stringValue.to_s
     key_chain.save
