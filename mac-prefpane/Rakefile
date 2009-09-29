@@ -33,6 +33,7 @@ desc "Delete all build artifacts"
 task :clean do
   execute('rm keychainapi.bundle')
   execute('rm -rf build')
+  execute('rm -rf appcast')
 end
 
 desc "Build keychainapi.bundle"
