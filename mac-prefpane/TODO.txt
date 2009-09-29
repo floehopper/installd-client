@@ -1,5 +1,4 @@
 * add nice setting +10 to sync script
-* sync in progress indicator
 * enable / disable scheduled sync
 * migrate preferences from old app?
 * make sync interval configurable
@@ -12,3 +11,4 @@
 * fail fast/raise exception e.g. when launchd script fails?
 * use WatchPaths in launch agent to sync after iphone app installed (maybe combine with a check that last sync was at least x minutes ago)
 * launchd script should send an NSDictionary with success and timestamp so observer can format time and do other presentational stuff. This means these dictionary values would need to be stored in preferences
+* extract launchd plist into ERB template file
