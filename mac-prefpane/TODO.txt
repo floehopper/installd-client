@@ -1,3 +1,4 @@
+* sync in progress indicator
 * enable / disable scheduled sync
 * migrate preferences from old app?
 * make sync interval configurable
