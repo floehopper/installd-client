@@ -1,14 +1,11 @@
+* enable / disable scheduled sync
 * migrate preferences from old app?
 * make sync interval configurable
-* enable / disable scheduled sync
-* ensure that starting via launchctl doesn't conflict with scheduled runs
-* use launchctl enable/disable flag instead of load/unload?
 * make all logging consistent
 * use NSDictionary.dictionaryWithContentsOfFile(File.expand_path(info_plist_path))
 * only read/write the bits of preferences/keychain that we need to
 * think about when things should happen e.g. awakeFromNib vs mainViewDidLoad
 * think about notification when there is an exception in sync
-* extract most of sync.sh into a class/file
 * fail fast/raise exception e.g. when preferences don't save
 * use WatchPaths in launch agent to sync after iphone app installed (maybe combine with a check that last sync was at least x minutes ago)
 * launchd script should send an NSDictionary with success and timestamp so observer can format time and do other presentational stuff. This means these dictionary values would need to be stored in preferences
