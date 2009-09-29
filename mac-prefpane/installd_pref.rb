@@ -17,6 +17,7 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   ib_outlet :checkForUpdates
   ib_outlet :version
   ib_outlet :syncProgress
+  ib_outlet :syncNow
   
   def awakeFromNib
     NSLog("PrefPaneInstalld: awakeFromNib")
@@ -76,6 +77,7 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   
   ib_action :syncNow do |sender|
     NSLog("PrefPaneInstalld: syncNow")
+    didBeginSync(nil)
     updateUsername(self)
     updatePassword(self)
     @settings.save
@@ -110,11 +112,13 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   
   def didBeginSync(notification)
     NSLog("PrefPaneInstalld: didBeginSync")
+    @syncNow.enabled = false
     @syncProgress.startAnimation(self)
   end
   
   def didCompleteSync(notification)
     NSLog("PrefPaneInstalld: didCompleteSync")
+    @syncNow.enabled = true
     @syncProgress.stopAnimation(self)
     user_info = notification.userInfo
     return unless user_info
