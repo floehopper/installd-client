@@ -32,12 +32,12 @@ module Installd
     end
   
     def load
-      Command.new(%{/bin/launchctl load -S Aqua #{@plist_path}}).execute
+      Command.new(%{/bin/launchctl load -w -S Aqua #{@plist_path}}).execute
     end
   
     def unload
       if File.exist?(@plist_path)
-        Command.new(%{/bin/launchctl unload -S Aqua #{@plist_path}}).execute
+        Command.new(%{/bin/launchctl unload -w -S Aqua #{@plist_path}}).execute
       end
     end
   
