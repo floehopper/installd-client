@@ -1,5 +1,3 @@
-h1. <span>2009-09-29</span> Release 0.0.1
+h1. <span>2009-09-30</span> Release 0.0.2
 
-* Initial release of Preference Pane version as requested by James Andrews.
-* Uses a Launch Agent for background scheduled and user-initiated sync.
-* Allows copy & paste in text fields as requested by Chris Roos.
+* Fixed a silly but rather catastrophic bug which meant the website was being told you didn't have any apps installed. Doh!
