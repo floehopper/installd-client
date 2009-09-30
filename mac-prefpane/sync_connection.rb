@@ -19,7 +19,7 @@ module Installd
       host = ENV['LOCAL'] ? "installd.local" : "installd.com"
       NSLog("Using host: #{host}")
     
-      params_hash = { '_method' => 'put', 'doc' => @doc }
+      params_hash = { '_method' => 'put', 'doc' => doc }
       params = params_hash.inject('') { |v,i| v << "#{i[0].to_s}=#{CGI.escape(i[1].to_s)}&"}.chop
       params_data = NSString.stringWithString(params).dataUsingEncoding(NSASCIIStringEncoding)
     
