@@ -1,3 +1,4 @@
+* check that it doesn't matter that we keep reloading launchd stuff every time system prefs app is started
 * enable / disable scheduled sync
 * make sync interval configurable
 * make all logging consistent
