@@ -4,7 +4,7 @@ OSX.load_bridge_support_file(File.expand_path(File.join(File.dirname(__FILE__), 
 
 require 'pathname'
 
-require File.expand_path(File.join(File.dirname(__FILE__), 'keychainapi'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'KeyChainAPI'))
 
 module Installd
 
