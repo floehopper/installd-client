@@ -1,3 +1,6 @@
-h1. <span>2009-09-30</span> Release 0.0.2
+h1. <span>2009-10-01</span> Release 0.0.3
 
-* Fixed a silly but rather catastrophic bug which meant the website was being told you didn't have any apps installed. Doh!
+* Attempt to fix problems seen on Snow Leopard
+  * Objective-C classes are no longer in separate bundle
+  * Preference Pane bundle is now a Universal 32-bit/64-bit Binary
+
