@@ -4,7 +4,7 @@ OSX.load_bridge_support_file(File.expand_path(File.join(File.dirname(__FILE__), 
 
 require 'pathname'
 
-require File.expand_path(File.join(File.dirname(__FILE__), 'KeyChainAPI'))
+OSX.ns_import 'KeyChainAPI'
 
 module Installd
 
@@ -38,7 +38,7 @@ module Installd
   
     def save
       path_to_ruby = Pathname.new(`/usr/bin/which ruby`.chomp).realpath.to_s
-      status = KeychainApi.alloc.init.addGenericPassword_account_password_otherAppPath(SERVICE, @username, @password, path_to_ruby)
+      status = KeyChainAPI.alloc.init.addGenericPassword_account_password_otherAppPath(SERVICE, @username, @password, path_to_ruby)
     
       if status == 0
         NSLog("Password created in KeyChain: #{@password}")

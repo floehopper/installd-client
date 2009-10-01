@@ -10,9 +10,8 @@
 		000FDCB5106A698B00301825 /* command.rb in Resources */ = {isa = PBXBuildFile; fileRef = 000FDCB4106A698B00301825 /* command.rb */; };
 		000FDCB8106A7E7100301825 /* key_chain.rb in Resources */ = {isa = PBXBuildFile; fileRef = 000FDCB6106A7E7100301825 /* key_chain.rb */; };
 		000FDCBB106A882100301825 /* launch_agent.rb in Resources */ = {isa = PBXBuildFile; fileRef = 000FDCBA106A882100301825 /* launch_agent.rb */; };
-		001B06ED1074CCDF00AD9B51 /* KeyChainAPI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 001B06EC1074CCDF00AD9B51 /* KeyChainAPI.bundle */; };
-		001B06FD1074CDDB00AD9B51 /* KeychainApi.h in Headers */ = {isa = PBXBuildFile; fileRef = 001B06FB1074CDDB00AD9B51 /* KeychainApi.h */; };
-		001B06FE1074CDDB00AD9B51 /* KeychainApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 001B06FC1074CDDB00AD9B51 /* KeychainApi.m */; };
+		001B076A1074F5A200AD9B51 /* KeyChainAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 001B07681074F5A200AD9B51 /* KeyChainAPI.h */; };
+		001B076B1074F5A200AD9B51 /* KeyChainAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 001B07691074F5A200AD9B51 /* KeyChainAPI.m */; };
 		0039E95C1064F2E0000F8CEE /* preferences.rb in Resources */ = {isa = PBXBuildFile; fileRef = 0039E95B1064F2E0000F8CEE /* preferences.rb */; };
 		0039E9B7106790E4000F8CEE /* Security.bridgesupport in Resources */ = {isa = PBXBuildFile; fileRef = 0039E9B6106790E4000F8CEE /* Security.bridgesupport */; };
 		0039E9C3106797A0000F8CEE /* sync_connection.rb in Resources */ = {isa = PBXBuildFile; fileRef = 0039E9C2106797A0000F8CEE /* sync_connection.rb */; };
@@ -55,9 +54,8 @@
 		000FDCB4106A698B00301825 /* command.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = command.rb; sourceTree = "<group>"; };
 		000FDCB6106A7E7100301825 /* key_chain.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = key_chain.rb; sourceTree = "<group>"; };
 		000FDCBA106A882100301825 /* launch_agent.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = launch_agent.rb; sourceTree = "<group>"; };
-		001B06EC1074CCDF00AD9B51 /* KeyChainAPI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; path = KeyChainAPI.bundle; sourceTree = "<group>"; };
-		001B06FB1074CDDB00AD9B51 /* KeychainApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainApi.h; sourceTree = "<group>"; };
-		001B06FC1074CDDB00AD9B51 /* KeychainApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainApi.m; sourceTree = "<group>"; };
+		001B07681074F5A200AD9B51 /* KeyChainAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyChainAPI.h; sourceTree = "<group>"; };
+		001B07691074F5A200AD9B51 /* KeyChainAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainAPI.m; sourceTree = "<group>"; };
 		0039E95B1064F2E0000F8CEE /* preferences.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = preferences.rb; sourceTree = "<group>"; };
 		0039E9B6106790E4000F8CEE /* Security.bridgesupport */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Security.bridgesupport; sourceTree = "<group>"; };
 		0039E9C2106797A0000F8CEE /* sync_connection.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sync_connection.rb; sourceTree = "<group>"; };
@@ -123,7 +121,6 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				001B06EC1074CCDF00AD9B51 /* KeyChainAPI.bundle */,
 				00650C86106E739000589DE3 /* dsa_pub.pem */,
 				0039E9B6106790E4000F8CEE /* Security.bridgesupport */,
 				9648B5EE0D195C2F00DC73E2 /* Pref.xib */,
@@ -137,8 +134,8 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				001B06FB1074CDDB00AD9B51 /* KeychainApi.h */,
-				001B06FC1074CDDB00AD9B51 /* KeychainApi.m */,
+				001B07681074F5A200AD9B51 /* KeyChainAPI.h */,
+				001B07691074F5A200AD9B51 /* KeyChainAPI.m */,
 				00650D6D1070DB7800589DE3 /* sync.rb */,
 				00650D6B106FD4E200589DE3 /* notifications.rb */,
 				00650D69106FC95800589DE3 /* iphone_apps.rb */,
@@ -199,7 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D202CEA0486D31800D8A456 /* Installd_Prefix.pch in Headers */,
-				001B06FD1074CDDB00AD9B51 /* KeychainApi.h in Headers */,
+				001B076A1074F5A200AD9B51 /* KeyChainAPI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,7 +261,6 @@
 				00650D6A106FC95800589DE3 /* iphone_apps.rb in Resources */,
 				00650D6C106FD4E200589DE3 /* notifications.rb in Resources */,
 				00650D6E1070DB7800589DE3 /* sync.rb in Resources */,
-				001B06ED1074CCDF00AD9B51 /* KeyChainAPI.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,7 +282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D202CF10486D31800D8A456 /* InstalldPref.m in Sources */,
-				001B06FE1074CDDB00AD9B51 /* KeychainApi.m in Sources */,
+				001B076B1074F5A200AD9B51 /* KeyChainAPI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

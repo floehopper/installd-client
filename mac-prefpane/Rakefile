@@ -31,18 +31,12 @@ end
 
 desc "Delete all build artifacts"
 task :clean do
-  execute('rm KeyChainAPI.bundle')
   execute('rm -rf build')
   execute('rm -rf appcast')
 end
 
-desc "Build KeyChainAPI.bundle"
-task :build_bundle => :clean do
-  execute('gcc -o KeyChainAPI.bundle -framework Foundation -framework Security -bundle KeychainApi.m')
-end
-
 choctop_build_task = Rake::Task[:build].prerequisites.first
-Rake::Task[choctop_build_task].enhance([:build_bundle])
+Rake::Task[choctop_build_task].enhance([:clean])
 
 task :default => :run
 

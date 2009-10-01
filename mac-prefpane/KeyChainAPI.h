@@ -2,7 +2,7 @@
 
 #include <Security/SecAccess.h>
 
-@interface KeychainApi : NSObject {
+@interface KeyChainAPI : NSObject {
 }
 
 -(OSStatus)addGenericPassword:(NSString*)service account:(NSString*)account password:(NSString*)password otherAppPath:(NSString*)otherAppPath;

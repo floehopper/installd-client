@@ -1,11 +1,11 @@
-#import "KeychainApi.h"
+#import "KeyChainAPI.h"
 
 #include <Security/SecKeychain.h>
 #include <Security/SecKeychainItem.h>
 #include <Security/SecTrustedApplication.h>
 #include <Security/SecACL.h>
   
-@implementation KeychainApi
+@implementation KeyChainAPI
 
 -(OSStatus)addGenericPassword:(NSString*)service account:(NSString*)account password:(NSString*)password otherAppPath:(NSString*)otherAppPath
 {
