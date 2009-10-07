@@ -1,3 +1,4 @@
+* do we need the Ruby module initialization function in KeyChainAPI.m?
 * status bar?
 * does auto check for updates happen when sys prefs is launched?
 * check that it doesn't matter that we keep reloading launchd stuff every time system prefs app is started
