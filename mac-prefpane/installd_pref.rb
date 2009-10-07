@@ -61,6 +61,9 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     
     version = bundle.infoDictionary['CFBundleShortVersionString'] 
     @version.stringValue = version
+    
+    @statusBarCheckbox.state = @preferences.status_bar_enabled ? NSOnState : NSOffState
+    toggleStatusBar(self)
   end
   
   def willSelect
@@ -159,6 +162,7 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     @preferences.username = @username.stringValue.to_s
     @preferences.itunes_directory = @iTunesDirectory.stringValue.to_s
     @preferences.last_sync_status = @lastSyncStatus.stringValue.to_s
+    @preferences.status_bar_enabled = (@statusBarCheckbox.state == NSOnState)
     @preferences.save
   end
     

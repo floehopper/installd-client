@@ -1,3 +1,4 @@
+* Sparkle prefs are still in com.floehopper.installdPrefPane.plist
 * LaunchAgent should take responsibility for working out whether task is already loaded - but we also need to ensure that new versions of the script get written to file - do we need to do all the same things in menu app as in pref pane app?
 * do we need the Ruby module initialization function in KeyChainAPI.m?
 * status bar?
