@@ -77,6 +77,8 @@
 
 @end
 
+// Note sure we need this now that we are not building a bundle
+
 // Ruby module initialization function
 // So we can build a bundle and use it from RubyCocoa
 void Init_keychainapi(){}
