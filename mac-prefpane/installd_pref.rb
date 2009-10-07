@@ -62,7 +62,7 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     version = bundle.infoDictionary['CFBundleShortVersionString'] 
     @version.stringValue = version
     
-    @statusBarCheckbox.state = @preferences.status_bar_enabled ? NSOnState : NSOffState
+    @statusBarCheckbox.state = (@preferences.status_bar_enabled ? NSOnState : NSOffState)
     toggleStatusBar(self)
   end
   
@@ -116,9 +116,11 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   ib_action :toggleStatusBar do |sender|
     NSLog("PrefPaneInstalld: toggleStatusBar")
     if @statusBarCheckbox.state == NSOnState
+      NSLog("PrefPaneInstalld: toggleStatusBar (enable)")
       @status_bar_agent.load
       @status_bar_agent.start
     else
+      NSLog("PrefPaneInstalld: toggleStatusBar (disable)")
       @status_bar_agent.unload
     end
   end
@@ -162,7 +164,7 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     @preferences.username = @username.stringValue.to_s
     @preferences.itunes_directory = @iTunesDirectory.stringValue.to_s
     @preferences.last_sync_status = @lastSyncStatus.stringValue.to_s
-    @preferences.status_bar_enabled = (@statusBarCheckbox.state == NSOnState)
+    @preferences.status_bar_enabled = (@statusBarCheckbox.state == NSOnState) ? true : false
     @preferences.save
   end
     
