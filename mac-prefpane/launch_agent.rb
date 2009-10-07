@@ -1,5 +1,7 @@
 require 'osx/cocoa'
 
+require 'erb'
+
 require File.expand_path(File.join(File.dirname(__FILE__), 'command'))
 
 module Installd
@@ -8,52 +10,47 @@ module Installd
   
     include OSX
     
-    START_INTERVAL = 24 * 60 * 60
-    NICE_INCREMENT = 10
+    attr_accessor :start_interval
+    attr_accessor :nice_increment
     
-    def initialize(bundle)
-      @bundle_identifier = bundle.bundleIdentifier
-      sync_script = bundle.pathForResource_ofType('sync', 'sh')
-      @plist_path = File.join(ENV['HOME'], 'Library', 'LaunchAgents', "#{@bundle_identifier}.plist")
-      @plist = %{
-        <?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-        <plist version="1.0">
-          <dict>
-            <key>Label</key>
-            <string>#{@bundle_identifier}</string>
-            <key>ProgramArguments</key>
-            <array>
-              <string>#{sync_script}</string>
-            </array>
-            <key>StartInterval</key>
-            <integer>#{START_INTERVAL}</integer>
-            <key>Nice</key>
-            <integer>#{NICE_INCREMENT}</integer>
-          </dict>
-        </plist>
-      }
+    def initialize(bundle_identifier, script_path)
+      @bundle_identifier, @script_path = bundle_identifier, script_path
+      yield self if block_given?
     end
-  
-    def load
-      Command.new(%{/bin/launchctl load -w -S Aqua #{@plist_path}}).execute
+    
+    def plist_path
+      File.join(ENV['HOME'], 'Library', 'LaunchAgents', "#{@bundle_identifier}.plist")
     end
-  
-    def unload
-      if File.exist?(@plist_path)
-        Command.new(%{/bin/launchctl unload -w -S Aqua #{@plist_path}}).execute
-      end
-    end
-  
-    def start
-      Command.new(%{/bin/launchctl start #{@bundle_identifier}}).execute
+    
+    def plist
+      template_path = File.expand_path('launch_agent_template.plist.erb', File.dirname(__FILE__))
+      template = File.open(template_path).read
+      erb = ERB.new(template)
+      erb.result(binding)
     end
   
     def write
       NSLog("Writing launch agent: #{@bundle_identifier}")
-      File.open(@plist_path, 'w') do |file|
-        file << @plist
+      File.open(plist_path, 'w') do |file|
+        file << plist
       end
+    end
+  
+    def load
+      NSLog("Loading launch agent: #{plist_path}")
+      Command.new(%{/bin/launchctl load -w -S Aqua #{plist_path}}).execute
+    end
+  
+    def unload
+      NSLog("Unloading launch agent: #{plist_path}")
+      if File.exist?(plist_path)
+        Command.new(%{/bin/launchctl unload -w -S Aqua #{plist_path}}).execute
+      end
+    end
+  
+    def start
+      NSLog("Starting launch agent: #{@bundle_identifier}")
+      Command.new(%{/bin/launchctl start #{@bundle_identifier}}).execute
     end
   
   end

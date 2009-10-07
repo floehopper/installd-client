@@ -19,8 +19,11 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   ib_outlet :version
   ib_outlet :syncProgress
   ib_outlet :syncNow
+  ib_outlet :statusBarCheckbox
   
   OLD_APP_BUNDLE_IDENTIFIER = 'com.floehopper.installdApp'
+  SYNC_BUNDLE_IDENTIFIER = 'com.floehopper.installdSync'
+  MENU_APP_BUNDLE_IDENTIFIER = 'com.floehopper.installdMenuApp'
   
   def awakeFromNib
     NSLog("PrefPaneInstalld: awakeFromNib")
@@ -35,17 +38,26 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     @checkForUpdates.target = @updater
     @checkForUpdates.action = "checkForUpdates:"
     
-    @notifications = Installd::Notifications.new(bundle.bundleIdentifier)
+    @notifications = Installd::Notifications.new(SYNC_BUNDLE_IDENTIFIER)
     @notifications.register_for_sync_did_begin(self, "didBeginSync:")
     @notifications.register_for_sync_did_complete(self, "didCompleteSync:")
     
-    @preferences = Installd::Preferences.new(bundle.bundleIdentifier)
+    @preferences = Installd::Preferences.new(SYNC_BUNDLE_IDENTIFIER)
     migrateOldPreferences unless @preferences.launched_before
     
-    @launch_agent = Installd::LaunchAgent.new(bundle)
-    @launch_agent.unload
-    @launch_agent.write
-    @launch_agent.load
+    sync_script = File.expand_path(File.join(File.dirname(__FILE__), 'sync.sh'))
+    @sync_agent = Installd::LaunchAgent.new(SYNC_BUNDLE_IDENTIFIER, sync_script) do |agent|
+      agent.start_interval = 24 * 60 * 60
+      agent.nice_increment = 10
+    end
+    @sync_agent.unload
+    @sync_agent.write
+    @sync_agent.load
+    
+    status_bar_app = File.expand_path(File.join(File.dirname(__FILE__), 'InstalldMenu.app', 'Contents', 'MacOS', 'InstalldMenu'))
+    @status_bar_agent = Installd::LaunchAgent.new(MENU_APP_BUNDLE_IDENTIFIER, status_bar_app)
+    @status_bar_agent.unload
+    @status_bar_agent.write
     
     version = bundle.infoDictionary['CFBundleShortVersionString'] 
     @version.stringValue = version
@@ -87,7 +99,7 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     didBeginSync(nil)
     savePreferences
     saveKeyChain
-    @launch_agent.start
+    @sync_agent.start
   end
   
   ib_action :chooseiTunesDirectory do |sender|
@@ -96,6 +108,16 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     panel.canChooseDirectories = true
     panel.canChooseFiles = false
     panel.beginSheetForDirectory_file_types_modalForWindow_modalDelegate_didEndSelector_contextInfo(@preferences.itunes_directory, nil, nil, nil, self, 'openPanelDidEnd', nil)
+  end
+  
+  ib_action :toggleStatusBar do |sender|
+    NSLog("PrefPaneInstalld: toggleStatusBar")
+    if @statusBarCheckbox.state == NSOnState
+      @status_bar_agent.load
+      @status_bar_agent.start
+    else
+      @status_bar_agent.unload
+    end
   end
   
   def openPanelDidEnd(panel, returnCode, contextInfo = nil)

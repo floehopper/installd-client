@@ -24,6 +24,7 @@
 		00650D6A106FC95800589DE3 /* iphone_apps.rb in Resources */ = {isa = PBXBuildFile; fileRef = 00650D69106FC95800589DE3 /* iphone_apps.rb */; };
 		00650D6C106FD4E200589DE3 /* notifications.rb in Resources */ = {isa = PBXBuildFile; fileRef = 00650D6B106FD4E200589DE3 /* notifications.rb */; };
 		00650D6E1070DB7800589DE3 /* sync.rb in Resources */ = {isa = PBXBuildFile; fileRef = 00650D6D1070DB7800589DE3 /* sync.rb */; };
+		008BBC6F107CDE54004ED2FE /* launch_agent_template.plist.erb in Resources */ = {isa = PBXBuildFile; fileRef = 008BBC6E107CDE54004ED2FE /* launch_agent_template.plist.erb */; };
 		00F04FCA106CDFE4009E5DDF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F04FC9106CDFE4009E5DDF /* Security.framework */; };
 		8D202CEA0486D31800D8A456 /* Installd_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 32DBCFA20370C41700C91783 /* Installd_Prefix.pch */; };
 		8D202CED0486D31800D8A456 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
@@ -66,6 +67,7 @@
 		00650D69106FC95800589DE3 /* iphone_apps.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = iphone_apps.rb; sourceTree = "<group>"; };
 		00650D6B106FD4E200589DE3 /* notifications.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = notifications.rb; sourceTree = "<group>"; };
 		00650D6D1070DB7800589DE3 /* sync.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sync.rb; sourceTree = "<group>"; };
+		008BBC6E107CDE54004ED2FE /* launch_agent_template.plist.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = launch_agent_template.plist.erb; sourceTree = "<group>"; };
 		00F04FC9106CDFE4009E5DDF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				008BBC6E107CDE54004ED2FE /* launch_agent_template.plist.erb */,
 				00650C86106E739000589DE3 /* dsa_pub.pem */,
 				0039E9B6106790E4000F8CEE /* Security.bridgesupport */,
 				9648B5EE0D195C2F00DC73E2 /* Pref.xib */,
@@ -261,6 +264,7 @@
 				00650D6A106FC95800589DE3 /* iphone_apps.rb in Resources */,
 				00650D6C106FD4E200589DE3 /* notifications.rb in Resources */,
 				00650D6E1070DB7800589DE3 /* sync.rb in Resources */,
+				008BBC6F107CDE54004ED2FE /* launch_agent_template.plist.erb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

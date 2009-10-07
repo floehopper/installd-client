@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string><%= @bundle_identifier %></string>
+    <key>ProgramArguments</key>
+    <array>
+      <string><%= @script_path %></string>
+    </array>
+    <% if @start_interval %>
+    <key>StartInterval</key>
+    <integer><%= @start_interval %></integer>
+    <% end %>
+    <% if @nice_increment %>
+    <key>Nice</key>
+    <integer><%= @nice_increment %></integer>
+    <% end %>
+  </dict>
+</plist>
