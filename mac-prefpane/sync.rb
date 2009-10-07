@@ -12,13 +12,13 @@ module Installd
     
     include OSX
     
+    SYNC_BUNDLE_IDENTIFIER = 'com.floehopper.installdSync'
+    
     def execute
-      bundle_identifier = 'com.floehopper.installdPrefPane'
-      
-      notifications = Notifications.new(bundle_identifier)
+      notifications = Notifications.new(SYNC_BUNDLE_IDENTIFIER)
       notifications.sync_did_begin
       
-      preferences = Preferences.new(bundle_identifier)
+      preferences = Preferences.new(SYNC_BUNDLE_IDENTIFIER)
       key_chain = KeyChain.new(preferences.username)
       
       begin
