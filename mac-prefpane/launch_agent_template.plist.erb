@@ -8,13 +8,21 @@
     <array>
       <string><%= @script_path %></string>
     </array>
+    <% unless @run_at_load.nil? %>
+      <key>RunAtLoad</key>
+      <% if @run_at_load %>
+        <true/>
+      <% else %>
+        <false/>
+      <% end %>
+    <% end %>
     <% if @start_interval %>
-    <key>StartInterval</key>
-    <integer><%= @start_interval %></integer>
+      <key>StartInterval</key>
+      <integer><%= @start_interval %></integer>
     <% end %>
     <% if @nice_increment %>
-    <key>Nice</key>
-    <integer><%= @nice_increment %></integer>
+      <key>Nice</key>
+      <integer><%= @nice_increment %></integer>
     <% end %>
   </dict>
 </plist>

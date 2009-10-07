@@ -12,6 +12,7 @@ module Installd
     
     attr_accessor :start_interval
     attr_accessor :nice_increment
+    attr_accessor :run_at_load
     
     def initialize(bundle_identifier, script_path)
       @bundle_identifier, @script_path = bundle_identifier, script_path

@@ -54,8 +54,11 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     @sync_agent.write
     @sync_agent.load
     
-    status_bar_app = File.expand_path(File.join(File.dirname(__FILE__), 'InstalldMenu.app', 'Contents', 'MacOS', 'InstalldMenu'))
-    @status_bar_agent = Installd::LaunchAgent.new(MENU_APP_BUNDLE_IDENTIFIER, status_bar_app)
+    status_bar_app_path = File.expand_path(File.join(File.dirname(__FILE__), 'InstalldMenu.app'))
+    status_bar_exe_path = File.expand_path(File.join(status_bar_app_path, 'Contents', 'MacOS', 'InstalldMenu'))
+    @status_bar_agent = Installd::LaunchAgent.new(MENU_APP_BUNDLE_IDENTIFIER, status_bar_exe_path) do |agent|
+      agent.run_at_load = true
+    end
     @status_bar_agent.unload
     @status_bar_agent.write
     
@@ -118,7 +121,6 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     if @statusBarCheckbox.state == NSOnState
       NSLog("PrefPaneInstalld: toggleStatusBar (enable)")
       @status_bar_agent.load
-      @status_bar_agent.start
     else
       NSLog("PrefPaneInstalld: toggleStatusBar (disable)")
       @status_bar_agent.unload
