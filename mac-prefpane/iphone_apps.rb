@@ -40,11 +40,11 @@ module Installd
       
           yield index if block_given?
         rescue => exception
-          NSLog("Exception handled: #{exception}")
+          NSLog("Installd::IphoneApps: Exception handled: #{exception}")
           exception.backtrace.each do |line|
             NSLog("  #{line}")
           end
-          NSLog("Skipping: #{file}")
+          NSLog("Installd::IphoneApps: Skipping: #{file}")
         end
       end
     

@@ -11,10 +11,11 @@ module Installd
     end
   
     def execute
-      NSLog(@command)
-      NSLog(`#{@command} 2>&1`)
+      NSLog("Installd::Command: #{@command}")
+      output = `#{@command} 2>&1`
+      NSLog("Installd::Command: #{output}")
       unless $?.success?
-        message = "Error executing command: #{@command}"
+        message = "Installd::Command: Error executing: #{@command}"
         NSLog(message)
         raise message
       end

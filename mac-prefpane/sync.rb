@@ -26,15 +26,15 @@ module Installd
         data = iphone_apps.extract_data
         timestamp = Time.now.getlocal.strftime('%H:%M %a %d %B')
         
-        NSLog("*** Sync begins ***")
+        NSLog("Installd::Sync: connection begins")
         connection = SyncConnection.new(preferences.username, key_chain.password)
         connection.synchronize(data)
-        NSLog("*** Sync ends ***")
+        NSLog("Installd::Sync: connection ends")
         
         status = "Last synced #{timestamp}"
       rescue => exception
         status = "Sync failed #{timestamp}"
-        NSLog("*** Sync failed with exception: #{exception} ***")
+        NSLog("Installd::Sync: failed with exception: #{exception}")
         exception.backtrace.each do |line|
           NSLog("  #{line}")
         end

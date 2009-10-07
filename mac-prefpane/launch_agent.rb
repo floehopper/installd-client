@@ -31,26 +31,26 @@ module Installd
     end
   
     def write
-      NSLog("Writing launch agent: #{@bundle_identifier}")
+      NSLog("Installd::LaunchAgent: Writing: #{@bundle_identifier}")
       File.open(plist_path, 'w') do |file|
         file << plist
       end
     end
   
     def load
-      NSLog("Loading launch agent: #{plist_path}")
+      NSLog("Installd::LaunchAgent: Loading: #{plist_path}")
       Command.new(%{/bin/launchctl load -w -S Aqua #{plist_path}}).execute
     end
   
     def unload
-      NSLog("Unloading launch agent: #{plist_path}")
+      NSLog("Installd::LaunchAgent: Unloading: #{plist_path}")
       if File.exist?(plist_path)
         Command.new(%{/bin/launchctl unload -w -S Aqua #{plist_path}}).execute
       end
     end
   
     def start
-      NSLog("Starting launch agent: #{@bundle_identifier}")
+      NSLog("Installd::LaunchAgent: Starting: #{@bundle_identifier}")
       Command.new(%{/bin/launchctl start #{@bundle_identifier}}).execute
     end
   

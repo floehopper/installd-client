@@ -119,10 +119,8 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   ib_action :toggleStatusBar do |sender|
     NSLog("PrefPaneInstalld: toggleStatusBar")
     if @statusBarCheckbox.state == NSOnState
-      NSLog("PrefPaneInstalld: toggleStatusBar (enable)")
       @status_bar_agent.load
     else
-      NSLog("PrefPaneInstalld: toggleStatusBar (disable)")
       @status_bar_agent.unload
     end
   end

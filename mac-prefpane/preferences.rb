@@ -18,6 +18,7 @@ module Installd
     end
   
     def load
+      NSLog("Installd::Preferences: load")
       @username = get_value('username', '').to_s
       @itunes_directory = get_value('itunes_directory', File.join(ENV['HOME'], 'Music', 'iTunes')).to_s
       @last_sync_status = get_value('last_sync_status', 'Not yet synced').to_s
@@ -26,12 +27,17 @@ module Installd
     end
   
     def save
+      NSLog("Installd::Preferences: save (#{@bundle_identifier})")
       set_value('username', @username)
       set_value('itunes_directory', @itunes_directory)
       set_value('last_sync_status', @last_sync_status)
       set_boolean_value('launched_before', @launched_before)
       set_boolean_value('status_bar_enabled', @status_bar_enabled)
-      synchronize
+      if synchronize
+        NSLog("Installd::Preferences: save succeeded")
+      else
+        NSLog("Installd::Preferences: save failed")
+      end
     end
   
     private
@@ -54,11 +60,7 @@ module Installd
     end
   
     def synchronize
-      if CFPreferencesAppSynchronize(@bundle_identifier)
-        NSLog("Preferences#synchronize succeeded for #{@bundle_identifier}")
-      else
-        NSLog("Preferences#synchronize failed for #{@bundle_identifier}")
-      end
+      CFPreferencesAppSynchronize(@bundle_identifier)
     end
   
   end
