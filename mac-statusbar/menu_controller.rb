@@ -18,7 +18,7 @@ class MenuController < OSX::NSObject
     @bundle = NSBundle.mainBundle
     
     @statusBar = NSStatusBar.systemStatusBar
-    @statusItem = @statusBar.statusItemWithLength(NSSquareStatusItemLength)
+    @statusItem = @statusBar.statusItemWithLength(24)
     @statusItem.setHighlightMode(true)
     @statusItem.setMenu(@menu)
     
