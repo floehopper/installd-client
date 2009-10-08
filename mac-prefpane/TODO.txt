@@ -1,3 +1,6 @@
+* launchctl compatibility with Tiger - do we actually need the -S option? try removing everything including keychain and trying without -S option
+* problem with Tiger not seeing classes from PreferencePane framework
+* rotate icon in status bar during sync
 * need to check Sparkle update works properly i.e. includes menu app
 * Sparkle prefs are still in com.floehopper.installdPrefPane.plist
 * LaunchAgent should take responsibility for working out whether task is already loaded - but we also need to ensure that new versions of the script get written to file - do we need to do all the same things in menu app as in pref pane app?
