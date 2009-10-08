@@ -51,7 +51,7 @@ class MenuController < OSX::NSObject
   
   ib_action :showPreferences do |sender|
     NSLog("InstalldMenu: showPreferences")
-    prefpane_path = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..', '..', 'Installd.prefpane'))
+    prefpane_path = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..', '..', '..', 'Installd.prefpane'))
     NSWorkspace.sharedWorkspace.openFile(prefpane_path)
   end
   
