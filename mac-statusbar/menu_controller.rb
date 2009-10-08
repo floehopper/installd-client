@@ -56,7 +56,8 @@ class MenuController < OSX::NSObject
   end
   
   ib_action :showWebsite do |sender|
-    NSWorkspace.sharedWorkspace.openURL(NSURL.URLWithString("http://installd.com/users/#{@preferences.username}"))
+    url = NSURL.URLWithString("http://installd.com/users/#{@preferences.username}")
+    NSWorkspace.sharedWorkspace.openURL(url)
   end
   
   def didBeginSync(notification)
