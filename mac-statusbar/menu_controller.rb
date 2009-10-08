@@ -55,6 +55,10 @@ class MenuController < OSX::NSObject
     NSWorkspace.sharedWorkspace.openFile(prefpane_path)
   end
   
+  ib_action :showWebsite do |sender|
+    NSWorkspace.sharedWorkspace.openURL(NSURL.URLWithString("http://installd.com/users/#{@preferences.username}"))
+  end
+  
   def didBeginSync(notification)
     NSLog("InstalldMenu: didBeginSync")
     @syncNowMenuItem.enabled = false

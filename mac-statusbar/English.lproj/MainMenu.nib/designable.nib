@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="384"/>
+			<integer value="388"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -56,7 +56,35 @@
 					</object>
 					<object class="NSMenuItem" id="991124406">
 						<reference key="NSMenu" ref="369245170"/>
-						<string key="NSTitle">Sync Now</string>
+						<string key="NSTitle">Sync now...</string>
+						<string key="NSKeyEquiv"/>
+						<int key="NSMnemonicLoc">2147483647</int>
+						<reference key="NSOnImage" ref="235269661"/>
+						<reference key="NSMixedImage" ref="2066374"/>
+					</object>
+					<object class="NSMenuItem" id="459234247">
+						<reference key="NSMenu" ref="369245170"/>
+						<bool key="NSIsDisabled">YES</bool>
+						<bool key="NSIsSeparator">YES</bool>
+						<string key="NSTitle"/>
+						<string key="NSKeyEquiv"/>
+						<int key="NSMnemonicLoc">2147483647</int>
+						<reference key="NSOnImage" ref="235269661"/>
+						<reference key="NSMixedImage" ref="2066374"/>
+					</object>
+					<object class="NSMenuItem" id="763179504">
+						<reference key="NSMenu" ref="369245170"/>
+						<string key="NSTitle">Installd Website...</string>
+						<string key="NSKeyEquiv"/>
+						<int key="NSMnemonicLoc">2147483647</int>
+						<reference key="NSOnImage" ref="235269661"/>
+						<reference key="NSMixedImage" ref="2066374"/>
+					</object>
+					<object class="NSMenuItem" id="400879178">
+						<reference key="NSMenu" ref="369245170"/>
+						<bool key="NSIsDisabled">YES</bool>
+						<bool key="NSIsSeparator">YES</bool>
+						<string key="NSTitle"/>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<reference key="NSOnImage" ref="235269661"/>
@@ -64,7 +92,7 @@
 					</object>
 					<object class="NSMenuItem" id="424457240">
 						<reference key="NSMenu" ref="369245170"/>
-						<string key="NSTitle">Preferences...</string>
+						<string key="NSTitle">Installd Preferences...</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<reference key="NSOnImage" ref="235269661"/>
@@ -120,6 +148,14 @@
 					</object>
 					<int key="connectionID">386</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showWebsite:</string>
+						<reference key="source" ref="636537331"/>
+						<reference key="destination" ref="763179504"/>
+					</object>
+					<int key="connectionID">390</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -157,6 +193,9 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="991124406"/>
 							<reference ref="878787225"/>
+							<reference ref="459234247"/>
+							<reference ref="400879178"/>
+							<reference ref="763179504"/>
 							<reference ref="424457240"/>
 						</object>
 						<reference key="parent" ref="1049"/>
@@ -181,6 +220,21 @@
 						<reference key="object" ref="424457240"/>
 						<reference key="parent" ref="369245170"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">387</int>
+						<reference key="object" ref="459234247"/>
+						<reference key="parent" ref="369245170"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">388</int>
+						<reference key="object" ref="763179504"/>
+						<reference key="parent" ref="369245170"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">389</int>
+						<reference key="object" ref="400879178"/>
+						<reference key="parent" ref="369245170"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -196,13 +250,19 @@
 					<string>377.IBPluginDependency</string>
 					<string>380.IBPluginDependency</string>
 					<string>384.IBPluginDependency</string>
+					<string>387.IBPluginDependency</string>
+					<string>388.IBPluginDependency</string>
+					<string>389.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilderKit</string>
 					<string>com.apple.InterfaceBuilderKit</string>
-					<string>{{21, 1059}, {147, 63}}</string>
+					<string>{{21, 1019}, {201, 103}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -230,7 +290,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">386</int>
+			<int key="maxID">390</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -243,10 +303,12 @@
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>showPreferences:</string>
+							<string>showWebsite:</string>
 							<string>syncNow:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
