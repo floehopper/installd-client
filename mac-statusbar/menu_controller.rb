@@ -22,10 +22,10 @@ class MenuController < OSX::NSObject
     @statusItem.setHighlightMode(true)
     @statusItem.setMenu(@menu)
     
-    @app_icon = NSImage.alloc.initWithContentsOfFile(@bundle.pathForResource_ofType('app', 'tiff'))
-    @app_alter_icon = NSImage.alloc.initWithContentsOfFile(@bundle.pathForResource_ofType('app_a', 'tiff'))
-    @error_icon = NSImage.alloc.initWithContentsOfFile(@bundle.pathForResource_ofType('error', 'tiff'))
-    @error_alter_icon = NSImage.alloc.initWithContentsOfFile(@bundle.pathForResource_ofType('error_a', 'tiff'))
+    @app_icon = NSImage.alloc.initWithContentsOfFile(@bundle.pathForResource_ofType('app', 'png'))
+    @app_alter_icon = NSImage.alloc.initWithContentsOfFile(@bundle.pathForResource_ofType('app_a', 'png'))
+    @error_icon = NSImage.alloc.initWithContentsOfFile(@bundle.pathForResource_ofType('error', 'png'))
+    @error_alter_icon = NSImage.alloc.initWithContentsOfFile(@bundle.pathForResource_ofType('error_a', 'png'))
     
     @notifications = Installd::Notifications.new('com.floehopper.installdSync')
     @notifications.register_for_sync_did_begin(self, "didBeginSync:")
