@@ -7,7 +7,6 @@
 * enable / disable scheduled sync
 * make sync interval configurable
 * use NSDictionary.dictionaryWithContentsOfFile(File.expand_path(info_plist_path))
-* think about notification when there is an exception in sync
 * fail fast/raise exception e.g. when preferences don't save
 * fail fast/raise exception e.g. when launchd script fails?
 * use WatchPaths in launch agent to sync after iphone app installed (maybe combine with a check that last sync was at least x minutes ago)

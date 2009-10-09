@@ -21,25 +21,23 @@ module Installd
       preferences = Preferences.new(SYNC_BUNDLE_IDENTIFIER)
       key_chain = KeyChain.new(preferences.username)
       
-      begin
-        iphone_apps = IphoneApps.new(preferences.itunes_directory)
-        data = iphone_apps.extract_data
-        timestamp = Time.now.getlocal.strftime('%H:%M %a %d %B')
-        
-        NSLog("Installd::Sync: connection begins")
-        connection = SyncConnection.new(preferences.username, key_chain.password)
-        connection.synchronize(data)
-        NSLog("Installd::Sync: connection ends")
-        
-        status = "Last synced #{timestamp}"
-      rescue => exception
-        status = "Sync failed #{timestamp}"
-        NSLog("Installd::Sync: failed with exception: #{exception}")
-        exception.backtrace.each do |line|
-          NSLog("  #{line}")
-        end
-      end
+      iphone_apps = IphoneApps.new(preferences.itunes_directory)
+      data = iphone_apps.extract_data
+      timestamp = Time.now.getlocal.strftime('%H:%M %a %d %B')
       
+      NSLog("Installd::Sync: connection begins")
+      connection = SyncConnection.new(preferences.username, key_chain.password)
+      connection.synchronize(data)
+      NSLog("Installd::Sync: connection ends")
+      
+      status = "Last synced #{timestamp}"
+    rescue => exception
+      status = "Sync failed #{timestamp}"
+      NSLog("Installd::Sync: failed with exception: #{exception}")
+      exception.backtrace.each do |line|
+        NSLog("  #{line}")
+      end
+    ensure
       notifications.sync_did_complete(status)
     end
     
