@@ -1,6 +1,8 @@
-h1. <span>2009-10-01</span> Release 0.0.3
+h1. <span>2009-10-09</span> Release 0.0.4
 
-* Attempt to fix problems seen on Snow Leopard
-  * Objective-C classes are no longer in separate bundle
-  * Preference Pane bundle is now a Universal 32-bit/64-bit Binary
-
+* Added status bar app
+* Enable/disable status bar icon from preferences
+* Fix width of status bar icon
+* Animate status bar icon during sync
+* Made logging more consistent and don't log password
+* Improve exception handling
