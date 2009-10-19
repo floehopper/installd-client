@@ -32,12 +32,6 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   def mainViewDidLoad
     NSLog("PrefPaneInstalld: mainViewDidLoad")
     
-    @updater = SUUpdater.updaterForBundle(bundle)
-    @updater.setAutomaticallyChecksForUpdates(true)
-    @updater.resetUpdateCycle
-    @checkForUpdates.target = @updater
-    @checkForUpdates.action = "checkForUpdates:"
-    
     @notifications = Installd::Notifications.new(SYNC_BUNDLE_IDENTIFIER)
     @notifications.register_for_sync_did_begin(self, "didBeginSync:")
     @notifications.register_for_sync_did_complete(self, "didCompleteSync:")
