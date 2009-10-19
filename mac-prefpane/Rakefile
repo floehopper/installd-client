@@ -38,7 +38,7 @@ end
 choctop_build_task = Rake::Task[:build].prerequisites.first
 Rake::Task[choctop_build_task].enhance([:clean]) do
   execute('cd ../mac-statusbar && rake clean build')
-  execute('cp -r ../mac-statusbar/build/Release/InstalldMenu.app build/Release/Installd.prefPane/Contents/Resources/')
+  execute('cp -R ../mac-statusbar/build/Release/InstalldMenu.app build/Release/Installd.prefPane/Contents/Resources/')
 end
 
 task :default => :run
