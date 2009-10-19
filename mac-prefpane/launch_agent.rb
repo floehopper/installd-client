@@ -3,12 +3,16 @@ require 'osx/cocoa'
 require 'erb'
 
 require File.expand_path(File.join(File.dirname(__FILE__), 'command'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'real_path'))
 
 module Installd
 
   class LaunchAgent
   
     include OSX
+    
+    LAUNCHCTL_PATH = RealPath.new('launchctl').to_s
+    GREP_PATH = RealPath.new('grep').to_s
     
     attr_accessor :start_interval
     attr_accessor :nice_increment
@@ -39,24 +43,24 @@ module Installd
   
     def load
       NSLog("Installd::LaunchAgent: load: #{plist_path}")
-      Command.new(%{#{launchctl} load -w -S Aqua #{plist_path}}).execute
+      Command.new(%{#{LAUNCHCTL_PATH} load -w -S Aqua #{plist_path}}).execute
     end
   
     def unload
       NSLog("Installd::LaunchAgent: unload: #{plist_path}")
       if File.exist?(plist_path)
-        Command.new(%{#{launchctl} unload -w -S Aqua #{plist_path}}).execute
+        Command.new(%{#{LAUNCHCTL_PATH} unload -w -S Aqua #{plist_path}}).execute
       end
     end
   
     def start
       NSLog("Installd::LaunchAgent: start: #{@bundle_identifier}")
-      Command.new(%{#{launchctl} start #{@bundle_identifier}}).execute
+      Command.new(%{#{LAUNCHCTL_PATH} start #{@bundle_identifier}}).execute
     end
     
     def status
       NSLog("Installd::LaunchAgent: status for: #{@bundle_identifier}")
-      status = Command.new(%{#{launchctl} list | /usr/bin/grep #{@bundle_identifier}}).execute rescue ''
+      status = Command.new(%{#{LAUNCHCTL_PATH} list | #{GREP_PATH} #{@bundle_identifier}}).execute rescue ''
       NSLog("Installd::LaunchAgent: status: #{status}")
       status.chomp
     end
@@ -83,12 +87,6 @@ module Installd
     
     def succeeded?
       last_exit_code == 0
-    end
-    
-    private
-    
-    def launchctl
-      '/bin/launchctl'
     end
     
   end
