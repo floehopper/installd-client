@@ -13,3 +13,10 @@
 * launchd script should send an NSDictionary with success and timestamp so observer can format time and do other presentational stuff. This means these dictionary values would need to be stored in preferences
 * same files are in both apps
 * could derive status_bar_enabled from launch agent list
+
+
+NSTask.launchedTaskWithLaunchPath_arguments('/Users/jamesmead/Code/installd-client/mac-prefpane/sync.sh', []) - seems to spawn a sub-process and run script asynchronously
+
+def self.os_version_and_build
+  @@__os_version ||= `/usr/bin/sw_vers`.scan(/ProductVersion:\t([\d\w\.]+)\nBuildVersion:\t([\d\w\.]+)/).first
+end
