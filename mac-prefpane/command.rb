@@ -19,6 +19,7 @@ module Installd
         NSLog(message)
         raise message
       end
+      return output
     end
   
   end
