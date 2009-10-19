@@ -12,8 +12,6 @@ module Installd
   
     include OSX
     
-    RUBY_PATH = RealPath.new('ruby').to_s
-  
     SERVICE = 'Installd'
   
     DEFAULT_PASSWORD = ''
@@ -39,7 +37,7 @@ module Installd
     end
   
     def save
-      status = KeyChainAPI.alloc.init.addGenericPassword_account_password_otherAppPath(SERVICE, @username, @password, RUBY_PATH)
+      status = KeyChainAPI.alloc.init.addGenericPassword_account_password_otherAppPath(SERVICE, @username, @password, ruby_path)
     
       if status == 0
         NSLog("Installd::KeyChain: Password created")
@@ -63,7 +61,13 @@ module Installd
         NSLog("Installd::KeyChain: Failed to create password: #{status}")
       end
     end
-  
+    
+    private
+    
+    def ruby_path
+      @ruby_path ||= RealPath.new('ruby').to_s
+    end
+    
   end
   
 end
