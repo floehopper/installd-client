@@ -3,12 +3,16 @@ require 'osx/cocoa'
 require 'erb'
 
 require File.expand_path(File.join(File.dirname(__FILE__), 'command'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'real_path'))
 
 module Installd
 
   class LaunchAgent
   
     include OSX
+    
+    LAUNCHCTL_PATH = RealPath.new('launchctl').to_s
+    GREP_PATH = RealPath.new('grep').to_s
     
     attr_accessor :start_interval
     attr_accessor :nice_increment
@@ -31,29 +35,60 @@ module Installd
     end
   
     def write
-      NSLog("Writing launch agent: #{@bundle_identifier}")
+      NSLog("Installd::LaunchAgent: write: #{@bundle_identifier}")
       File.open(plist_path, 'w') do |file|
         file << plist
       end
     end
   
     def load
-      NSLog("Loading launch agent: #{plist_path}")
-      Command.new(%{/bin/launchctl load -w -S Aqua #{plist_path}}).execute
+      NSLog("Installd::LaunchAgent: load: #{plist_path}")
+      Command.new(%{#{LAUNCHCTL_PATH} load -w -S Aqua #{plist_path}}).execute
     end
   
     def unload
-      NSLog("Unloading launch agent: #{plist_path}")
+      NSLog("Installd::LaunchAgent: unload: #{plist_path}")
       if File.exist?(plist_path)
-        Command.new(%{/bin/launchctl unload -w -S Aqua #{plist_path}}).execute
+        Command.new(%{#{LAUNCHCTL_PATH} unload -w -S Aqua #{plist_path}}).execute
       end
     end
   
     def start
-      NSLog("Starting launch agent: #{@bundle_identifier}")
-      Command.new(%{/bin/launchctl start #{@bundle_identifier}}).execute
+      NSLog("Installd::LaunchAgent: start: #{@bundle_identifier}")
+      Command.new(%{#{LAUNCHCTL_PATH} start #{@bundle_identifier}}).execute
     end
-  
+    
+    def status
+      NSLog("Installd::LaunchAgent: status for: #{@bundle_identifier}")
+      status = Command.new(%{#{LAUNCHCTL_PATH} list | #{GREP_PATH} #{@bundle_identifier}}).execute rescue ''
+      NSLog("Installd::LaunchAgent: status: #{status}")
+      status.chomp
+    end
+    
+    def loaded?
+      !status.empty?
+    end
+    
+    def pid
+      text = status.split("\t")[0]
+      return nil unless text && text != '-'
+      text.to_i
+    end
+    
+    def running?
+      !pid.nil?
+    end
+    
+    def last_exit_code
+      text = status.split("\t")[1]
+      return nil unless text && text != '-'
+      text.to_i
+    end
+    
+    def succeeded?
+      last_exit_code == 0
+    end
+    
   end
   
 end
