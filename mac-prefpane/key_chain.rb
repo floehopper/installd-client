@@ -2,15 +2,17 @@ require 'osx/cocoa'
 
 OSX.load_bridge_support_file(File.expand_path(File.join(File.dirname(__FILE__), 'Security.bridgesupport')))
 
-require 'pathname'
-
 OSX.ns_import 'KeyChainAPI'
+
+require File.expand_path(File.join(File.dirname(__FILE__), 'real_path'))
 
 module Installd
 
   class KeyChain
   
     include OSX
+    
+    RUBY_PATH = RealPath.new('ruby').to_s
   
     SERVICE = 'Installd'
   
@@ -37,8 +39,7 @@ module Installd
     end
   
     def save
-      path_to_ruby = Pathname.new(`/usr/bin/which ruby`.chomp).realpath.to_s
-      status = KeyChainAPI.alloc.init.addGenericPassword_account_password_otherAppPath(SERVICE, @username, @password, path_to_ruby)
+      status = KeyChainAPI.alloc.init.addGenericPassword_account_password_otherAppPath(SERVICE, @username, @password, RUBY_PATH)
     
       if status == 0
         NSLog("Installd::KeyChain: Password created")
