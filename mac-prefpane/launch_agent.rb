@@ -31,29 +31,66 @@ module Installd
     end
   
     def write
-      NSLog("Installd::LaunchAgent: Writing: #{@bundle_identifier}")
+      NSLog("Installd::LaunchAgent: write: #{@bundle_identifier}")
       File.open(plist_path, 'w') do |file|
         file << plist
       end
     end
   
     def load
-      NSLog("Installd::LaunchAgent: Loading: #{plist_path}")
-      Command.new(%{/bin/launchctl load -w -S Aqua #{plist_path}}).execute
+      NSLog("Installd::LaunchAgent: load: #{plist_path}")
+      Command.new(%{#{launchctl} load -w -S Aqua #{plist_path}}).execute
     end
   
     def unload
-      NSLog("Installd::LaunchAgent: Unloading: #{plist_path}")
+      NSLog("Installd::LaunchAgent: unload: #{plist_path}")
       if File.exist?(plist_path)
-        Command.new(%{/bin/launchctl unload -w -S Aqua #{plist_path}}).execute
+        Command.new(%{#{launchctl} unload -w -S Aqua #{plist_path}}).execute
       end
     end
   
     def start
-      NSLog("Installd::LaunchAgent: Starting: #{@bundle_identifier}")
-      Command.new(%{/bin/launchctl start #{@bundle_identifier}}).execute
+      NSLog("Installd::LaunchAgent: start: #{@bundle_identifier}")
+      Command.new(%{#{launchctl} start #{@bundle_identifier}}).execute
     end
-  
+    
+    def status
+      NSLog("Installd::LaunchAgent: status for: #{@bundle_identifier}")
+      status = Command.new(%{#{launchctl} list | /usr/bin/grep #{@bundle_identifier}}).execute rescue ''
+      NSLog("Installd::LaunchAgent: status: #{status}")
+      status.chomp
+    end
+    
+    def loaded?
+      !status.empty?
+    end
+    
+    def pid
+      text = status.split("\t")[0]
+      return nil unless text && text != '-'
+      text.to_i
+    end
+    
+    def running?
+      !pid.nil?
+    end
+    
+    def last_exit_code
+      text = status.split("\t")[1]
+      return nil unless text && text != '-'
+      text.to_i
+    end
+    
+    def succeeded?
+      last_exit_code == 0
+    end
+    
+    private
+    
+    def launchctl
+      '/bin/launchctl'
+    end
+    
   end
   
 end
