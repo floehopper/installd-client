@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		000BBA95108CB520004FB38E /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000BBA94108CB520004FB38E /* Sparkle.framework */; };
+		000BBA97108CB549004FB38E /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 000BBA94108CB520004FB38E /* Sparkle.framework */; };
+		000BBA9F108CB571004FB38E /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 000BBA9E108CB571004FB38E /* dsa_pub.pem */; };
 		002BEF7F108C762800E47918 /* real_path.rb in Resources */ = {isa = PBXBuildFile; fileRef = 002BEF7E108C762800E47918 /* real_path.rb */; };
 		008BBC09107A3BA2004ED2FE /* menu_controller.rb in Resources */ = {isa = PBXBuildFile; fileRef = 008BBC08107A3BA2004ED2FE /* menu_controller.rb */; };
 		008BBC40107A4F6D004ED2FE /* notifications.rb in Resources */ = {isa = PBXBuildFile; fileRef = 008BBC3F107A4F6D004ED2FE /* notifications.rb */; };
@@ -42,7 +45,23 @@
 		4DDCA70D0ACC9A6100E082CE /* RubyCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8F5E24E03AEB6EC03A81C6F /* RubyCocoa.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		000BBA9D108CB552004FB38E /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				000BBA97108CB549004FB38E /* Sparkle.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		000BBA94108CB520004FB38E /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		000BBA9E108CB571004FB38E /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		002BEF7E108C762800E47918 /* real_path.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = real_path.rb; sourceTree = "<group>"; };
 		008BBC08107A3BA2004ED2FE /* menu_controller.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = menu_controller.rb; sourceTree = "<group>"; };
 		008BBC3F107A4F6D004ED2FE /* notifications.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = notifications.rb; sourceTree = "<group>"; };
@@ -89,6 +108,7 @@
 			files = (
 				4DDCA70C0ACC9A6100E082CE /* Cocoa.framework in Frameworks */,
 				4DDCA70D0ACC9A6100E082CE /* RubyCocoa.framework in Frameworks */,
+				000BBA95108CB520004FB38E /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +125,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				000BBA94108CB520004FB38E /* Sparkle.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 				E8F5E24E03AEB6EC03A81C6F /* RubyCocoa.framework */,
 			);
@@ -159,6 +180,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				000BBA9E108CB571004FB38E /* dsa_pub.pem */,
 				00AF336E107E35ED007571A0 /* app-15.png */,
 				00AF336F107E35ED007571A0 /* app-13.png */,
 				00AF3370107E35ED007571A0 /* app-11.png */,
@@ -216,6 +238,7 @@
 				4DDCA7050ACC9A6100E082CE /* Resources */,
 				4DDCA7090ACC9A6100E082CE /* Sources */,
 				4DDCA70B0ACC9A6100E082CE /* Frameworks */,
+				000BBA9D108CB552004FB38E /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -279,6 +302,7 @@
 				00AF337C107E35ED007571A0 /* app-3.png in Resources */,
 				00AF337D107E35ED007571A0 /* app-1.png in Resources */,
 				002BEF7F108C762800E47918 /* real_path.rb in Resources */,
+				000BBA9F108CB571004FB38E /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +368,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -362,6 +390,10 @@
 				ARCHS = (
 					ppc,
 					i386,
+				);
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
 				);
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;

@@ -16,6 +16,11 @@ class MenuController < OSX::NSObject
   def awakeFromNib
     NSLog("InstalldMenu: awakeFromNib")
     
+    bundle = NSBundle.bundleWithPath(File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..', '..', '..', 'Installd.prefpane')))
+    @updater = SUUpdater.updaterForBundle(bundle)
+    @updater.setAutomaticallyChecksForUpdates(true)
+    @updater.resetUpdateCycle
+    
     @preferences = Installd::Preferences.new(SYNC_BUNDLE_IDENTIFIER)
     
     @bundle = NSBundle.mainBundle
