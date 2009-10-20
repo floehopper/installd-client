@@ -55,12 +55,12 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     end
     @status_bar_agent.unload
     @status_bar_agent.write
+    @status_bar_agent.load
     
     version = bundle.infoDictionary['CFBundleShortVersionString'] 
     @version.stringValue = version
     
     @statusBarCheckbox.state = (@preferences.status_bar_enabled ? NSOnState : NSOffState)
-    toggleStatusBar(self)
   end
   
   def willSelect
@@ -112,11 +112,13 @@ class PrefPaneInstalld < OSX::NSPreferencePane
   
   ib_action :toggleStatusBar do |sender|
     NSLog("PrefPaneInstalld: toggleStatusBar")
-    if @statusBarCheckbox.state == NSOnState
-      @status_bar_agent.load
-    else
-      @status_bar_agent.unload
-    end
+    state = @statusBarCheckbox.state == NSOnState
+    @notifications.show_status_bar_item(state)
+  end
+  
+  ib_action :checkForUpdates do |sender|
+    NSLog("PrefPaneInstalld: checkForUpdates")
+    @notifications.check_for_updates
   end
   
   def openPanelDidEnd(panel, returnCode, contextInfo = nil)
