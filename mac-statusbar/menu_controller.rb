@@ -11,7 +11,6 @@ class MenuController < OSX::NSObject
   SYNC_BUNDLE_IDENTIFIER = 'com.floehopper.installdSync'
   
   ANIMATION_TIME_INTERVAL = 0.2
-  NUMBER_OF_IMAGES = 16
   
   def awakeFromNib
     NSLog("InstalldMenu: awakeFromNib")
@@ -20,26 +19,19 @@ class MenuController < OSX::NSObject
     @updater = SUUpdater.updaterForBundle(bundle)
     @updater.setAutomaticallyChecksForUpdates(true)
     @updater.resetUpdateCycle
+    # @updater.checkForUpdatesInBackground
     
     @preferences = Installd::Preferences.new(SYNC_BUNDLE_IDENTIFIER)
     
-    @bundle = NSBundle.mainBundle
-    
-    @statusBar = NSStatusBar.systemStatusBar
-    @statusItem = @statusBar.statusItemWithLength(24)
-    @statusItem.setHighlightMode(true)
-    @statusItem.setMenu(@menu)
-    
-    @app_icon = create_image('app')
-    @app_alter_icon = create_image('app_a')
-    @error_icon = create_image('error')
-    @error_alter_icon =create_image('error_a')
-    
-    @images = Array.new(NUMBER_OF_IMAGES) { |index| create_image("app-#{index}") }
+    @status_bar_item = Installd::StatusBarItem.new(NSBundle.mainBundle, @menu)
+    set_status_bar_item_visibility(@preferences.status_bar_enabled)
+    displayLastSyncStatus(@preferences.last_sync_status)
     
     @notifications = Installd::Notifications.new('com.floehopper.installdSync')
     @notifications.register_for_sync_did_begin(self, "didBeginSync:")
     @notifications.register_for_sync_did_complete(self, "didCompleteSync:")
+    @notifications.register_for_check_for_updates(self, "checkForUpdates:")
+    @notifications.register_for_show_status_bar_item(self, "showStatusBarItem:")
     
     sync_script = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', 'sync.sh'))
     @sync_agent = Installd::LaunchAgent.new(SYNC_BUNDLE_IDENTIFIER, sync_script) do |agent|
@@ -49,9 +41,9 @@ class MenuController < OSX::NSObject
     @sync_agent.unload
     @sync_agent.write
     @sync_agent.load
-    
-    displayLastSyncStatus(@preferences.last_sync_status)
   end
+  
+  # actions
   
   ib_action :syncNow do |sender|
     NSLog("InstalldMenu: syncNow")
@@ -68,6 +60,8 @@ class MenuController < OSX::NSObject
     url = NSURL.URLWithString("http://installd.com/users/#{@preferences.username}")
     NSWorkspace.sharedWorkspace.openURL(url)
   end
+  
+  # notification handlers
   
   def didBeginSync(notification)
     NSLog("InstalldMenu: didBeginSync")
@@ -86,31 +80,41 @@ class MenuController < OSX::NSObject
     displayLastSyncStatus(status)
   end
   
+  def checkForUpdates(notification)
+    NSLog("InstalldMenu: checkForUpdates")
+    @updater.checkForUpdates(self)
+  end
+  
+  def showStatusBarItem(notification)
+    NSLog("InstalldMenu: showStatusBarItem")
+    user_info = notification.userInfo
+    return unless user_info
+    return unless state = user_info['state']
+    set_status_bar_item_visibility(state.boolValue)
+  end
+  
+  # methods
+  
   def displayLastSyncStatus(status)
     NSLog("InstalldMenu: displayLastSyncStatus")
     if status.to_s =~ /fail/i
-      @statusItem.setImage(@error_icon)
-      @statusItem.setAlternateImage(@error_alter_icon)
+      @status_bar_item.set_error
     else
-      @statusItem.setImage(@app_icon)
-      @statusItem.setAlternateImage(@app_alter_icon)
+      @status_bar_item.clear_error
     end
     @lastSyncStatusMenuItem.title = status
+  end
+  
+  def set_status_bar_item_visibility(state)
+    NSLog("InstalldMenu: set_status_bar_item_visibility")
+    @status_bar_item.set_visible(state)
   end
   
   def animateIcon(timer)
     NSLog("InstalldMenu: animateIcon")
     index = timer.userInfo['index'].to_i
     timer.userInfo['index'] = index + 1
-    @statusItem.setImage(@images[index % NUMBER_OF_IMAGES])
-  end
-  
-  private
-  
-  def create_image(name)
-    NSImage.alloc.initWithContentsOfFile(
-      @bundle.pathForResource_ofType(name, 'png')
-    )
+    @status_bar_item.animate(index)
   end
   
 end

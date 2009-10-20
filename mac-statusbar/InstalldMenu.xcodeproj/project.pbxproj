@@ -10,6 +10,7 @@
 		000BBA95108CB520004FB38E /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000BBA94108CB520004FB38E /* Sparkle.framework */; };
 		000BBA97108CB549004FB38E /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 000BBA94108CB520004FB38E /* Sparkle.framework */; };
 		000BBA9F108CB571004FB38E /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 000BBA9E108CB571004FB38E /* dsa_pub.pem */; };
+		000BBABC108CD6F6004FB38E /* status_bar_item.rb in Resources */ = {isa = PBXBuildFile; fileRef = 000BBABB108CD6F6004FB38E /* status_bar_item.rb */; };
 		002BEF7F108C762800E47918 /* real_path.rb in Resources */ = {isa = PBXBuildFile; fileRef = 002BEF7E108C762800E47918 /* real_path.rb */; };
 		008BBC09107A3BA2004ED2FE /* menu_controller.rb in Resources */ = {isa = PBXBuildFile; fileRef = 008BBC08107A3BA2004ED2FE /* menu_controller.rb */; };
 		008BBC40107A4F6D004ED2FE /* notifications.rb in Resources */ = {isa = PBXBuildFile; fileRef = 008BBC3F107A4F6D004ED2FE /* notifications.rb */; };
@@ -62,6 +63,7 @@
 /* Begin PBXFileReference section */
 		000BBA94108CB520004FB38E /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		000BBA9E108CB571004FB38E /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
+		000BBABB108CD6F6004FB38E /* status_bar_item.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = status_bar_item.rb; sourceTree = "<group>"; };
 		002BEF7E108C762800E47918 /* real_path.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = real_path.rb; sourceTree = "<group>"; };
 		008BBC08107A3BA2004ED2FE /* menu_controller.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = menu_controller.rb; sourceTree = "<group>"; };
 		008BBC3F107A4F6D004ED2FE /* notifications.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = notifications.rb; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				000BBABB108CD6F6004FB38E /* status_bar_item.rb */,
 				002BEF7E108C762800E47918 /* real_path.rb */,
 				008BBC5E107CA31C004ED2FE /* command.rb */,
 				008BBC5B107C9F9A004ED2FE /* launch_agent.rb */,
@@ -303,6 +306,7 @@
 				00AF337D107E35ED007571A0 /* app-1.png in Resources */,
 				002BEF7F108C762800E47918 /* real_path.rb in Resources */,
 				000BBA9F108CB571004FB38E /* dsa_pub.pem in Resources */,
+				000BBABC108CD6F6004FB38E /* status_bar_item.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
