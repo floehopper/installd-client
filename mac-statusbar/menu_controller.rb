@@ -10,12 +10,14 @@ class MenuController < OSX::NSObject
   
   SYNC_BUNDLE_IDENTIFIER = 'com.floehopper.installdSync'
   
+  PREF_PANE_PATH = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..', '..', '..', 'Installd.prefpane'))
+  
   ANIMATION_TIME_INTERVAL = 0.2
   
   def awakeFromNib
     NSLog("InstalldMenu: awakeFromNib")
     
-    bundle = NSBundle.bundleWithPath(File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..', '..', '..', 'Installd.prefpane')))
+    bundle = NSBundle.bundleWithPath(PREF_PANE_PATH)
     @updater = SUUpdater.updaterForBundle(bundle)
     @updater.setAutomaticallyChecksForUpdates(true)
     @updater.resetUpdateCycle
@@ -52,8 +54,7 @@ class MenuController < OSX::NSObject
   
   ib_action :showPreferences do |sender|
     NSLog("InstalldMenu: showPreferences")
-    prefpane_path = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', '..', '..', '..', 'Installd.prefpane'))
-    NSWorkspace.sharedWorkspace.openFile(prefpane_path)
+    NSWorkspace.sharedWorkspace.openFile(PREF_PANE_PATH)
   end
   
   ib_action :showWebsite do |sender|
