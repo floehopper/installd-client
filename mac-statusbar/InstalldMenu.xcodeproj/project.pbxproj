@@ -18,6 +18,7 @@
 		008BBC5C107C9F9A004ED2FE /* launch_agent.rb in Resources */ = {isa = PBXBuildFile; fileRef = 008BBC5B107C9F9A004ED2FE /* launch_agent.rb */; };
 		008BBC5F107CA31C004ED2FE /* command.rb in Resources */ = {isa = PBXBuildFile; fileRef = 008BBC5E107CA31C004ED2FE /* command.rb */; };
 		008BBC72107CE212004ED2FE /* launch_agent_template.plist.erb in Resources */ = {isa = PBXBuildFile; fileRef = 008BBC71107CE212004ED2FE /* launch_agent_template.plist.erb */; };
+		008D8BCF108DCF4400C3BE30 /* RubyCocoa.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = E8F5E24E03AEB6EC03A81C6F /* RubyCocoa.framework */; };
 		00AF3356107E0723007571A0 /* app_a.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AF3354107E0723007571A0 /* app_a.png */; };
 		00AF3357107E0723007571A0 /* app.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AF3355107E0723007571A0 /* app.png */; };
 		00AF335A107E09DC007571A0 /* error_a.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AF3358107E09DC007571A0 /* error_a.png */; };
@@ -53,6 +54,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				008D8BCF108DCF4400C3BE30 /* RubyCocoa.framework in Copy Frameworks */,
 				000BBA97108CB549004FB38E /* Sparkle.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
