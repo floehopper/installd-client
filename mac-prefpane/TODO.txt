@@ -1,3 +1,7 @@
+* add rubycocoa framework to status bar app
+* share common classes in a resource-only bundle?
+* make rake fail if common classes differ?
+
 * ensure menu app is universal binary same as pref pane
 * launchctl compatibility with Tiger - do we actually need the -S option? try removing everything including keychain and trying without -S option
 * problem with Tiger not seeing classes from PreferencePane framework
