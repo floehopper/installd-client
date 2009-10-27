@@ -15,7 +15,7 @@ module Installd
     
     def build_request(doc)
       if ENV['LOCAL']
-        protocol = 'http'
+        protocol = 'https'
         host = 'installd.local'
       else
         protocol = 'https'
