@@ -1,6 +1,7 @@
 require 'osx/cocoa'
 
 require 'erb'
+require 'fileutils'
 
 require File.expand_path(File.join(File.dirname(__FILE__), 'command'))
 require File.expand_path(File.join(File.dirname(__FILE__), 'real_path'))
@@ -21,7 +22,11 @@ module Installd
     end
     
     def plist_path
-      File.join(ENV['HOME'], 'Library', 'LaunchAgents', "#{@bundle_identifier}.plist")
+      File.join(ENV['HOME'], 'Library', 'LaunchAgents')
+    end
+    
+    def plist_file
+      File.join(plist_path, "#{@bundle_identifier}.plist")
     end
     
     def plist
@@ -33,20 +38,21 @@ module Installd
   
     def write
       NSLog("Installd::LaunchAgent: write: #{@bundle_identifier}")
-      File.open(plist_path, 'w') do |file|
+      FileUtils.mkdir_p(plist_path)
+      File.open(plist_file, 'w') do |file|
         file << plist
       end
     end
   
     def load
-      NSLog("Installd::LaunchAgent: load: #{plist_path}")
-      Command.new(%{#{launchctl_path} load -w -S Aqua #{plist_path}}).execute
+      NSLog("Installd::LaunchAgent: load: #{plist_file}")
+      Command.new(%{#{launchctl_path} load -w -S Aqua #{plist_file}}).execute
     end
   
     def unload
-      NSLog("Installd::LaunchAgent: unload: #{plist_path}")
-      if File.exist?(plist_path)
-        Command.new(%{#{launchctl_path} unload -w -S Aqua #{plist_path}}).execute
+      NSLog("Installd::LaunchAgent: unload: #{plist_file}")
+      if File.exist?(plist_file)
+        Command.new(%{#{launchctl_path} unload -w -S Aqua #{plist_file}}).execute
       end
     end
   
