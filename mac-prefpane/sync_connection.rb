@@ -26,7 +26,7 @@ module Installd
       params = params_hash.inject('') { |v,i| v << "#{i[0].to_s}=#{CGI.escape(i[1].to_s)}&"}.chop
       params_data = NSString.stringWithString(params).dataUsingEncoding(NSASCIIStringEncoding)
     
-      url = NSURL.URLWithString("#{protocol}://#{host}/users/#{@username}/installs/synchronize")
+      url = NSURL.URLWithString("#{protocol}://#{host}/users/#{@username}/events/synchronize")
     
       request = NSMutableURLRequest.requestWithURL_cachePolicy_timeoutInterval(url, NSURLRequestUseProtocolCachePolicy, 30.0)
       credentials = ["#{@username}:#{@password}"].pack('m').chomp
