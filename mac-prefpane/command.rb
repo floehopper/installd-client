@@ -15,7 +15,7 @@ module Installd
       output = `#{@command} 2>&1`
       NSLog("Installd::Command: #{output}")
       unless $?.success?
-        message = "Installd::Command: Error executing: #{@command}"
+        message = "Installd::Command: Error #{$?} executing: #{@command}"
         NSLog(message)
         raise message
       end
