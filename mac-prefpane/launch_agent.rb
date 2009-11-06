@@ -43,6 +43,11 @@ module Installd
         file << plist
       end
     end
+    
+    def delete
+      NSLog("Installd::LaunchAgent: delete: #{@bundle_identifier}")
+      FileUtils.rm_f(plist_file)
+    end
   
     def load
       NSLog("Installd::LaunchAgent: load: #{plist_file}")
@@ -63,9 +68,12 @@ module Installd
     
     def status
       NSLog("Installd::LaunchAgent: status for: #{@bundle_identifier}")
-      status = Command.new(%{#{launchctl_path} list | #{grep_path} #{@bundle_identifier}}).execute rescue ''
+      status = Command.new(%{#{launchctl_path} list | #{grep_path} #{@bundle_identifier}}).execute
       NSLog("Installd::LaunchAgent: status: #{status}")
       status.chomp
+    rescue
+      NSLog("Installd::LaunchAgent: status: not running")
+      ""
     end
     
     def loaded?
