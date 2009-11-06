@@ -40,6 +40,11 @@ class PrefPaneInstalld < OSX::NSPreferencePane
     migrateOldPreferences unless @preferences.launched_before
     
     sync_script = File.expand_path(File.join(File.dirname(__FILE__), 'sync.sh'))
+    
+    old_sync_agent = Installd::LaunchAgent.new(bundle.bundleIdentifier, sync_script)
+    old_sync_agent.unload if old_sync_agent.loaded?
+    old_sync_agent.delete
+    
     @sync_agent = Installd::LaunchAgent.new(SYNC_BUNDLE_IDENTIFIER, sync_script) do |agent|
       agent.start_interval = 24 * 60 * 60
       agent.nice_increment = 10
