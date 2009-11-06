@@ -1,3 +1,3 @@
-h1. <span>2009-10-28</span> Release 0.0.6
+h1. <span>2009-11-06</span> Release 0.0.7
 
-* The LaunchAgents directory may not exist, so we should create it if necessary.
+* Ensure that legacy launch agents are properly removed.
