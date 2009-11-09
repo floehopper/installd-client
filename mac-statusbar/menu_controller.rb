@@ -35,6 +35,14 @@ class MenuController < OSX::NSObject
     @notifications.register_for_check_for_updates(self, "checkForUpdates:")
     @notifications.register_for_show_status_bar_item(self, "showStatusBarItem:")
     
+    center = NSWorkspace.sharedWorkspace.notificationCenter
+    center.addObserver_selector_name_object(
+      self,
+      "didTerminateApplication:",
+      NSWorkspaceDidTerminateApplicationNotification,
+      nil
+    )
+    
     sync_script = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', 'sync.sh'))
     @sync_agent = Installd::LaunchAgent.new(SYNC_BUNDLE_IDENTIFIER, sync_script) do |agent|
       agent.start_interval = 24 * 60 * 60
@@ -92,6 +100,16 @@ class MenuController < OSX::NSObject
     return unless user_info
     return unless state = user_info['state']
     set_status_bar_item_visibility(state.boolValue)
+  end
+  
+  def didTerminateApplication(notification)
+    NSLog("InstalldMenu: didTerminateApplication")
+    user_info = notification.userInfo
+    return unless user_info
+    return unless appID = user_info['NSApplicationBundleIdentifier']
+    if appID == 'com.apple.iTunes'
+      @sync_agent.start unless @sync_agent.running?
+    end
   end
   
   # methods
