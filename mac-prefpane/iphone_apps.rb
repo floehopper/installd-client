@@ -14,7 +14,7 @@ module Installd
       @itunes_directory = itunes_directory
     end
   
-    def extract_data
+    def extract_data(io)
       FileUtils.mkdir_p('/tmp/installd/')
     
       FileUtils.rm_rf('/tmp/installd/unzipped')
@@ -35,7 +35,7 @@ module Installd
           File.open(plist) do |file|
             file.readline
             file.readline
-            doc << file.read
+            io << file.read
           end
       
           yield index if block_given?
@@ -49,8 +49,6 @@ module Installd
       end
     
       FileUtils.rm_rf('/tmp/installd/unzipped')
-    
-      doc
     end
   
   end

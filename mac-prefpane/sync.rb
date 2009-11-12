@@ -1,5 +1,7 @@
 require 'osx/cocoa'
 
+require 'tempfile'
+
 require File.expand_path(File.join(File.dirname(__FILE__), 'preferences'))
 require File.expand_path(File.join(File.dirname(__FILE__), 'key_chain'))
 require File.expand_path(File.join(File.dirname(__FILE__), 'iphone_apps'))
@@ -21,14 +23,20 @@ module Installd
       preferences = Preferences.new(SYNC_BUNDLE_IDENTIFIER)
       key_chain = KeyChain.new(preferences.username)
       
-      iphone_apps = IphoneApps.new(preferences.itunes_directory)
-      data = iphone_apps.extract_data
       timestamp = Time.now.getlocal.strftime('%H:%M %a %d %B')
+      iphone_apps = IphoneApps.new(preferences.itunes_directory)
       
-      NSLog("Installd::Sync: connection begins")
-      connection = SyncConnection.new(preferences.username, key_chain.password)
-      connection.synchronize(data)
-      NSLog("Installd::Sync: connection ends")
+      Tempfile.open('output.xml') do |file|
+        NSLog("Installd::Sync: unpacking begins")
+        iphone_apps.extract_data(file)
+        file.sync unless file.fsync
+        NSLog("Installd::Sync: unpacking ends")
+        
+        NSLog("Installd::Sync: connection begins")
+        connection = SyncConnection.new(preferences.username, key_chain.password)
+        connection.synchronize(file)
+        NSLog("Installd::Sync: connection ends")
+      end
       
       status = "Last synced #{timestamp}"
     rescue => exception
