@@ -1,8 +1,12 @@
 require 'osx/cocoa'
 
-require 'cgi'
+require 'uri'
+require 'net/http'
+require 'net/https'
 require 'md5'
 
+$LOAD_PATH << File.expand_path(File.join(File.dirname(__FILE__), 'multipart-post', 'lib'))
+require 'net/http/post/multipart'
 
 module Installd
 
@@ -12,52 +16,40 @@ module Installd
     
     def initialize(username, password)
       @username, @password = username, password
+      if local?
+        scheme, host = 'https', 'installd.local'
+      else
+        scheme, host = 'https', 'installd.com'
+      end
+      url = "#{scheme}://#{host}/users/#{username}/events/synchronize"
+      @uri = URI.parse(url)
     end
     
-    def build_request(file)
-      if ENV['LOCAL']
-        protocol = 'https'
-        host = 'installd.local'
-      else
-        protocol = 'https'
-        host = 'installd.com'
+    def local?
+      !ENV['LOCAL'].nil?
+    end
+    
+    def synchronize(io)
+      output = UploadIO.new(io, 'text/plain', 'output.xml')
+      boundary = '-----------' + MD5.hexdigest(Time.now.to_s)
+      params = { 'output' => output }
+      headers = {}
+      request = Net::HTTP::Put::Multipart.new(@uri.path, params, headers, boundary)
+      request.basic_auth(@username, @password)
+      
+      http = Net::HTTP.new(@uri.host, @uri.port)
+      if @uri.scheme == 'https'
+        http.use_ssl = true
+        if local?
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        else
+          http.ca_file = File.expand_path(File.join(File.dirname(__FILE__), 'cacert.pem'))
+          http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+        end
       end
       
-      boundary = MD5.hexdigest(Time.now.to_s)
-      data = NSData.dataWithContentsOfFile(file.path)
-      
-      name = 'output'
-      filename = 'output.xml'
-      
-      post_data = NSMutableData.dataWithCapacity(data.length + 512)
-      post_data.appendData(encoded("--#{boundary}\r\n"))
-      post_data.appendData(encoded(%{Content-Disposition: form-data; name="#{name}"; filename="#{filename}"\r\n\r\n}))
-      post_data.appendData(data)
-      post_data.appendData(encoded("--#{boundary}--\r\n"))
-      
-      url = NSURL.URLWithString("#{protocol}://#{host}/users/#{@username}/events/synchronize")
-          
-      request = NSMutableURLRequest.requestWithURL_cachePolicy_timeoutInterval(url, NSURLRequestUseProtocolCachePolicy, 30.0)
-      credentials = ["#{@username}:#{@password}"].pack('m').chomp
-      request.addValue_forHTTPHeaderField("Basic #{credentials}", 'Authorization')
-      request.setHTTPMethod('put')
-      request.setHTTPBody(post_data)
-      request.addValue_forHTTPHeaderField(post_data.length.to_s, 'Content-Length')
-      request.addValue_forHTTPHeaderField("multipart/form-data; boundary=#{boundary}", 'Content-Type')
-      request
-    end
-    
-    def synchronize(file)
-      request = build_request(file)
-      data, response, error = NSURLConnection.sendSynchronousRequest_returningResponse_error(request)
-      raise "Sync error: #{error.localizedDescription}" if error
-      raise "Sync failed: #{response.statusCode}" unless (response.statusCode.to_s == '200')
-    end
-    
-    private
-    
-    def encoded(string)
-      NSString.stringWithString(string).dataUsingEncoding(NSUTF8StringEncoding)
+      response = http.start { |http| http.request(request) }
+      response.error! unless Net::HTTPOK === response
     end
     
   end

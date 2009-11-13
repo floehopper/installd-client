@@ -26,17 +26,16 @@ module Installd
       timestamp = Time.now.getlocal.strftime('%H:%M %a %d %B')
       iphone_apps = IphoneApps.new(preferences.itunes_directory)
       
-      Tempfile.open('output.xml') do |file|
-        NSLog("Installd::Sync: unpacking begins")
-        iphone_apps.extract_data(file)
-        file.sync unless file.fsync
-        NSLog("Installd::Sync: unpacking ends")
-        
-        NSLog("Installd::Sync: connection begins")
-        connection = SyncConnection.new(preferences.username, key_chain.password)
-        connection.synchronize(file)
-        NSLog("Installd::Sync: connection ends")
-      end
+      io = StringIO.new
+      NSLog("Installd::Sync: unpacking begins")
+      iphone_apps.extract_data(io)
+      io.rewind
+      NSLog("Installd::Sync: unpacking ends")
+      
+      NSLog("Installd::Sync: connection begins")
+      connection = SyncConnection.new(preferences.username, key_chain.password)
+      connection.synchronize(io)
+      NSLog("Installd::Sync: connection ends")
       
       status = "Last synced #{timestamp}"
     rescue => exception
