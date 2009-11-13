@@ -30,9 +30,9 @@ module Installd
     end
     
     def synchronize(io)
-      output = UploadIO.new(io, 'text/plain', 'output.xml')
+      upload = UploadIO.new(io, 'text/plain', 'apps.xml')
       boundary = '-----------' + MD5.hexdigest(Time.now.to_s)
-      params = { 'output' => output }
+      params = { 'apps' => upload }
       headers = {}
       request = Net::HTTP::Put::Multipart.new(@uri.path, params, headers, boundary)
       request.basic_auth(@username, @password)
