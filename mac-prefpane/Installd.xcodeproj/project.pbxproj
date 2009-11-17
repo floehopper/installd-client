@@ -23,20 +23,9 @@
 		00650D6A106FC95800589DE3 /* iphone_apps.rb in Resources */ = {isa = PBXBuildFile; fileRef = 00650D69106FC95800589DE3 /* iphone_apps.rb */; };
 		00650D6C106FD4E200589DE3 /* notifications.rb in Resources */ = {isa = PBXBuildFile; fileRef = 00650D6B106FD4E200589DE3 /* notifications.rb */; };
 		00650D6E1070DB7800589DE3 /* sync.rb in Resources */ = {isa = PBXBuildFile; fileRef = 00650D6D1070DB7800589DE3 /* sync.rb */; };
+		007953F610ADEA9300782345 /* multipart-post in Resources */ = {isa = PBXBuildFile; fileRef = 007953A010ADEA9300782345 /* multipart-post */; };
 		008BBC6F107CDE54004ED2FE /* launch_agent_template.plist.erb in Resources */ = {isa = PBXBuildFile; fileRef = 008BBC6E107CDE54004ED2FE /* launch_agent_template.plist.erb */; };
 		00B16C5510ADB37F000CC3D2 /* cacert.pem in Resources */ = {isa = PBXBuildFile; fileRef = 00B16C1710ADB37F000CC3D2 /* cacert.pem */; };
-		00B16C6E10ADB37F000CC3D2 /* History.txt in Resources */ = {isa = PBXBuildFile; fileRef = 00B16C4110ADB37F000CC3D2 /* History.txt */; };
-		00B16C6F10ADB37F000CC3D2 /* composite_io.rb in Resources */ = {isa = PBXBuildFile; fileRef = 00B16C4310ADB37F000CC3D2 /* composite_io.rb */; };
-		00B16C7010ADB37F000CC3D2 /* multipart_post.rb in Resources */ = {isa = PBXBuildFile; fileRef = 00B16C4410ADB37F000CC3D2 /* multipart_post.rb */; };
-		00B16C7110ADB37F000CC3D2 /* multipartable.rb in Resources */ = {isa = PBXBuildFile; fileRef = 00B16C4510ADB37F000CC3D2 /* multipartable.rb */; };
-		00B16C7210ADB37F000CC3D2 /* multipart.rb in Resources */ = {isa = PBXBuildFile; fileRef = 00B16C4910ADB37F000CC3D2 /* multipart.rb */; };
-		00B16C7310ADB37F000CC3D2 /* parts.rb in Resources */ = {isa = PBXBuildFile; fileRef = 00B16C4A10ADB37F000CC3D2 /* parts.rb */; };
-		00B16C7410ADB37F000CC3D2 /* Manifest.txt in Resources */ = {isa = PBXBuildFile; fileRef = 00B16C4B10ADB37F000CC3D2 /* Manifest.txt */; };
-		00B16C7510ADB37F000CC3D2 /* multipart-post.gemspec in Resources */ = {isa = PBXBuildFile; fileRef = 00B16C4C10ADB37F000CC3D2 /* multipart-post.gemspec */; };
-		00B16C7610ADB37F000CC3D2 /* Rakefile in Resources */ = {isa = PBXBuildFile; fileRef = 00B16C4D10ADB37F000CC3D2 /* Rakefile */; };
-		00B16C7710ADB37F000CC3D2 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 00B16C4E10ADB37F000CC3D2 /* README.txt */; };
-		00B16C7810ADB37F000CC3D2 /* test_multipart.rb in Resources */ = {isa = PBXBuildFile; fileRef = 00B16C5310ADB37F000CC3D2 /* test_multipart.rb */; };
-		00B16C7910ADB37F000CC3D2 /* test_composite_io.rb in Resources */ = {isa = PBXBuildFile; fileRef = 00B16C5410ADB37F000CC3D2 /* test_composite_io.rb */; };
 		00F04FCA106CDFE4009E5DDF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F04FC9106CDFE4009E5DDF /* Security.framework */; };
 		8D202CEA0486D31800D8A456 /* Installd_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 32DBCFA20370C41700C91783 /* Installd_Prefix.pch */; };
 		8D202CED0486D31800D8A456 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
@@ -78,20 +67,9 @@
 		00650D69106FC95800589DE3 /* iphone_apps.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = iphone_apps.rb; sourceTree = "<group>"; };
 		00650D6B106FD4E200589DE3 /* notifications.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = notifications.rb; sourceTree = "<group>"; };
 		00650D6D1070DB7800589DE3 /* sync.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sync.rb; sourceTree = "<group>"; };
+		007953A010ADEA9300782345 /* multipart-post */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "multipart-post"; sourceTree = "<group>"; };
 		008BBC6E107CDE54004ED2FE /* launch_agent_template.plist.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = launch_agent_template.plist.erb; sourceTree = "<group>"; };
 		00B16C1710ADB37F000CC3D2 /* cacert.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cacert.pem; sourceTree = "<group>"; };
-		00B16C4110ADB37F000CC3D2 /* History.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = History.txt; sourceTree = "<group>"; };
-		00B16C4310ADB37F000CC3D2 /* composite_io.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = composite_io.rb; sourceTree = "<group>"; };
-		00B16C4410ADB37F000CC3D2 /* multipart_post.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = multipart_post.rb; sourceTree = "<group>"; };
-		00B16C4510ADB37F000CC3D2 /* multipartable.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = multipartable.rb; sourceTree = "<group>"; };
-		00B16C4910ADB37F000CC3D2 /* multipart.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = multipart.rb; sourceTree = "<group>"; };
-		00B16C4A10ADB37F000CC3D2 /* parts.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = parts.rb; sourceTree = "<group>"; };
-		00B16C4B10ADB37F000CC3D2 /* Manifest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Manifest.txt; sourceTree = "<group>"; };
-		00B16C4C10ADB37F000CC3D2 /* multipart-post.gemspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "multipart-post.gemspec"; sourceTree = "<group>"; };
-		00B16C4D10ADB37F000CC3D2 /* Rakefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Rakefile; sourceTree = "<group>"; };
-		00B16C4E10ADB37F000CC3D2 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
-		00B16C5310ADB37F000CC3D2 /* test_multipart.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = test_multipart.rb; sourceTree = "<group>"; };
-		00B16C5410ADB37F000CC3D2 /* test_composite_io.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = test_composite_io.rb; sourceTree = "<group>"; };
 		00F04FC9106CDFE4009E5DDF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167EFE841241C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -122,89 +100,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00B16C1810ADB37F000CC3D2 /* multipart-post */ = {
-			isa = PBXGroup;
-			children = (
-				00B16C4110ADB37F000CC3D2 /* History.txt */,
-				00B16C4210ADB37F000CC3D2 /* lib */,
-				00B16C4B10ADB37F000CC3D2 /* Manifest.txt */,
-				00B16C4C10ADB37F000CC3D2 /* multipart-post.gemspec */,
-				00B16C4D10ADB37F000CC3D2 /* Rakefile */,
-				00B16C4E10ADB37F000CC3D2 /* README.txt */,
-				00B16C4F10ADB37F000CC3D2 /* test */,
-			);
-			path = "multipart-post";
-			sourceTree = "<group>";
-		};
-		00B16C4210ADB37F000CC3D2 /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				00B16C4310ADB37F000CC3D2 /* composite_io.rb */,
-				00B16C4410ADB37F000CC3D2 /* multipart_post.rb */,
-				00B16C4510ADB37F000CC3D2 /* multipartable.rb */,
-				00B16C4610ADB37F000CC3D2 /* net */,
-				00B16C4A10ADB37F000CC3D2 /* parts.rb */,
-			);
-			path = lib;
-			sourceTree = "<group>";
-		};
-		00B16C4610ADB37F000CC3D2 /* net */ = {
-			isa = PBXGroup;
-			children = (
-				00B16C4710ADB37F000CC3D2 /* http */,
-			);
-			path = net;
-			sourceTree = "<group>";
-		};
-		00B16C4710ADB37F000CC3D2 /* http */ = {
-			isa = PBXGroup;
-			children = (
-				00B16C4810ADB37F000CC3D2 /* post */,
-			);
-			path = http;
-			sourceTree = "<group>";
-		};
-		00B16C4810ADB37F000CC3D2 /* post */ = {
-			isa = PBXGroup;
-			children = (
-				00B16C4910ADB37F000CC3D2 /* multipart.rb */,
-			);
-			path = post;
-			sourceTree = "<group>";
-		};
-		00B16C4F10ADB37F000CC3D2 /* test */ = {
-			isa = PBXGroup;
-			children = (
-				00B16C5010ADB37F000CC3D2 /* net */,
-				00B16C5410ADB37F000CC3D2 /* test_composite_io.rb */,
-			);
-			path = test;
-			sourceTree = "<group>";
-		};
-		00B16C5010ADB37F000CC3D2 /* net */ = {
-			isa = PBXGroup;
-			children = (
-				00B16C5110ADB37F000CC3D2 /* http */,
-			);
-			path = net;
-			sourceTree = "<group>";
-		};
-		00B16C5110ADB37F000CC3D2 /* http */ = {
-			isa = PBXGroup;
-			children = (
-				00B16C5210ADB37F000CC3D2 /* post */,
-			);
-			path = http;
-			sourceTree = "<group>";
-		};
-		00B16C5210ADB37F000CC3D2 /* post */ = {
-			isa = PBXGroup;
-			children = (
-				00B16C5310ADB37F000CC3D2 /* test_multipart.rb */,
-			);
-			path = post;
-			sourceTree = "<group>";
-		};
 		089C166AFE841209C02AAC07 /* Installd */ = {
 			isa = PBXGroup;
 			children = (
@@ -243,8 +138,8 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				007953A010ADEA9300782345 /* multipart-post */,
 				00B16C1710ADB37F000CC3D2 /* cacert.pem */,
-				00B16C1810ADB37F000CC3D2 /* multipart-post */,
 				002BEF76108C724C00E47918 /* real_path.rb */,
 				001B07681074F5A200AD9B51 /* KeyChainAPI.h */,
 				001B07691074F5A200AD9B51 /* KeyChainAPI.m */,
@@ -375,18 +270,7 @@
 				008BBC6F107CDE54004ED2FE /* launch_agent_template.plist.erb in Resources */,
 				002BEF77108C724C00E47918 /* real_path.rb in Resources */,
 				00B16C5510ADB37F000CC3D2 /* cacert.pem in Resources */,
-				00B16C6E10ADB37F000CC3D2 /* History.txt in Resources */,
-				00B16C6F10ADB37F000CC3D2 /* composite_io.rb in Resources */,
-				00B16C7010ADB37F000CC3D2 /* multipart_post.rb in Resources */,
-				00B16C7110ADB37F000CC3D2 /* multipartable.rb in Resources */,
-				00B16C7210ADB37F000CC3D2 /* multipart.rb in Resources */,
-				00B16C7310ADB37F000CC3D2 /* parts.rb in Resources */,
-				00B16C7410ADB37F000CC3D2 /* Manifest.txt in Resources */,
-				00B16C7510ADB37F000CC3D2 /* multipart-post.gemspec in Resources */,
-				00B16C7610ADB37F000CC3D2 /* Rakefile in Resources */,
-				00B16C7710ADB37F000CC3D2 /* README.txt in Resources */,
-				00B16C7810ADB37F000CC3D2 /* test_multipart.rb in Resources */,
-				00B16C7910ADB37F000CC3D2 /* test_composite_io.rb in Resources */,
+				007953F610ADEA9300782345 /* multipart-post in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
