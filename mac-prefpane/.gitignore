@@ -2,3 +2,6 @@ KeyChainAPI.bundle
 dsa_priv.pem
 appcast
 build
+*.mode1v3
+*.pbxuser
+TODO.txt
