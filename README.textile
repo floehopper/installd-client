@@ -1,4 +1,12 @@
+h2. Description
+
 This repository contains two RubyCocoa Xcode projects :-
 
 * A preference pane
 * A status bar
+
+h2. License
+
+This code is free to use under the terms of the MIT licence.
+
+(c) James Mead 2010
