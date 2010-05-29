@@ -1,3 +1,0 @@
-h1. <span>2009-09-12</span> Release 0.0.6
-
-* Allow user to select non-default iTunes directory (as requested by Adam Reynolds).
