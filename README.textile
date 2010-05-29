@@ -1,0 +1,4 @@
+This repository contains two RubyCocoa Xcode projects :-
+
+* A preference pane
+* A status bar
