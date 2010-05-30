@@ -1,0 +1,3 @@
+[submodule "mac-prefpane/multipart-post"]
+	path = mac-prefpane/multipart-post
+	url = http://github.com/nicksieger/multipart-post.git
