@@ -1,6 +1,6 @@
 require "choctop"
 
-ChocTop.new do |s|
+ChocTop::Configuration.new do |s|
   class << s
     def configure_applications_icon; end
     def configure_dmg_window; end
