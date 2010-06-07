@@ -11,8 +11,11 @@ h2. Build
 
 * Install "RubyCocoa":http://rubycocoa.sourceforge.net/
 * @gem install choctop@
-* @cd mac-prefpane@
-* @rake build@
+* @install-client/mac-prefpane$ rake build@
+
+h2. Install/Run
+
+* @install-client/mac-prefpane$ open build/Release/Installd.prefpane@
 
 h2. License
 
