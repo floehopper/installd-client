@@ -10,9 +10,9 @@ This repository contains two RubyCocoa Xcode projects :-
 h2. Build
 
 * Install "RubyCocoa":http://rubycocoa.sourceforge.net/
-* `gem install choctop`
-* `cd mac-prefpane`
-* `rake build`
+* @gem install choctop@
+* @cd mac-prefpane@
+* @rake build@
 
 h2. License
 
